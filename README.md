@@ -1,3 +1,5 @@
+[![Test Coverage](https://github.com/tetsuba/tetsuba-api/actions/workflows/coverage.yml/badge.svg)](https://github.com/tetsuba/tetsuba-api/actions/workflows/coverage.yml)
+
 # Tetsuba server API
 An API service to support tetsuba testing apps. 
 
