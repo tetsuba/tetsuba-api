@@ -4,12 +4,16 @@
   "description": "",
   "type": "module",
   "main": "./src/index.js",
+  "engines": {
+    "node": "16.17.1"
+  },
   "scripts": {
-    "test": "jest --detectOpenHandles",
+    "pretest": "npm run lint",
+    "test": "jest",
     "prestart": "npm run lint",
     "start": "node ./src/index.js",
     "dev": "nodemon ./src/index.js",
-    "lint": "eslint ./src/ --quiet",
+    "lint": "eslint ./src/",
     "format": "prettier --write ./src/"
   },
   "author": "",
