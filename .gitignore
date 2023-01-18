@@ -25,4 +25,7 @@ dist-ssr
 *.sw?
 
 # Database
-./src/database/reading.sqlite
+src/database/reading.sqlite
+
+# ENV files
+.env

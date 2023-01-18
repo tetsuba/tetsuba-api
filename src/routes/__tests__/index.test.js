@@ -97,7 +97,63 @@ describe('Routes', () => {
                     )
                 })
             })
-            describe('GET api/reading/user/login', () => {})
+            describe('POST api/reading/user/login', () => {
+                test('should respond with a user authenticated', async () => {
+                    const res = await request(app)
+                        .post(`/api/reading/user/login`)
+                        .send({ username: 'bob@bob.com', password: '123456' })
+                        .set('Accept', 'application/json')
+
+                    const expectedResponse = JSON.parse(res.text)
+                    expect(res.status).toBe(200)
+                    expect(expectedResponse).toHaveProperty('token')
+                    expect(expectedResponse).toHaveProperty('data')
+                })
+                test('should respond with an 400 error', async () => {
+                    const res = await request(app)
+                        .post(`/api/reading/user/login`)
+                        .send({ username: 'bob@bob.com', p: '123' })
+                        .set('Accept', 'application/json')
+
+                    expect(res.status).toBe(400)
+                    expect(res.text).toEqual(
+                        expect.stringContaining(
+                            "data must have required property 'password'"
+                        )
+                    )
+                    expect(res.text).toEqual(
+                        expect.stringContaining(
+                            'data must NOT have additional properties'
+                        )
+                    )
+                })
+                test('should respond with an 500 error [incorrect password]', async () => {
+                    const res = await request(app)
+                        .post(`/api/reading/user/login`)
+                        .send({ username: 'bob@bob.com', password: '1' })
+                        .set('Accept', 'application/json')
+
+                    expect(res.status).toBe(500)
+                    expect(res.text).toEqual(
+                        expect.stringContaining(
+                            'Incorrect username or password'
+                        )
+                    )
+                })
+                test('should respond with an 500 error [incorrect email]', async () => {
+                    const res = await request(app)
+                        .post(`/api/reading/user/login`)
+                        .send({ username: 'bob22@bob.com', password: '123456' })
+                        .set('Accept', 'application/json')
+
+                    expect(res.status).toBe(500)
+                    expect(res.text).toEqual(
+                        expect.stringContaining(
+                            'Incorrect username or password'
+                        )
+                    )
+                })
+            })
             describe('GET api/reading/user/delete', () => {})
             describe('GET api/reading/user/update', () => {})
 
