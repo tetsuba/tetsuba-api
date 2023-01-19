@@ -1,4 +1,4 @@
-export const REGISTER_USER_SCHEMA = {
+const REGISTER_USER_SCHEMA = {
     type: 'object',
     properties: {
         firstName: {
@@ -21,3 +21,5 @@ export const REGISTER_USER_SCHEMA = {
     required: ['firstName', 'lastName', 'email', 'password'],
     additionalProperties: false
 }
+
+export default REGISTER_USER_SCHEMA

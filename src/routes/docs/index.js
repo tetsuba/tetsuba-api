@@ -1,9 +1,8 @@
 import express from 'express'
-const Router = express.Router()
-
 import swaggerUi from 'swagger-ui-express'
 import swaggerJsdoc from 'swagger-jsdoc'
 
+const Router = express.Router()
 const port = process.env.PORT || 3001
 
 const options = {
@@ -20,7 +19,7 @@ const options = {
             }
         ]
     },
-    apis: ['./src/routes/api/reading/user/routes.js'] // files containing annotations as above
+    apis: ['./src/routes/api/reading/user/**/route.js'] // files containing annotations as above
 }
 
 const openapiSpecification = swaggerJsdoc(options)

@@ -13,6 +13,8 @@ An API service to support tetsuba testing apps.
  - Eslint
  - Prettier
  - Nodemon
+ - jsonwebtoken
+ - dotenv
 
 ---
 
@@ -20,3 +22,8 @@ An API service to support tetsuba testing apps.
 ### Reading App
  - http://localhost:3001/api/reading/
  - http://localhost:3001/api-docs
+
+
+## Swagger 
+
+https://swagger.io/docs/specification/basic-structure/

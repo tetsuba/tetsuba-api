@@ -1,10 +1,5 @@
 import express from 'express'
-import {
-    getAllUsersHandler,
-    registerNewUserHandler,
-    createTableHandler,
-    deleteTableHandler
-} from './handlers.js'
+import registerNewUserHandler from './handler.js'
 const router = express.Router()
 
 router.post('/register', registerNewUserHandler)
@@ -54,52 +49,6 @@ router.post('/register', registerNewUserHandler)
  *
  *       500:
  *         description: "Internal server error - sql"
- */
-
-// router.get('/login/:username/:password', () => {})
-// router.get('/delete/:id', () => {})
-// router.get('/update/:id', () => {})
-
-router.get('/all', getAllUsersHandler)
-/**
- * @swagger
- *
- * /api/reading/user/all:
- *   get:
- *     description: Get all users
- *     tags:
- *       - Reading APP [DEV]
- *     responses:
- *       200:
- *         description: A list of users
- */
-
-router.get('/create-table', createTableHandler)
-/**
- * @swagger
- *
- * /api/reading/user/create-table:
- *   get:
- *     description: Create a user table when required
- *     tags:
- *       - Reading APP [DEV]
- *     responses:
- *       200:
- *         description: user table created
- */
-
-router.get('/delete-table', deleteTableHandler)
-/**
- * @swagger
- *
- * /api/reading/user/delete-table:
- *   get:
- *     description: Delete user table when required
- *     tags:
- *       - Reading APP [DEV]
- *     responses:
- *       200:
- *         description: user table deleted
  */
 
 export default router
