@@ -4,9 +4,12 @@ import apiDocs from './docs/index.js'
 import bodyParser from 'body-parser'
 import { protectRoutes } from '../middleware/auth.js'
 import sqlite from '../database/index.js'
+import cors from 'cors'
+
 const app = express()
 
-//Middleware
+// Middleware
+app.use(cors())
 app.use(bodyParser.json())
 app.use(sqlite)
 
