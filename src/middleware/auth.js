@@ -11,18 +11,19 @@ function getBearerToken({ authorization }) {
 }
 
 function unProtectedRoute(url) {
-    console.log(url)
     const list = [
-        '/api/reading/user/all',
-        '/api/reading/user/register',
-        '/api/reading/user/login',
-        '/api/reading/user/creat-table',
-        '/api/reading/user/delete-table'
+        'api-docs',
+        'reading/user/all',
+        'reading/user/register',
+        'reading/user/login',
+        'reading/user/creat-table',
+        'reading/user/delete-table'
     ]
-    return list.some((route) => route === url || url.includes('api-docs'))
+    return list.some((route) => url.includes(route))
 }
 
 export function protectRoutes(req, res, next) {
+    console.log('[PROTECTED ROUTES]: ', unProtectedRoute(req.url), req.url)
     if (unProtectedRoute(req.url)) return next()
 
     const token = getBearerToken(req.headers)

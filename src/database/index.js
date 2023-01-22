@@ -40,6 +40,11 @@ const callBack = (err) => {
     if (err) return console.error('ERROR', err.message)
 }
 
-export default function (source = DB_SOURCE) {
-    return new sqlite3.Database(source, MODE, callBack)
-}
+export default (function () {
+    const SQLITE = new sqlite3.Database(DB_SOURCE, MODE, callBack)
+    return function (req, res, next) {
+        console.log('[SQLITE]: ', SQLITE)
+        res.sqlite = SQLITE
+        next()
+    }
+})()
