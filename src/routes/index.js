@@ -3,10 +3,12 @@ import reading from './api/reading/index.js'
 import apiDocs from './docs/index.js'
 import bodyParser from 'body-parser'
 import { protectRoutes } from '../middleware/auth.js'
+import sqlite from '../database/index.js'
 const app = express()
 
 //Middleware
 app.use(bodyParser.json())
+app.use(sqlite)
 
 /* Routes
  */

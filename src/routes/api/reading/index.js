@@ -8,11 +8,11 @@ import register from './user/register/route.js'
 const app = express()
 
 // user routes
+app.use('/user', register)
 app.use('/user', all)
 app.use('/user', createTable)
 app.use('/user', deleteTable)
 app.use('/user', login)
-app.use('/user', register)
 
 // book routes
 app.use('/books', books)
