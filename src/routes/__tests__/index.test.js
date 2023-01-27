@@ -4,6 +4,7 @@ import querystring from 'querystring'
 
 describe('Routes', () => {
     describe('@READING', () => {
+        let token = ''
         describe(' - USER', () => {
             beforeAll(async () => {
                 await request(app).get(`/api/reading/user/create-table`)
@@ -108,6 +109,11 @@ describe('Routes', () => {
                     expect(res.status).toBe(200)
                     expect(expectedResponse).toHaveProperty('token')
                     expect(expectedResponse).toHaveProperty('data')
+
+                    /* NOTE:
+                     * This token is required for 'GET api/reading/user'
+                     * */
+                    token = expectedResponse.token
                 })
                 test('should respond with an 400 error', async () => {
                     const res = await request(app)
@@ -151,6 +157,50 @@ describe('Routes', () => {
                         expect.stringContaining(
                             'Incorrect username or password'
                         )
+                    )
+                })
+            })
+            describe('GET api/reading/user', () => {
+                test('should respond with a 200', async () => {
+                    const res = await request(app)
+                        .get(`/api/reading/user`)
+                        .set('Authorization', `Bearer ${token}`)
+
+                    const expectedResponse = JSON.parse(res.text)
+                    expect(res.status).toBe(200)
+                    expect(expectedResponse).toHaveProperty('firstName')
+                    expect(expectedResponse).toHaveProperty('lastName')
+                    expect(expectedResponse).toHaveProperty('id')
+                    expect(expectedResponse).toHaveProperty('email')
+                })
+                test('should respond with a 500', async () => {
+                    const tokenWithWrongEmail =
+                        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwiZW1haWwiOiJ0ZXN0QHRlc3QuY29tIiwiaWF0IjoxNjc0ODU3ODIxfQ.LZJ-RgP0_UwhPDmBC96il3A369-OOsrZE5EEcvX2eVE'
+                    const res = await request(app)
+                        .get(`/api/reading/user`)
+                        .set('Authorization', `Bearer ${tokenWithWrongEmail}`)
+
+                    expect(res.status).toBe(500)
+                    expect(res.text).toEqual(
+                        expect.stringContaining('Not authorized')
+                    )
+                })
+                test('should respond with an 401 error [No Bearer token]', async () => {
+                    const res = await request(app).get(`/api/reading/user`)
+
+                    expect(res.status).toBe(401)
+                    expect(res.text).toEqual(
+                        expect.stringContaining('Not authorized')
+                    )
+                })
+                test('should respond with an 401 error [Incorrect Bearer token]', async () => {
+                    const res = await request(app)
+                        .get(`/api/reading/user`)
+                        .set('Authorization', `Bearer sdklfjskdfjsdkfjl`)
+
+                    expect(res.status).toBe(401)
+                    expect(res.text).toEqual(
+                        expect.stringContaining('Not authorized')
                     )
                 })
             })

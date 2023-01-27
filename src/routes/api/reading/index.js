@@ -5,9 +5,11 @@ import createTable from './user/create-table/route.js'
 import deleteTable from './user/delete-table/route.js'
 import login from './user/login/route.js'
 import register from './user/register/route.js'
+import user from './user/user/route.js'
 const app = express()
 
 // user routes
+app.use('/user', user)
 app.use('/user', register)
 app.use('/user', all)
 app.use('/user', createTable)

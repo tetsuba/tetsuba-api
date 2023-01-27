@@ -12,6 +12,7 @@ const app = express()
 app.use(cors())
 app.use(bodyParser.json())
 app.use(sqlite)
+app.use(protectRoutes)
 
 /* Routes
  */
@@ -24,9 +25,6 @@ app.use('/api/reading', reading)
 /* istanbul ignore next */
 if (!(process.env.NODE_ENV === 'test')) {
     app.use(apiDocs)
-
-    // TODO: should protectRoutes be tested?
-    app.use(protectRoutes)
 }
 
 export default app
