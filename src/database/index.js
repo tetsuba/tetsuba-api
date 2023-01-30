@@ -43,7 +43,6 @@ const callBack = (err) => {
 export default (function () {
     const SQLITE = new sqlite3.Database(DB_SOURCE, MODE, callBack)
     return function (req, res, next) {
-        console.log('[SQLITE]: ', SQLITE)
         res.sqlite = SQLITE
         next()
     }

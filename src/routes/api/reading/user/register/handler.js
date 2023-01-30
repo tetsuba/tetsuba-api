@@ -7,7 +7,6 @@ const SQL__INSERT_INTO_USER = `
 `
 
 export default function registerNewUserHandler(req, res) {
-    console.log('[registerNewUserHandler]: ')
     const errors = validate(REGISTER_USER_SCHEMA, req.query)
     if (errors) {
         res.status(400) // Bad Request

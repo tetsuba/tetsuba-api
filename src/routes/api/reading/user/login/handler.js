@@ -24,10 +24,10 @@ export default function loginUserHandler(req, res) {
             function callback(err, row) {
                 if (row) {
                     if (passwordMatch(req.body.password, row.password)) {
-                        const payload = { id: row.id, username: row.email }
+                        const payload = { id: row.id, email: row.email }
                         const token = createJWT(payload)
-                        const data = { name: row.firstName }
-                        res.status(200).json({ token, data })
+                        delete row.password
+                        res.status(200).json({ token, data: row })
                     } else {
                         res.status(500).json(ERROR_MESSAGE)
                     }
