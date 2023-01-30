@@ -39,9 +39,9 @@ export function protectRoutes(req, res, next) {
             res.user = user
             next()
         } catch (e) {
-            const expired = (e.message === 'jwt expired')
+            const expired = e.message === 'jwt expired'
             console.log(e.message, expired)
-            res.status(401).json({ message: 'Not authorized', expired  })
+            res.status(401).json({ message: 'Not authorized', expired })
         }
     } else {
         res.status(401).json({ message: 'Not authorized' })
