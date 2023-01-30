@@ -1,9 +1,12 @@
 import jwt from 'jsonwebtoken'
+
 /* istanbul ignore next */
-const secret = process.env.NODE_ENV ? 'jestTest' : process.env.JWT_SECRET
+function getSecret() {
+    return process.env.NODE_ENV ? 'jestTest' : process.env.JWT_SECRET
+}
 
 export function createJWT(payload) {
-    return jwt.sign(payload, secret, { expiresIn: '1h' })
+    return jwt.sign(payload, getSecret(), { expiresIn: '1h' })
 }
 
 function getBearerToken({ authorization }) {
@@ -23,7 +26,7 @@ function unProtectedRoute(url) {
 }
 
 export function protectRoutes(req, res, next) {
-    // console.log('[PROTECTED ROUTES]: ', unProtectedRoute(req.url), req.url)
+    console.log('[PROTECTED ROUTES]: ', unProtectedRoute(req.url), req.url)
     if (unProtectedRoute(req.url)) return next()
     const token = getBearerToken(req.headers)
 
@@ -31,12 +34,14 @@ export function protectRoutes(req, res, next) {
 
     if (token) {
         try {
-            const user = jwt.verify(token, secret)
+            const user = jwt.verify(token, getSecret())
+            console.log(user)
             res.user = user
             next()
         } catch (e) {
-            console.log(e)
-            res.status(401).json({ message: 'Not authorized' })
+            const expired = (e.message === 'jwt expired')
+            console.log(e.message, expired)
+            res.status(401).json({ message: 'Not authorized', expired  })
         }
     } else {
         res.status(401).json({ message: 'Not authorized' })

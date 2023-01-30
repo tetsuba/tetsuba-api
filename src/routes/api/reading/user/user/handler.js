@@ -9,6 +9,8 @@ export default function getUserHandler(req, res) {
         SQL__SELECT_ALL_USERS,
         [res.user.email],
         function callback(err, row) {
+            console.log(res.user.email)
+            console.log(row)
             // TODO: this is not covered in the tests.
             //       Investigate how to trigger this 500 error
             if (err) return res.status(500).json(err)
