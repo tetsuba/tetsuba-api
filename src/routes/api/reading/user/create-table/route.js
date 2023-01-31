@@ -10,8 +10,8 @@ router.put('/create-table', createTableHandler)
  *  put:
  *     security:
  *       - bearerAuth: []
- *     summary: A put request will always produce the same result.
- *     description: The main use for creating a user table is testing the api.
+ *     summary: Create a user table.
+ *     description: The main use for creating a user table is testing the api. A put request will always produce the same result
  *     tags:
  *       - Reading APP
  *     responses:

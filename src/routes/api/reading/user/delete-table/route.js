@@ -11,8 +11,8 @@ router.put('/delete-table', deleteTableHandler)
  *   put:
  *     security:
  *       - bearerAuth: []
- *     summary: A put request will always produce the same result.
- *     description: The main use for deleting a user table is testing the api.
+ *     summary: Delete a user table
+ *     description: The main use for deleting a user table is testing the api. A put request will always produce the same result.
  *     tags:
  *       - Reading APP
  *     responses:
