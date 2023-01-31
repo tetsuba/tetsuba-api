@@ -7,7 +7,7 @@ const SQL__DELETE_TABLE_USER = `
 const PARAMS_NONE = []
 
 export default function deleteTableHandler(req, res) {
-    res.sqlite.all(SQL__DELETE_TABLE_USER, PARAMS_NONE, function callback(err) {
+    res.sqlite.run(SQL__DELETE_TABLE_USER, PARAMS_NONE, function callback(err) {
         if (err) {
             return res.status(500).json(err)
         }

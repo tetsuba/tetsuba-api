@@ -29,3 +29,4 @@ src/database/*.sqlite
 
 # ENV files
 .env
+.env.test

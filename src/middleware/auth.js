@@ -18,9 +18,7 @@ function unProtectedRoute(url) {
         'api-docs',
         'reading/user/all',
         'reading/user/register',
-        'reading/user/login',
-        'reading/user/create-table',
-        'reading/user/delete-table'
+        'reading/user/login'
     ]
     return list.some((route) => url.includes(route))
 }
@@ -30,12 +28,12 @@ export function protectRoutes(req, res, next) {
     if (unProtectedRoute(req.url)) return next()
     const token = getBearerToken(req.headers)
 
-    // console.log('[TOKEN]', jwt.sign({id: 0, eml: 'test@test.com'}, secret))
+    // console.log('[TOKEN]', jwt.sign({id: 0, email: 'test@test.com'}, 'jestTest'))
 
     if (token) {
         try {
             const user = jwt.verify(token, getSecret())
-            console.log(user)
+            console.log('[user]', user)
             res.user = user
             next()
         } catch (e) {

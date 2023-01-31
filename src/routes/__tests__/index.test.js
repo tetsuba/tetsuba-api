@@ -1,17 +1,21 @@
 import request from 'supertest'
 import app from '../index'
 import querystring from 'querystring'
+import { beforeEach } from '@jest/globals'
 
 describe('Routes', () => {
     describe('@READING', () => {
         let token = ''
         describe(' - USER', () => {
             beforeAll(async () => {
-                await request(app).get(`/api/reading/user/create-table`)
+                await request(app)
+                    .put(`/api/reading/user/create-table`)
+                    .set('Authorization', `Bearer ${process.env.BEARER_TOKEN}`)
             })
-
             afterAll(async () => {
-                await request(app).get(`/api/reading/user/delete-table`)
+                await request(app)
+                    .put(`/api/reading/user/delete-table`)
+                    .set('Authorization', `Bearer ${process.env.BEARER_TOKEN}`)
             })
             describe('POST api/reading/user/register', () => {
                 test('should register a user', async () => {
@@ -175,7 +179,7 @@ describe('Routes', () => {
                 })
                 test('should respond with a 500', async () => {
                     const tokenWithWrongEmail =
-                        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MCwiZW1haWwiOiJ0ZXN0QHRlc3QuY29tIiwiaWF0IjoxNjc0ODU3ODIxfQ.LZJ-RgP0_UwhPDmBC96il3A369-OOsrZE5EEcvX2eVE'
+                        process.env.BEARER_TOKEN_WRONG_EMAIL
                     const res = await request(app)
                         .get(`/api/reading/user`)
                         .set('Authorization', `Bearer ${tokenWithWrongEmail}`)
@@ -204,21 +208,73 @@ describe('Routes', () => {
                     )
                 })
             })
-            describe('GET api/reading/user/delete', () => {})
-            describe('GET api/reading/user/update', () => {})
-
             // ***************************************************************
-            // TODO: To be removed. Used for development
-            describe('GET api/reading/user/all', () => {
-                test('should respond status 200', async () => {
-                    const res = await request(app).get('/api/reading/user/all')
-                    expect(res.status).toBe(200)
+            describe('@Routes used for testing and development', () => {
+                describe('GET api/reading/user/all', () => {
+                    test('should respond status 200', async () => {
+                        const res = await request(app).get(
+                            '/api/reading/user/all'
+                        )
+                        expect(res.status).toBe(200)
+                    })
+
+                    test('should respond with an error if table does not exist', async () => {
+                        await request(app)
+                            .put(`/api/reading/user/delete-table`)
+                            .set(
+                                'Authorization',
+                                `Bearer ${process.env.BEARER_TOKEN}`
+                            )
+                        const res = await request(app).get(
+                            '/api/reading/user/all'
+                        )
+                        expect(res.status).toBe(500)
+                        expect(res.text).toEqual(
+                            expect.stringContaining('SQLITE_ERROR')
+                        )
+                    })
+                })
+
+                describe('PUT api/reading/user/delete-table', () => {
+                    test('should error if no table exists', async () => {
+                        const res = await request(app)
+                            .put(`/api/reading/user/delete-table`)
+                            .set(
+                                'Authorization',
+                                `Bearer ${process.env.BEARER_TOKEN}`
+                            )
+
+                        expect(res.status).toBe(500)
+                        expect(res.text).toEqual(
+                            expect.stringContaining('SQLITE_ERROR')
+                        )
+                    })
+                })
+
+                describe.skip('PUT api/reading/user/create-table', () => {
+                    beforeEach(async () => {
+                        await request(app)
+                            .put(`/api/reading/user/create-table`)
+                            .set(
+                                'Authorization',
+                                `Bearer ${process.env.BEARER_TOKEN}`
+                            )
+                    })
+                    test('should return an error if a user table is created already', async () => {
+                        const res = await request(app)
+                            .put(`/api/reading/user/create-table`)
+                            .set(
+                                'Authorization',
+                                `Bearer ${process.env.BEARER_TOKEN}`
+                            )
+                        // TODO: Not sure why the sql error is not triggered.
+                        //       I can see the user table still exists.
+                        expect(res.text).toBe('This is not it')
+                        expect(res.status).toBe(500)
+                    })
                 })
             })
-            describe('GET api/reading/user/create-table', () => {})
-            describe('GET api/reading/user/delete-table', () => {})
             // ***************************************************************
         })
-        describe(' - BOOKS', () => {})
     })
 })

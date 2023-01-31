@@ -2,15 +2,19 @@ import express from 'express'
 import deleteTableHandler from './handler.js'
 const router = express.Router()
 
-router.get('/delete-table', deleteTableHandler)
+//
+router.put('/delete-table', deleteTableHandler)
 /**
  * @swagger
  *
  * /api/reading/user/delete-table:
- *   get:
- *     description: Delete user table when required
+ *   put:
+ *     security:
+ *       - bearerAuth: []
+ *     summary: A put request will always produce the same result.
+ *     description: The main use for deleting a user table is testing the api.
  *     tags:
- *       - Reading APP [DEV]
+ *       - Reading APP
  *     responses:
  *       200:
  *         description: user table deleted

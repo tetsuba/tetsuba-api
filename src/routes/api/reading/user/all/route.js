@@ -11,7 +11,7 @@ router.get('/all', getAllUsersHandler)
  *   get:
  *     description: Get all users
  *     tags:
- *       - Reading APP [DEV]
+ *       - Reading APP
  *     responses:
  *       200:
  *         description: A list of users
