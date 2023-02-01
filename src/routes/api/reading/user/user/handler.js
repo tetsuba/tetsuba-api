@@ -1,7 +1,9 @@
-import { userTableName } from '../../../../../utils.js'
+import { tableName } from '../../../../../utils.js'
 
 export const SQL__SELECT_ALL_USERS = `
-  SELECT id, firstName, lastName, email FROM ${userTableName} WHERE email = ?
+  SELECT id, firstName, lastName, email FROM ${tableName(
+      'user'
+  )} WHERE email = ?
 `
 
 export default function getUserHandler(req, res) {

@@ -4,6 +4,9 @@
  */
 
 export default {
+  // These properties will run the tests sequentially
+  maxConcurrency: 1,
+  maxWorkers: 1,
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 

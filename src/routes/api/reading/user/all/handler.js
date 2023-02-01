@@ -1,7 +1,7 @@
-import { userTableName } from '../../../../../utils.js'
+import { tableName } from '../../../../../utils.js'
 
 export const SQL__SELECT_ALL_USERS = `
-  SELECT * FROM ${userTableName}
+  SELECT * FROM ${tableName('user')}
 `
 
 const PARAMS_NONE = []

@@ -1,9 +1,11 @@
 import validate from '../../../../../validator.js'
 import REGISTER_USER_SCHEMA from './schema.js'
-import { getValuesFrom, userTableName } from '../../../../../utils.js'
+import { getValuesFrom, tableName } from '../../../../../utils.js'
 
 const SQL__INSERT_INTO_USER = `
-  INSERT INTO ${userTableName}(firstName, lastName, email, password) values (?,?,?,?)
+  INSERT INTO ${tableName(
+      'user'
+  )}(firstName, lastName, email, password) values (?,?,?,?)
 `
 
 export default function registerNewUserHandler(req, res) {
