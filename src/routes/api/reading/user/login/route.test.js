@@ -3,7 +3,7 @@ import {
     deleteUserTable,
     loginUser,
     registerUser
-} from '../userMockRequest.js'
+} from '../userTestAPI.js'
 
 const USER_CREDENTIALS = { username: 'bob@bob.com', password: '123456' }
 

@@ -1,4 +1,4 @@
-import { createUserTable, deleteUserTable } from '../userMockRequest'
+import { createUserTable, deleteUserTable } from '../userTestAPI'
 
 describe('@PUT /api/reading/user/create-table', () => {
     afterAll(async () => {

@@ -2,7 +2,7 @@ import {
     createUserTable,
     deleteUserTable,
     registerUser
-} from '../userMockRequest.js'
+} from '../userTestAPI.js'
 
 const USER_DETAILS_CORRECT = {
     firstName: 'bob',

@@ -1,4 +1,4 @@
-import { createUserTable, deleteUserTable } from '../userMockRequest.js'
+import { createUserTable, deleteUserTable } from '../userTestAPI.js'
 
 describe('@PUT /api/reading/user/delete-table', () => {
     describe('status: 200', () => {

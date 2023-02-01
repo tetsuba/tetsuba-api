@@ -1,6 +1,6 @@
 import request from 'supertest'
 import app from '../../../../index.js'
-import { createUserTable, deleteUserTable } from '../userMockRequest.js'
+import { createUserTable, deleteUserTable } from '../userTestAPI.js'
 
 async function getAllUsers() {
     return request(app).get('/api/reading/user/all')

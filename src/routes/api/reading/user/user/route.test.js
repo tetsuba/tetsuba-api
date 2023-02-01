@@ -5,7 +5,7 @@ import {
     deleteUserTable,
     registerUser,
     loginUser
-} from '../userMockRequest.js'
+} from '../userTestAPI.js'
 
 async function getUserDetails(token) {
     const bearer = token ? `Bearer ${token}` : ''
