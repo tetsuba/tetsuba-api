@@ -3,9 +3,10 @@ import { tableName } from '../../../../../utils.js'
 const SQL__CREATE_TABLE_BOOK = `
     CREATE TABLE IF NOT EXISTS ${tableName('book')} (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        userId INTEGER NOT NULL,
         title TEXT NOT NULL,
         story TEXT NOT NULL,
-        difficulty TEXT NOT NULL,
+        difficulty TEXT NOT NULL
     )
 `
 

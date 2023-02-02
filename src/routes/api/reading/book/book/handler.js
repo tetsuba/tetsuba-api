@@ -1,13 +1,26 @@
 import { tableName } from '../../../../../utils.js'
+import validate from '../../../../../validator.js'
+import BOOK_SCHEMA from './schema.js'
 
-export const SQL__SELECT_BOOK = `
-  SELECT id, firstName, lastName, email FROM ${tableName('book')} WHERE id = ?
+export const SQL__SELECT_BOOKS = `
+  SELECT * FROM ${tableName('book')} WHERE userId = ?
 `
 
-export default function getUserHandler(req, res) {
-    res.sqlite.get(SQL__SELECT_BOOK, [0], function callback(err, row) {
-        if (err) return res.status(500).json(err)
-        if (!row) return res.status(500).json({ message: 'Not authorized' })
-        res.status(200).json(row)
-    })
+export default function getBookHandler(req, res) {
+    console.log('getBookHandler: ', req.body)
+    const errors = validate(BOOK_SCHEMA, req.body)
+    console.log('getBookHandler: ', errors)
+    const PARAMS = [req.body.userId]
+    if (errors) {
+        res.status(400) // Bad Request
+            .json({ error: errors })
+    } else {
+        res.sqlite.all(SQL__SELECT_BOOKS, PARAMS, function callback(err, rows) {
+            console.log(err)
+            if (err) {
+                return res.status(500).json(err)
+            }
+            res.status(200).json(rows)
+        })
+    }
 }

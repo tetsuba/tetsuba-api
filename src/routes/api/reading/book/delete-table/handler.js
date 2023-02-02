@@ -11,6 +11,6 @@ export default function deleteTableHandler(req, res) {
         if (err) {
             return res.status(500).json(err)
         }
-        res.status(200).json({ message: 'DELETED' })
+        res.status(200).json({ message: 'Book Table Deleted' })
     })
 }

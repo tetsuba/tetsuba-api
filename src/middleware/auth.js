@@ -24,11 +24,12 @@ function unProtectedRoute(url) {
 }
 
 export function protectRoutes(req, res, next) {
-    // console.log('[PROTECTED ROUTES]: ', unProtectedRoute(req.url), req.url)
+    console.log('[UNPROTECTED ROUTES]: ', unProtectedRoute(req.url), req.url)
     if (unProtectedRoute(req.url)) return next()
     const token = getBearerToken(req.headers)
 
     // console.log('[TOKEN]', jwt.sign({id: 0, email: 'test@test.com'}, 'jestTest'))
+    // console.log(token)
 
     if (token) {
         try {

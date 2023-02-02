@@ -1,22 +1,42 @@
 import express from 'express'
-import createTableHandler from './handler.js'
+import createUserTableHandler from './handler.js'
 const router = express.Router()
 
-router.put('/create-table', createTableHandler)
+router.post('/create-table', createUserTableHandler)
 /**
  * @swagger
  *
  * /api/reading/user/create-table:
- *  put:
+ *  post:
  *     security:
  *       - bearerAuth: []
  *     summary: Create a user table.
- *     description: The main use for creating a user table is testing the api. A put request will always produce the same result
+ *     description: The main use for creating a user table is testing the api.
  *     tags:
- *       - Reading APP
+ *       - reading / user
  *     responses:
  *       200:
- *         description: user table created
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: 'User table created'
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: 'Not authorized'
+ *       500:
+ *         description: Internal Server Error
  */
 
 export default router

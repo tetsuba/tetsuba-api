@@ -10,9 +10,8 @@ router.post('/login', loginUserHandler)
  *   post:
  *     description: User logs in to be authenticated sending a username and password
  *     tags:
- *       - Reading APP
+ *       - reading / user
  *     requestBody:
- *         tryItOutEnabled: false
  *         content:
  *           application/json:
  *             schema:

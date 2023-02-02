@@ -2,16 +2,18 @@ import request from 'supertest'
 import app from '../../../index.js'
 import querystring from 'querystring'
 
-export async function createUserTable() {
+export async function createUserTable(noToken) {
+    const token = noToken ? '' : `Bearer ${process.env.BEARER_TOKEN}`
     return request(app)
-        .put(`/api/reading/user/create-table`)
-        .set('Authorization', `Bearer ${process.env.BEARER_TOKEN}`)
+        .post(`/api/reading/user/create-table`)
+        .set('Authorization', token)
 }
 
-export async function deleteUserTable() {
+export async function deleteUserTable(noToken) {
+    const token = noToken ? '' : `Bearer ${process.env.BEARER_TOKEN}`
     return request(app)
-        .put(`/api/reading/user/delete-table`)
-        .set('Authorization', `Bearer ${process.env.BEARER_TOKEN}`)
+        .delete(`/api/reading/user/delete-table`)
+        .set('Authorization', token)
 }
 
 export async function loginUser(userCredentials) {

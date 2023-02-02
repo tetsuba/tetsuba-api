@@ -10,7 +10,7 @@ router.post('/register', registerNewUserHandler)
  *   post:
  *     description: Register a new user
  *     tags:
- *       - Reading APP
+ *       - reading / user
  *     parameters:
  *       - in: query
  *         name: firstName

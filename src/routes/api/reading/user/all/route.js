@@ -12,7 +12,7 @@ router.get('/all', getAllUsersHandler)
  *     summary: Get all users.
  *     description: This route is used for development and should be removed when not required any more.
  *     tags:
- *       - Reading APP
+ *       - reading / user
  *     responses:
  *       200:
  *         summary: A list of users

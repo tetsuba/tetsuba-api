@@ -23,7 +23,7 @@ router.get('', getUsersHandler)
  *       - bearerAuth: []
  *     description: Get user information
  *     tags:
- *       - Reading APP
+ *       - reading / user
  *     responses:
  *       200:
  *         description: User Details

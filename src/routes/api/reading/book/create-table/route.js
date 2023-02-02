@@ -1,22 +1,42 @@
 import express from 'express'
-import createTableHandler from './handler.js'
+import createBookTableHandler from './handler.js'
 const router = express.Router()
 
-router.put('/create-table', createTableHandler)
+router.post('/create-table', createBookTableHandler)
 /**
  * @swagger
  *
  * /api/reading/book/create-table:
- *  put:
+ *  post:
  *     security:
  *       - bearerAuth: []
  *     summary: Create a book table.
- *     description: The main use for creating a book table is testing the api. A put request will always produce the same result
+ *     description: The main use for creating a book table is testing the api.
  *     tags:
- *       - Reading APP
+ *       - reading / book
  *     responses:
  *       200:
- *         description: book table created
+ *         description:
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: 'Book table created'
+ *       401:
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: 'Not authorized'
+ *       500:
+ *         description: Internal Server Error
  */
 
 export default router
