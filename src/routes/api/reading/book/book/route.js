@@ -4,6 +4,7 @@ import getBookHandler from './handler.js'
 const router = express.Router()
 
 router.get('', getBookHandler)
+
 /**
  * @swagger
  *
@@ -15,53 +16,32 @@ router.get('', getBookHandler)
  *     description: Get all books with the same userId
  *     tags:
  *       - reading / book
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               userId:
- *                 type: integer
- *             example:
- *               userId: 22
+ *     parameters:
+ *       - in: query
+ *         name: userId
+ *         schema:
+ *           type: string
+ *         description: A user's id to track which book they registered
  *     responses:
  *       200:
  *         description: OK
  *         content:
  *           application/json:
- *             schema:
+ *            schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                     example: 1
- *                   userId:
- *                     type: integer
- *                     example: 1
- *                   title:
- *                     type: string
- *                     example: This is a title
- *                   story:
- *                     type: string
- *                     example: This is a story a very long story.
- *                   difficulty:
- *                     type: string
- *                     example: easy
+ *                 $ref: '#/components/schemas/book'
  *       401:
  *         description: Unauthorized
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: 'Not authorized'
+ *               $ref: '#/components/schemas/unauthorized'
  *       500:
- *         description: Internal server error
+ *         description: "Internal server error"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/internalserver'
  */
-
 export default router

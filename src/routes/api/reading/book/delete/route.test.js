@@ -5,6 +5,8 @@ import {
     registerBook
 } from '../bookTestAPI.js'
 
+const mockQuery = '?bookId=1'
+
 describe('@DELETE /api/reading/book/delete', () => {
     describe('status: 200', () => {
         beforeAll(async () => {
@@ -15,22 +17,29 @@ describe('@DELETE /api/reading/book/delete', () => {
                 story: 'story',
                 difficulty: 'easy'
             })
+            await registerBook({
+                userId: 0, // userId must match the bearer token
+                title: 'title2',
+                story: 'story2',
+                difficulty: 'easy2'
+            })
         })
         afterAll(async () => {
             await deleteBookTable()
         })
         test('should delete a book', async () => {
-            const res = await deleteBook({ id: 1 })
-            expect(res.text).toEqual(expect.stringContaining('Book deleted'))
+            const res = await deleteBook(mockQuery)
+            const data = JSON.parse(res.text)
+            expect(data).toHaveLength(1)
             expect(res.status).toBe(200)
         })
     })
     describe('status: 400', () => {
-        test('without a userId', async () => {
-            const res = await deleteBook()
+        test('query as an empty string', async () => {
+            const res = await deleteBook('')
             expect(res.status).toBe(400)
             expect(res.text).toEqual(
-                expect.stringContaining("data must have required property 'id'")
+                expect.stringContaining('bookId must be integer')
             )
         })
     })
@@ -44,7 +53,7 @@ describe('@DELETE /api/reading/book/delete', () => {
     })
     describe('status: 500', () => {
         test('should respond with an error if table does not exist', async () => {
-            const res = await deleteBook({ id: 1 })
+            const res = await deleteBook(mockQuery)
             expect(res.status).toBe(500)
             expect(res.text).toEqual(expect.stringContaining('SQLITE_ERROR'))
         })

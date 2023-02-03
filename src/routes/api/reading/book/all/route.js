@@ -23,35 +23,19 @@ router.get('/all', getAllBooksHandler)
  *             schema:
  *               type: array
  *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                     example: 1
- *                   userId:
- *                     type: integer
- *                     example: 1
- *                   title:
- *                     type: string
- *                     example: This is a title
- *                   story:
- *                     type: string
- *                     example: This is a story a very long story.
- *                   difficulty:
- *                     type: string
- *                     example: easy
+ *                 $ref: '#/components/schemas/book'
  *       401:
  *         description: Unauthorized
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: 'Not authorized'
+ *               $ref: '#/components/schemas/unauthorized'
  *       500:
- *         description: Internal server error
+ *         description: "Internal server error"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/internalserver'
  */
 
 export default router

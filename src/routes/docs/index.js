@@ -2,6 +2,13 @@ import express from 'express'
 import swaggerUi from 'swagger-ui-express'
 import swaggerJsdoc from 'swagger-jsdoc'
 
+// SCHEMAS
+import book from './schemas/book.js'
+import user from './schemas/user.js'
+import unauthorized from './schemas/unauthorized.js'
+import badrequest from './schemas/badrequest.js'
+import internalserver from './schemas/internalserver.js'
+
 const Router = express.Router()
 const port = process.env.PORT || 3001
 
@@ -11,6 +18,15 @@ const options = {
         info: {
             title: 'Tetsuba API',
             version: '1.0.0'
+        },
+        components: {
+            schemas: {
+                book,
+                user,
+                unauthorized,
+                badrequest,
+                internalserver
+            }
         },
         servers: [
             {

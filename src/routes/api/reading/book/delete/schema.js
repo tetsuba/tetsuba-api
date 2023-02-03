@@ -1,9 +1,9 @@
 const BOOK_DELETE_SCHEMA = {
     type: 'object',
     properties: {
-        id: { type: 'integer' }
+        bookId: { type: 'integer' }
     },
-    required: ['id'],
+    required: ['bookId'],
     additionalProperties: false
 }
 

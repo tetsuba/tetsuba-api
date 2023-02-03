@@ -49,29 +49,19 @@ router.put('/edit', editBookHandler)
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
+ *               $ref: '#/components/schemas/badrequest'
  *       401:
  *         description: Unauthorized
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: 'Not authorized'
+ *               $ref: '#/components/schemas/unauthorized'
  *       500:
- *         description: "Internal server error - sql"
+ *         description: "Internal server error"
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
+ *               $ref: '#/components/schemas/internalserver'
  */
 
 export default router

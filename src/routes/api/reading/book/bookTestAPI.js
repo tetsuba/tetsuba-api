@@ -29,19 +29,17 @@ export async function getAllBooks(noToken) {
     return request(app).get('/api/reading/book/all').set('Authorization', token)
 }
 
-export async function getBook(json, noToken) {
+export async function getBook(query, noToken) {
     const token = noToken ? '' : `Bearer ${process.env.BEARER_TOKEN}`
     return request(app)
-        .get(`/api/reading/book`)
-        .send(json)
+        .get(`/api/reading/book${query}`)
         .set('Accept', 'application/json')
         .set('Authorization', token)
 }
-export async function deleteBook(json, noToken) {
+export async function deleteBook(query, noToken) {
     const token = noToken ? '' : `Bearer ${process.env.BEARER_TOKEN}`
     return request(app)
-        .delete(`/api/reading/book/delete`)
-        .send(json)
+        .delete(`/api/reading/book/delete${query}`)
         .set('Accept', 'application/json')
         .set('Authorization', token)
 }

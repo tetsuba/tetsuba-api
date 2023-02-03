@@ -22,7 +22,8 @@ describe('@POST /api/reading/book/register', () => {
         test('should register a book', async () => {
             const res = await registerBook(BOOK_DATA)
             expect(res.status).toBe(201)
-            expect(res.text).toBe('{"success":"Book registered!"}')
+            const data = JSON.parse(res.text)
+            expect(data).toEqual([{ ...BOOK_DATA, id: 1 }])
         })
     })
     describe('status: 400', () => {

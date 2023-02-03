@@ -30,13 +30,13 @@ router.post('/create-table', createUserTableHandler)
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: 'Not authorized'
+ *               $ref: '#/components/schemas/unauthorized'
  *       500:
- *         description: Internal Server Error
+ *         description: "Internal server error"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/internalserver'
  */
 
 export default router

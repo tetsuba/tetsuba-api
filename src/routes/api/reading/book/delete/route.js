@@ -15,39 +15,33 @@ router.delete('/delete', deleteBookHandler)
  *     description: Delete a book with a specified id
  *     tags:
  *       - reading / book
- *     requestBody:
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             properties:
- *               id:
- *                 type: integer
- *             example:
- *               id: 22
+ *     parameters:
+ *       - in: query
+ *         name: bookId
+ *         schema:
+ *           type: string
+ *         description: Delete a book from the database
  *     responses:
  *       200:
- *         description: OK
+ *         description: OK - Return an updated list of books
  *         content:
  *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Book deleted
+ *            schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/book'
  *       401:
  *         description: Unauthorized
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: 'Not authorized'
+ *               $ref: '#/components/schemas/unauthorized'
  *       500:
- *         description: Internal server error
+ *         description: "Internal server error"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/internalserver'
  */
 
 export default router

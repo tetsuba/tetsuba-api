@@ -15,10 +15,19 @@ router.get('/all', getAllUsersHandler)
  *       - reading / user
  *     responses:
  *       200:
- *         summary: A list of users
- *         description: A list of users
+ *         description: OK
+ *         content:
+ *           application/json:
+ *            schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/user'
  *       500:
- *         description: Sqlite error is triggered when a table does not exist.
+ *         description: "Internal server error"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/internalserver'
  */
 
 export default router

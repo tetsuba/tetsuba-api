@@ -20,6 +20,8 @@ router.post('/register', registerBookHandler)
  *             schema:
  *               type: object
  *               properties:
+ *                 userId:
+ *                   type: integer
  *                 title:
  *                   type: string
  *                 story:
@@ -27,6 +29,7 @@ router.post('/register', registerBookHandler)
  *                 difficulty:
  *                   type: string
  *             example:
+ *               userId: 2
  *               title: "The Title"
  *               story: "Once upon a time"
  *               difficulty: "easy"
@@ -35,45 +38,28 @@ router.post('/register', registerBookHandler)
  *         description: Created
  *         content:
  *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 token:
- *                   type: string
- *                 data:
- *                   type: object
- *                   properties:
- *                     name:
- *                       type: string
- *
+ *            schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/book'
  *       400:
  *         description: Bad Request
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
+ *               $ref: '#/components/schemas/badrequest'
  *       401:
  *         description: Unauthorized
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: 'Not authorized'
+ *               $ref: '#/components/schemas/unauthorized'
  *       500:
- *         description: "Internal server error - sql"
+ *         description: "Internal server error"
  *         content:
  *           application/json:
  *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
+ *               $ref: '#/components/schemas/internalserver'
  */
 
 export default router

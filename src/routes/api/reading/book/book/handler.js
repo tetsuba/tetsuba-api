@@ -7,10 +7,11 @@ export const SQL__SELECT_BOOKS = `
 `
 
 export default function getBookHandler(req, res) {
-    console.log('getBookHandler: ', req.body)
-    const errors = validate(BOOK_SCHEMA, req.body)
-    console.log('getBookHandler: ', errors)
-    const PARAMS = [req.body.userId]
+    // This is a hack to convert the userId to be an integer.
+    req.query.userId = +req.query.userId
+    // *****************************************************
+    const errors = validate(BOOK_SCHEMA, req.query)
+    const PARAMS = [req.query.userId]
     if (errors) {
         res.status(400) // Bad Request
             .json({ error: errors })
