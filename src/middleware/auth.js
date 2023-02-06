@@ -14,13 +14,16 @@ function getBearerToken({ authorization }) {
 }
 
 function unProtectedRoute(url) {
-    const list = [
-        'api-docs',
-        'reading/user/all',
-        'reading/user/register',
-        'reading/user/login'
-    ]
-    return list.some((route) => url.includes(route))
+    const protectedRoute = url.startsWith('/api/reading/')
+    if (protectedRoute) {
+        const list = [
+            'reading/user/all',
+            'reading/user/register',
+            'reading/user/login'
+        ]
+        return list.some((route) => url.includes(route))
+    }
+    return true
 }
 
 export function protectRoutes(req, res, next) {
