@@ -9,8 +9,26 @@ import cors from 'cors'
 
 const app = express()
 
+const whitelist = ['http://localhost:3001/api-docs', 'http://127.0.0.1:5173']
+// TODO: This will be removed after development
+const ngrokDomain = '.eu.ngrok.io'
+const corsOptions = {
+    origin: function (origin, callback) {
+        if (
+            !origin ||
+            whitelist.indexOf(origin) !== -1 ||
+            origin.includes(ngrokDomain)
+        ) {
+            callback(null, true)
+        } else {
+            console.log('[origin]: ', origin)
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
+}
+
 // Middleware
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(bodyParser.json())
 app.use(sqlite)
 app.use(protectRoutes)
