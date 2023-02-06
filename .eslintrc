@@ -15,5 +15,6 @@
   },
   "rules": {
     "prettier/prettier": "error"
-  }
+  },
+  "ignorePatterns": ["src/client/"]
 }
