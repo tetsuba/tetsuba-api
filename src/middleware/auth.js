@@ -14,7 +14,7 @@ function getBearerToken({ authorization }) {
 }
 
 function unProtectedRoute(url) {
-    const protectedRoute = url.includes('/api/reading/')
+    const protectedRoute = url.startsWith('/api/reading/')
     if (protectedRoute) {
         const list = [
             'reading/user/all',
