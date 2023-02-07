@@ -25,9 +25,9 @@ jobs:
       - name: Create env.test file
         run: |
           touch .env.test
-          echo JWT_SECRET=${vars.JWT_SECRET} > .env.test
-          echo BEARER_TOKEN=${vars.BEARER_TOKEN} > .env.test
-          echo BEARER_TOKEN_WRONG_EMAIL=${vars.BEARER_TOKEN_WRONG_EMAIL} > .env.test
+          echo JWT_SECRET="${{ vars.JWT_SECRET }}" > .env.test
+          echo BEARER_TOKEN="${{ vars.BEARER_TOKEN }}" > .env.test
+          echo BEARER_TOKEN_WRONG_EMAIL="${{ vars.BEARER_TOKEN_WRONG_EMAIL }}" > .env.test
           cat .env
 
       - name: Run Test Coverage
