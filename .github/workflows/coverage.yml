@@ -22,13 +22,5 @@ jobs:
       - name: Install Server
         run: npm ci
 
-      - name: Create env.test file
-        run: |
-          touch .env.test
-          echo JWT_SECRET="${{ secrets.JWT_SECRET }}" > .env.test
-          echo BEARER_TOKEN="${{ secrets.BEARER_TOKEN }}" > .env.test
-          echo BEARER_TOKEN_WRONG_EMAIL="${{ secrets.BEARER_TOKEN_WRONG_EMAIL }}" > .env.test
-          cat .env.test
-
       - name: Run Test Coverage
         run: npm run test
