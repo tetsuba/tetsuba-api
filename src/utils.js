@@ -2,5 +2,6 @@ export function getValuesFrom(params) {
     return Object.values(params)
 }
 
-export const userTableName =
-    process.env.NODE_ENV === 'test' ? 'userTest' : 'user'
+export function tableName(text) {
+    return process.env.NODE_ENV === 'test' ? `${text}Test` : text
+}

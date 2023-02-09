@@ -23,32 +23,26 @@ router.get('', getUsersHandler)
  *       - bearerAuth: []
  *     description: Get user information
  *     tags:
- *       - Reading APP
+ *       - reading / user
  *     responses:
  *       200:
- *         description: User Details
+ *         description: OK
  *         content:
- *             application/json:
- *               schema:
- *                 type: object
- *                 properties:
- *                   firstName:
- *                     type: string
- *                   lastName:
- *                     type: string
- *                   email:
- *                     type: string
- *                   id:
- *                     type: number
+ *           application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/user'
  *       401:
- *        description: Not Authorized
- *        content:
- *             application/json:
- *               schema:
- *                 type: object
- *                 properties:
- *                   message:
- *                     type: string
+ *         description: Unauthorized
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/unauthorized'
+ *       500:
+ *         description: "Internal server error"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/internalserver'
  */
 
 export default router

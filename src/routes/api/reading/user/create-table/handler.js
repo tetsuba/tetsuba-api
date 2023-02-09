@@ -1,7 +1,7 @@
-import { userTableName } from '../../../../../utils.js'
+import { tableName } from '../../../../../utils.js'
 
 const SQL__CREATE_TABLE_USER = `
-    CREATE TABLE IF NOT EXISTS ${userTableName} (
+    CREATE TABLE IF NOT EXISTS ${tableName('user')} (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         firstName TEXT NOT NULL,
         lastName TEXT NOT NULL,
@@ -13,11 +13,11 @@ const SQL__CREATE_TABLE_USER = `
 
 const PARAMS_NONE = []
 
-export default function createTableHandler(req, res) {
-    res.sqlite.all(SQL__CREATE_TABLE_USER, PARAMS_NONE, function callback(err) {
+export default function createUserTableHandler(req, res) {
+    res.sqlite.run(SQL__CREATE_TABLE_USER, PARAMS_NONE, function callback(err) {
         if (err) {
             return res.status(500).json(err)
         }
-        res.status(200).json({ message: 'CREATED' })
+        res.status(200).json({ message: 'User table created' })
     })
 }

@@ -1,12 +1,12 @@
 import LOGIN_USER_SCHEMA from './schema.js'
 import validate from '../../../../../validator.js'
-import { userTableName } from '../../../../../utils.js'
+import { tableName } from '../../../../../utils.js'
 import { createJWT } from '../../../../../middleware/auth.js'
 
 const ERROR_MESSAGE = { error: 'Incorrect username or password' }
 
 const SQL__SELECT_USER = `
-  SELECT * FROM ${userTableName} WHERE email = ?
+  SELECT * FROM ${tableName('user')} WHERE email = ?
 `
 function passwordMatch(userPassword, rowPassword) {
     return userPassword === rowPassword

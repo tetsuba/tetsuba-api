@@ -10,9 +10,8 @@ router.post('/login', loginUserHandler)
  *   post:
  *     description: User logs in to be authenticated sending a username and password
  *     tags:
- *       - Reading APP
+ *       - reading / user
  *     requestBody:
- *         tryItOutEnabled: false
  *         content:
  *           application/json:
  *             schema:
@@ -36,15 +35,19 @@ router.post('/login', loginUserHandler)
  *                 token:
  *                   type: string
  *                 data:
- *                   type: object
- *                   properties:
- *                     name:
- *                       type: string
- *
+ *                   $ref: '#/components/schemas/user'
  *       400:
- *         description: "Bad Request - check query parameters"
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/badrequest'
  *       500:
- *         description: "Internal server error - sql"
+ *         description: "Internal server error"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/internalserver'
  */
 
 export default router

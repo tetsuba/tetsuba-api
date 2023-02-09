@@ -14,33 +14,35 @@ function getBearerToken({ authorization }) {
 }
 
 function unProtectedRoute(url) {
-    const list = [
-        'api-docs',
-        'reading/user/all',
-        'reading/user/register',
-        'reading/user/login',
-        'reading/user/create-table',
-        'reading/user/delete-table'
-    ]
-    return list.some((route) => url.includes(route))
+    const protectedRoute = url.startsWith('/api/reading/')
+    if (protectedRoute) {
+        const list = [
+            'reading/user/all',
+            'reading/user/register',
+            'reading/user/login'
+        ]
+        return list.some((route) => url.includes(route))
+    }
+    return true
 }
 
 export function protectRoutes(req, res, next) {
-    console.log('[PROTECTED ROUTES]: ', unProtectedRoute(req.url), req.url)
+    console.log('[UNPROTECTED ROUTES]: ', unProtectedRoute(req.url), req.url)
     if (unProtectedRoute(req.url)) return next()
     const token = getBearerToken(req.headers)
 
-    // console.log('[TOKEN]', jwt.sign({id: 0, eml: 'test@test.com'}, secret))
+    // console.log('[TOKEN]', jwt.sign({id: 0, email: 'test@test.com'}, 'jestTest'))
+    // console.log(token)
 
     if (token) {
         try {
             const user = jwt.verify(token, getSecret())
-            console.log(user)
+            // console.log('[user]', user)
             res.user = user
             next()
         } catch (e) {
             const expired = e.message === 'jwt expired'
-            console.log(e.message, expired)
+            // console.log(e.message, expired)
             res.status(401).json({ message: 'Not authorized', expired })
         }
     } else {

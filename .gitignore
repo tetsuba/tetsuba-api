@@ -29,3 +29,6 @@ src/database/*.sqlite
 
 # ENV files
 .env
+
+# Client Build Files
+src/client

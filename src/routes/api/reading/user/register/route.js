@@ -10,7 +10,7 @@ router.post('/register', registerNewUserHandler)
  *   post:
  *     description: Register a new user
  *     tags:
- *       - Reading APP
+ *       - reading / user
  *     parameters:
  *       - in: query
  *         name: firstName
@@ -43,12 +43,18 @@ router.post('/register', registerNewUserHandler)
  *                 message:
  *                   type: string
  *                   example: 'Account created'
- *
  *       400:
- *         description: "Bad Request - check query parameters"
- *
+ *         description: Bad Request
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/badrequest'
  *       500:
- *         description: "Internal server error - sql"
+ *         description: "Internal server error"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/internalserver'
  */
 
 export default router

@@ -1,5 +1,6 @@
 import express from 'express'
-import reading from './api/reading/index.js'
+import user from './api/reading/user/index.js'
+import book from './api/reading/book/index.js'
 import apiDocs from './docs/index.js'
 import bodyParser from 'body-parser'
 import { protectRoutes } from '../middleware/auth.js'
@@ -16,7 +17,8 @@ app.use(protectRoutes)
 
 /* Routes
  */
-app.use('/api/reading', reading)
+app.use('/api/reading', user)
+app.use('/api/reading', book)
 
 /* API Documentation (Swagger)
  *

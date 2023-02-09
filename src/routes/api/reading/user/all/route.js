@@ -9,12 +9,25 @@ router.get('/all', getAllUsersHandler)
  *
  * /api/reading/user/all:
  *   get:
- *     description: Get all users
+ *     summary: Get all users.
+ *     description: This route is used for development and should be removed when not required any more.
  *     tags:
- *       - Reading APP [DEV]
+ *       - reading / user
  *     responses:
  *       200:
- *         description: A list of users
+ *         description: OK
+ *         content:
+ *           application/json:
+ *            schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/user'
+ *       500:
+ *         description: "Internal server error"
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/internalserver'
  */
 
 export default router
