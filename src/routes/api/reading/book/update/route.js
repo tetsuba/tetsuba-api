@@ -1,12 +1,12 @@
 import express from 'express'
-import editBookHandler from './handler.js'
+import updateBookHandler from './handler.js'
 const router = express.Router()
 
-router.put('/edit', editBookHandler)
+router.patch('/update', updateBookHandler)
 /**
  * @swagger
  *
- * /api/reading/book/edit:
+ * /api/reading/book/update:
  *   put:
  *     security:
  *       - bearerAuth: []

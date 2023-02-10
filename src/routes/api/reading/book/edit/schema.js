@@ -3,10 +3,9 @@ const EDIT_BOOK_SCHEMA = {
     properties: {
         id: { type: 'number' },
         title: { type: 'string' },
-        story: { type: 'string' },
-        difficulty: { type: 'string' }
+        story: { type: 'string' }
     },
-    required: ['id', 'title', 'story', 'difficulty'],
+    required: ['id', 'title', 'story'],
     additionalProperties: false
 }
 

@@ -4,9 +4,7 @@ import REGISTER_BOOK_SCHEMA from './schema.js'
 import { SQL__SELECT_BOOKS } from '../book/handler.js'
 
 const SQL__INSERT_INTO_BOOK = `
-    INSERT INTO ${tableName(
-        'book'
-    )}(userId, title, story, difficulty) values (?,?,?,?)
+    INSERT INTO ${tableName('book')}(userId, title, story) values (?,?,?)
 `
 
 export default function registerBookHandler(req, res) {
@@ -16,12 +14,7 @@ export default function registerBookHandler(req, res) {
         res.status(400) // Bad Request
             .json({ error: errors })
     } else {
-        const PARAMS = [
-            req.body.userId,
-            req.body.title,
-            req.body.story,
-            req.body.difficulty
-        ]
+        const PARAMS = [req.body.userId, req.body.title, req.body.story]
         db.run(SQL__INSERT_INTO_BOOK, PARAMS, function callback(err) {
             if (err) {
                 res.status(500).json({ message: err.message })

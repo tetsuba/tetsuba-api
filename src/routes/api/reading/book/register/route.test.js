@@ -7,8 +7,7 @@ import {
 const BOOK_DATA = {
     userId: 1,
     title: 'A new story',
-    story: 'Once upon a time',
-    difficulty: 'easy'
+    story: 'Once upon a time'
 }
 
 describe('@POST /api/reading/book/register', () => {
@@ -21,9 +20,10 @@ describe('@POST /api/reading/book/register', () => {
         })
         test('should register a book', async () => {
             const res = await registerBook(BOOK_DATA)
+            console.log(res.text)
             expect(res.status).toBe(201)
             const data = JSON.parse(res.text)
-            expect(data).toEqual([{ ...BOOK_DATA, id: 1 }])
+            expect(data).toEqual([{ ...BOOK_DATA, id: 1, history: null }])
         })
     })
     describe('status: 400', () => {
@@ -43,11 +43,6 @@ describe('@POST /api/reading/book/register', () => {
             expect(res.text).toEqual(
                 expect.stringContaining(
                     "data must have required property 'story'"
-                )
-            )
-            expect(res.text).toEqual(
-                expect.stringContaining(
-                    "data must have required property 'difficulty'"
                 )
             )
         })

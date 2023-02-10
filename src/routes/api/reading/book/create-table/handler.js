@@ -6,7 +6,7 @@ const SQL__CREATE_TABLE_BOOK = `
         userId INTEGER NOT NULL,
         title TEXT NOT NULL,
         story TEXT NOT NULL,
-        difficulty TEXT NOT NULL
+        history TEXT
     )
 `
 

@@ -26,13 +26,10 @@ router.post('/register', registerBookHandler)
  *                   type: string
  *                 story:
  *                   type: string
- *                 difficulty:
- *                   type: string
  *             example:
  *               userId: 2
  *               title: "The Title"
  *               story: "Once upon a time"
- *               difficulty: "easy"
  *     responses:
  *       201:
  *         description: Created
