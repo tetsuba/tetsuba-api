@@ -46,7 +46,10 @@ describe('@PATCH /api/reading/book/update', () => {
             )
         })
         test('with id as a string', async () => {
-            const res = await updateBook({ ...UPDATE_BOOK_HISTORY_DATA, id: '011' })
+            const res = await updateBook({
+                ...UPDATE_BOOK_HISTORY_DATA,
+                id: '011'
+            })
             expect(res.status).toBe(400)
             expect(res.text).toEqual(
                 expect.stringContaining('id must be number')
