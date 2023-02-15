@@ -22,10 +22,10 @@ export default {
             description: 'The story of the book',
             example: 'Once upon a time...'
         },
-        difficulty: {
+        history: {
             type: 'String',
-            description: 'Reading level',
-            example: '1'
+            description: 'JSON String. A readers history',
+            example: '[{date: 12/12/12, words: three, their, people}]'
         }
     }
 }

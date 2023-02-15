@@ -14,14 +14,12 @@ describe('@DELETE /api/reading/book/delete', () => {
             await registerBook({
                 userId: 1,
                 title: 'title',
-                story: 'story',
-                difficulty: 'easy'
+                story: 'story'
             })
             await registerBook({
                 userId: 0, // userId must match the bearer token
                 title: 'title2',
-                story: 'story2',
-                difficulty: 'easy2'
+                story: 'story2'
             })
         })
         afterAll(async () => {

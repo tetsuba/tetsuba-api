@@ -1,35 +1,35 @@
 import { tableName } from '../../../../../utils.js'
 import validate from '../../../../../validator.js'
-import REGISTER_BOOK_SCHEMA from './schema.js'
+import EDIT_BOOK_SCHEMA from './schema.js'
 import { SQL__SELECT_BOOKS } from '../book/handler.js'
 
-const SQL__INSERT_INTO_BOOK = `
-    INSERT INTO ${tableName('book')}(userId, title, story) values (?,?,?)
+const SQL__UPDATE_BOOK = `
+    UPDATE ${tableName('book')} SET history=? WHERE id = ?
 `
 
-export default function registerBookHandler(req, res) {
-    const db = res.sqlite
-    const errors = validate(REGISTER_BOOK_SCHEMA, req.body)
+export default function updateBookHandler(req, res) {
+    const errors = validate(EDIT_BOOK_SCHEMA, req.body)
     if (errors) {
         res.status(400) // Bad Request
             .json({ error: errors })
     } else {
-        const PARAMS = [req.body.userId, req.body.title, req.body.story]
-        db.run(SQL__INSERT_INTO_BOOK, PARAMS, function callback(err) {
+        const { id, history } = req.body
+        const PARAMS = [history, id]
+        res.sqlite.run(SQL__UPDATE_BOOK, PARAMS, function callback(err) {
             if (err) {
-                res.status(500).json({ message: err.message })
+                res.status(500).json({ error: err.message })
                 return null
             }
 
-            db.all(
+            res.sqlite.all(
                 SQL__SELECT_BOOKS,
-                [req.body.userId],
+                [res.user.id],
                 function callback(err, rows) {
                     if (err) {
                         res.status(500).json({ message: err.message })
                         return null
                     }
-                    res.status(201).json(rows)
+                    res.status(200).json(rows)
                 }
             )
         })

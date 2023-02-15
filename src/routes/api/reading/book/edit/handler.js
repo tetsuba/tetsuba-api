@@ -3,9 +3,7 @@ import validate from '../../../../../validator.js'
 import EDIT_BOOK_SCHEMA from './schema.js'
 
 const SQL__UPDATE_BOOK = `
-    UPDATE ${tableName(
-        'book'
-    )} SET title=?,  story=?,  difficulty=? WHERE id = ?
+    UPDATE ${tableName('book')} SET title=?,  story=? WHERE id = ?
 `
 
 export default function editBookHandler(req, res) {
@@ -14,8 +12,8 @@ export default function editBookHandler(req, res) {
         res.status(400) // Bad Request
             .json({ error: errors })
     } else {
-        const { id, story, title, difficulty } = req.body
-        const PARAMS = [title, story, difficulty, id]
+        const { id, story, title } = req.body
+        const PARAMS = [title, story, id]
         res.sqlite.run(SQL__UPDATE_BOOK, PARAMS, function callback(err) {
             if (err) {
                 res.status(500) // Internal Server Error

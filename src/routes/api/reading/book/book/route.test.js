@@ -13,20 +13,17 @@ describe('@GET /api/reading/book', () => {
             await registerBook({
                 userId: 1,
                 title: 'title',
-                story: 'story',
-                difficulty: 'easy'
+                story: 'story'
             })
             await registerBook({
                 userId: 2,
                 title: 'title',
-                story: 'story',
-                difficulty: 'easy'
+                story: 'story'
             })
             await registerBook({
                 userId: 1,
                 title: 'title',
-                story: 'story',
-                difficulty: 'easy'
+                story: 'story'
             })
         })
         afterAll(async () => {

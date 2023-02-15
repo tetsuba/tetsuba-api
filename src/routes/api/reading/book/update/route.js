@@ -1,12 +1,12 @@
 import express from 'express'
-import editBookHandler from './handler.js'
+import updateBookHandler from './handler.js'
 const router = express.Router()
 
-router.put('/edit', editBookHandler)
+router.patch('/update', updateBookHandler)
 /**
  * @swagger
  *
- * /api/reading/book/edit:
+ * /api/reading/book/update:
  *   put:
  *     security:
  *       - bearerAuth: []
@@ -35,11 +35,10 @@ router.put('/edit', editBookHandler)
  *         description: OK
  *         content:
  *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
+ *            schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/book'
  *
  *       400:
  *         description: Bad Request

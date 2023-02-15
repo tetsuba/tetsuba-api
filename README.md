@@ -15,7 +15,6 @@ An API service to support tetsuba testing apps.
  - Nodemon
  - jsonwebtoken
  - dotenv
- - jsonwebtoken
 
 ---
 

@@ -52,3 +52,12 @@ export async function editBook(json, noToken) {
         .set('Accept', 'application/json')
         .set('Authorization', token)
 }
+
+export async function updateBook(json, noToken) {
+    const token = noToken ? '' : `Bearer ${process.env.BEARER_TOKEN}`
+    return request(app)
+        .patch(`/api/reading/book/update`)
+        .send(json)
+        .set('Accept', 'application/json')
+        .set('Authorization', token)
+}
