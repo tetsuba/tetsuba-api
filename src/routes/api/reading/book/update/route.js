@@ -35,11 +35,10 @@ router.patch('/update', updateBookHandler)
  *         description: OK
  *         content:
  *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
+ *            schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/book'
  *
  *       400:
  *         description: Bad Request

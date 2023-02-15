@@ -5,28 +5,30 @@ import {
     registerBook
 } from '../bookTestAPI.js'
 
-const BOOK_DATA = {
-    userId: 1,
-    history: 'A new story'
+const REGISTER_BOOK_DATA = {
+    userId: 0,
+    title: 'Book Title',
+    story: 'This is a story.'
 }
 
-const UPDATED_BOOK_DATA = {
+const UPDATE_BOOK_HISTORY_DATA = {
     id: 1,
-    history: 'updated story'
+    history: JSON.stringify([{ date: '12/12/12', words: ['word', 'word'] }])
 }
 
 describe('@PATCH /api/reading/book/update', () => {
-    describe('status: 201', () => {
+    describe('status: 200', () => {
         beforeAll(async () => {
             await createBookTable()
-            await registerBook(BOOK_DATA)
+            await registerBook(REGISTER_BOOK_DATA)
         })
         afterAll(async () => {
             await deleteBookTable()
         })
         test('should update the history in a book', async () => {
-            const res = await updateBook(UPDATED_BOOK_DATA)
-            expect(res.text).toBe('{"message":"Book updated"}')
+            const res = await updateBook(UPDATE_BOOK_HISTORY_DATA)
+            const data = JSON.parse(res.text)
+            expect(data[0].history).toEqual(UPDATE_BOOK_HISTORY_DATA.history)
             expect(res.status).toBe(200)
         })
     })
@@ -44,7 +46,7 @@ describe('@PATCH /api/reading/book/update', () => {
             )
         })
         test('with id as a string', async () => {
-            const res = await updateBook({ ...UPDATED_BOOK_DATA, id: '011' })
+            const res = await updateBook({ ...UPDATE_BOOK_HISTORY_DATA, id: '011' })
             expect(res.status).toBe(400)
             expect(res.text).toEqual(
                 expect.stringContaining('id must be number')
@@ -52,7 +54,7 @@ describe('@PATCH /api/reading/book/update', () => {
         })
         test('with an additional property', async () => {
             const res = await updateBook({
-                ...UPDATED_BOOK_DATA,
+                ...UPDATE_BOOK_HISTORY_DATA,
                 newProperty: 'something'
             })
             expect(res.status).toBe(400)
@@ -73,7 +75,7 @@ describe('@PATCH /api/reading/book/update', () => {
     })
     describe('status: 500', () => {
         test('should respond with an error if table does not exist', async () => {
-            const res = await updateBook(UPDATED_BOOK_DATA)
+            const res = await updateBook(UPDATE_BOOK_HISTORY_DATA)
             expect(res.status).toBe(500)
             expect(res.text).toEqual(expect.stringContaining('SQLITE_ERROR'))
         })
