@@ -61,3 +61,11 @@ export async function updateBook(json, noToken) {
         .set('Accept', 'application/json')
         .set('Authorization', token)
 }
+
+export async function getWords(query, noToken) {
+    const token = noToken ? '' : `Bearer ${process.env.BEARER_TOKEN}`
+    return request(app)
+        .get(`/api/reading/book/words${query}`)
+        .set('Accept', 'application/json')
+        .set('Authorization', token)
+}
