@@ -37,7 +37,7 @@ router.get('', getSightWordsHandler)
  *                   sightWordsNotInBooks:
  *                     type: array
  *                     items:
- *                       type: string
+ *                       $ref: '#/components/schemas/word'
  *                   sightWordsReadInBooks:
  *                     type: array
  *                     items:

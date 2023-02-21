@@ -41,11 +41,15 @@ export function removeDuplicates(words) {
 }
 
 function getSightWordsFromBooks(words) {
-    return words.filter((word) => sightWords.includes(word))
+    return words.filter((word) =>
+        sightWords.map((sightWord) => sightWord.toLowerCase()).includes(word)
+    )
 }
 
 function getSightWordsNotInList(words) {
-    return sightWords.filter((sightWord) => !words.includes(sightWord))
+    return sightWords.filter(
+        (sightWord) => !words.includes(sightWord.toLowerCase())
+    )
 }
 
 function getBooksRead(books) {
@@ -58,6 +62,7 @@ export const countSightWordsInBooks = compose(
 )
 
 export const getSightWordsNotInBooks = compose(
+    countDuplicateWords,
     removeDuplicates,
     getSightWordsNotInList
 )
