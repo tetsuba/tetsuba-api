@@ -1,6 +1,6 @@
 import { tableName } from '../../../../../utils.js'
 
-export const SQL__SELECT_ALL_USERS = `
+export const SQL__SELECT_USER = `
   SELECT id, firstName, lastName, email FROM ${tableName(
       'user'
   )} WHERE email = ?
@@ -8,7 +8,7 @@ export const SQL__SELECT_ALL_USERS = `
 
 export default function getUserHandler(req, res) {
     res.sqlite.get(
-        SQL__SELECT_ALL_USERS,
+        SQL__SELECT_USER,
         [res.user.email],
         function callback(err, row) {
             if (err) return res.status(500).json(err)

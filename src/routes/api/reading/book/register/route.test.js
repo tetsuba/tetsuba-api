@@ -20,7 +20,6 @@ describe('@POST /api/reading/book/register', () => {
         })
         test('should register a book', async () => {
             const res = await registerBook(BOOK_DATA)
-            console.log(res.text)
             expect(res.status).toBe(201)
             const data = JSON.parse(res.text)
             expect(data).toEqual([{ ...BOOK_DATA, id: 1, history: null }])
