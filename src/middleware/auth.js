@@ -17,7 +17,6 @@ function unProtectedRoute(url) {
     const protectedRoute = url.startsWith('/api/reading/')
     if (protectedRoute) {
         const list = [
-            'reading/user/all',
             'reading/user/register',
             'reading/user/login'
         ]

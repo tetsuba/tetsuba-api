@@ -1,10 +1,6 @@
 import request from 'supertest'
 import app from '../../../../index.js'
-import { createUserTable, deleteUserTable } from '../userTestAPI.js'
-
-async function getAllUsers() {
-    return request(app).get('/api/reading/user/all')
-}
+import { createUserTable, deleteUserTable, getAllUsers } from '../userTestAPI.js'
 
 describe('@GET /api/reading/user/all', () => {
     describe('status: 200', () => {

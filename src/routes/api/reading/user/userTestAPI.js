@@ -27,3 +27,10 @@ export async function registerUser(data) {
     const query = querystring.stringify(data)
     return await request(app).post(`/api/reading/user/register?${query}`)
 }
+
+export async function getAllUsers(noToken) {
+    const token = noToken ? '' : `Bearer ${process.env.BEARER_TOKEN}`
+    return request(app)
+        .get('/api/reading/user/all')
+        .set('Authorization', token)
+}
