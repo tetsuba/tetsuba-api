@@ -16,10 +16,7 @@ function getBearerToken({ authorization }) {
 function unProtectedRoute(url) {
     const protectedRoute = url.startsWith('/api/reading/')
     if (protectedRoute) {
-        const list = [
-            'reading/user/register',
-            'reading/user/login'
-        ]
+        const list = ['reading/user/register', 'reading/user/login']
         return list.some((route) => url.includes(route))
     }
     return true
@@ -30,7 +27,7 @@ export function protectRoutes(req, res, next) {
     if (unProtectedRoute(req.url)) return next()
     const token = getBearerToken(req.headers)
 
-    // console.log('[TOKEN]', jwt.sign({id: 0, email: 'test@test.com'}, 'jestTest'))
+    // console.log('[TOKEN]', jwt.sign({id: 1, email: 'test@test.com'}, process.env.JWT_SECRET))
     // console.log(token)
 
     if (token) {

@@ -4,22 +4,19 @@ import {
     getBook,
     registerBook
 } from '../bookTestAPI.js'
+import {
+    addTracker,
+    createTrackerTable,
+    deleteTrackerTable
+} from '../../tracker/trackerTestApi.js'
 
 describe('@GET /api/reading/book', () => {
     const query = '?userId=1'
     describe('status: 200', () => {
         beforeAll(async () => {
             await createBookTable()
-            await registerBook({
-                userId: 1,
-                title: 'title',
-                story: 'story'
-            })
-            await registerBook({
-                userId: 2,
-                title: 'title',
-                story: 'story'
-            })
+            await createTrackerTable()
+            await addTracker({ userId: 1 })
             await registerBook({
                 userId: 1,
                 title: 'title',
@@ -28,12 +25,13 @@ describe('@GET /api/reading/book', () => {
         })
         afterAll(async () => {
             await deleteBookTable()
+            await deleteTrackerTable()
         })
-        test('should respond with all books with the same userId', async () => {
+        test('should respond with four book collections', async () => {
             const res = await getBook(query)
             const data = JSON.parse(res.text)
             expect(res.status).toBe(200)
-            expect(data).toHaveLength(2)
+            expect(data).toHaveLength(4)
         })
     })
     describe('status: 400', () => {

@@ -94,3 +94,24 @@ export function getWordsReadIncorrectly(books) {
     const wordsReadWrong = getWordsFromHistory(booksRead)
     return countDuplicateWords(wordsReadWrong)
 }
+
+export function updateWithTrackingData(library, data) {
+    return library.map((collection) => {
+        return {
+            ...collection,
+            books: collection.books.map((book) => {
+                const tracker = data.filter(
+                    (item) =>
+                        item.libId === collection.id && item.bookId === book.id
+                )
+                if (tracker.length) {
+                    return {
+                        ...book,
+                        history: tracker[0].history
+                    }
+                }
+                return book
+            })
+        }
+    })
+}

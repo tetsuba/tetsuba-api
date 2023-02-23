@@ -29,7 +29,7 @@ router.delete('/delete', deleteBookHandler)
  *            schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/book'
+ *                 $ref: '#/components/schemas/collection'
  *       401:
  *         description: Unauthorized
  *         content:

@@ -1,7 +1,7 @@
 import { tableName } from '../../../../../utils.js'
 import validate from '../../../../../validator.js'
 import REGISTER_BOOK_SCHEMA from './schema.js'
-import { SQL__SELECT_BOOKS } from '../book/handler.js'
+import { responseGetBooks } from '../book/handler.js'
 
 const SQL__INSERT_INTO_BOOK = `
     INSERT INTO ${tableName('book')}(userId, title, story) values (?,?,?)
@@ -20,18 +20,18 @@ export default function registerBookHandler(req, res) {
                 res.status(500).json({ message: err.message })
                 return null
             }
-
-            db.all(
-                SQL__SELECT_BOOKS,
-                [req.body.userId],
-                function callback(err, rows) {
-                    if (err) {
-                        res.status(500).json({ message: err.message })
-                        return null
-                    }
-                    res.status(201).json(rows)
-                }
-            )
+            responseGetBooks(res.sqlite, res, req.body.userId, 201)
+            // db.all(
+            //     SQL__SELECT_BOOKS,
+            //     [req.body.userId],
+            //     function callback(err, rows) {
+            //         if (err) {
+            //             res.status(500).json({ message: err.message })
+            //             return null
+            //         }
+            //         res.status(201).json(rows)
+            //     }
+            // )
         })
     }
 }

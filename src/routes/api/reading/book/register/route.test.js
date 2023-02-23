@@ -3,6 +3,11 @@ import {
     deleteBookTable,
     registerBook
 } from '../bookTestAPI.js'
+import {
+    addTracker,
+    createTrackerTable,
+    deleteTrackerTable
+} from '../../tracker/trackerTestApi.js'
 
 const BOOK_DATA = {
     userId: 1,
@@ -14,15 +19,20 @@ describe('@POST /api/reading/book/register', () => {
     describe('status: 201', () => {
         beforeAll(async () => {
             await createBookTable()
+            await createTrackerTable()
+            await addTracker({ userId: 1 })
         })
         afterAll(async () => {
             await deleteBookTable()
+            await deleteTrackerTable()
         })
         test('should register a book', async () => {
             const res = await registerBook(BOOK_DATA)
             expect(res.status).toBe(201)
             const data = JSON.parse(res.text)
-            expect(data).toEqual([{ ...BOOK_DATA, id: 1, history: null }])
+            expect(data[0].books).toEqual([
+                { ...BOOK_DATA, id: 1, history: null }
+            ])
         })
     })
     describe('status: 400', () => {

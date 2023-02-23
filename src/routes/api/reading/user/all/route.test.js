@@ -1,6 +1,8 @@
-import request from 'supertest'
-import app from '../../../../index.js'
-import { createUserTable, deleteUserTable, getAllUsers } from '../userTestAPI.js'
+import {
+    createUserTable,
+    deleteUserTable,
+    getAllUsers
+} from '../userTestAPI.js'
 
 describe('@GET /api/reading/user/all', () => {
     describe('status: 200', () => {

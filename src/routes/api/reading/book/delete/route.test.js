@@ -4,8 +4,13 @@ import {
     deleteBookTable,
     registerBook
 } from '../bookTestAPI.js'
+import {
+    addTracker,
+    createTrackerTable,
+    deleteTrackerTable
+} from '../../tracker/trackerTestApi.js'
 
-const mockQuery = '?bookId=1'
+const mockQuery = '?bookId=2'
 
 describe('@DELETE /api/reading/book/delete', () => {
     describe('status: 200', () => {
@@ -17,18 +22,21 @@ describe('@DELETE /api/reading/book/delete', () => {
                 story: 'story'
             })
             await registerBook({
-                userId: 0, // userId must match the bearer token
+                userId: 2, // userId must match the bearer token
                 title: 'title2',
                 story: 'story2'
             })
+            await createTrackerTable()
+            await addTracker({ userId: 1 })
         })
         afterAll(async () => {
             await deleteBookTable()
+            await deleteTrackerTable()
         })
         test('should delete a book', async () => {
             const res = await deleteBook(mockQuery)
             const data = JSON.parse(res.text)
-            expect(data).toHaveLength(1)
+            expect(data[0].books).toHaveLength(1)
             expect(res.status).toBe(200)
         })
     })
