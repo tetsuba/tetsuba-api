@@ -10,8 +10,8 @@ router.patch('/update', updateTrackerHandler)
  *   put:
  *     security:
  *       - bearerAuth: []
- *     summary: Edit a book
- *     description: Edit a book and update the database
+ *     summary: Update tracker data
+ *     description: Update part of the tracker data
  *     tags:
  *       - reading / tracker
  *     requestBody:
@@ -22,11 +22,19 @@ router.patch('/update', updateTrackerHandler)
  *               properties:
  *                 userId:
  *                   type: integer
- *                 data:
+ *                 libId:
  *                   type: string
+ *                 bookId:
+ *                   type: integer
+ *                 history:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/history'
  *             example:
  *               userId: 2
- *               data: "[{libId:'001', bookId: 1, history: [{date: '12/12/12', words: []}]}]"
+ *               libId: '001'
+ *               bookId: 2
+ *               history: "[{date: '12/12/12', words: ['there', 'then']}]"
  *     responses:
  *       200:
  *         description: OK
@@ -35,7 +43,7 @@ router.patch('/update', updateTrackerHandler)
  *            schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/book'
+ *                 $ref: '#/components/schemas/collection'
  *
  *       400:
  *         description: Bad Request

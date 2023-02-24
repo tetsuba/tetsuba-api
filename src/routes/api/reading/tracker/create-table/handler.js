@@ -3,8 +3,9 @@ import { tableName } from '../../../../../utils.js'
 const SQL__CREATE_TABLE_TRACKER = `
     CREATE TABLE IF NOT EXISTS ${tableName('tracker')} (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        userId INTEGER NOT NULL,
-        data TEXT
+        userId INTEGER UNIQUE NOT NULL,
+        data TEXT,
+        CONSTRAINT email_unique UNIQUE (userId)
     )
 `
 

@@ -2,9 +2,11 @@ const SCHEMA = {
     type: 'object',
     properties: {
         userId: { type: 'number' },
-        data: { type: 'string' }
+        libId: { type: 'string' },
+        bookId: { type: 'number' },
+        history: { type: 'array' }
     },
-    required: ['userId', 'data'],
+    required: ['userId', 'history', 'libId', 'bookId'],
     additionalProperties: false
 }
 

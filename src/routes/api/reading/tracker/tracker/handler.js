@@ -16,9 +16,11 @@ export default function getTrackerHandler(req, res) {
             SQL__SELECT_TRACKER,
             [req.query.userId],
             function callback(err, row) {
-                if (err) {
-                    return res.status(500).json(err)
-                }
+                if (err)
+                    return res.status(500).json({
+                        message: 'get tracker error',
+                        error: err
+                    })
                 res.status(200).json(row)
             }
         )

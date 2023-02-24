@@ -25,7 +25,6 @@ export function responseGetBooks(db, res, userId, status) {
                     message: 'get tracker error',
                     error: err
                 })
-
             const tracker = row.data ? JSON.parse(row.data) : []
             const updatedLibrary = updateWithTrackingData(library, tracker)
             res.status(status || 200).json(updatedLibrary)

@@ -4,32 +4,57 @@ import {
     addTracker,
     updateTracker
 } from '../trackerTestApi.js'
+import { createBookTable, deleteBookTable } from '../../book/bookTestAPI.js'
 
 const UPDATE_DATA = {
     userId: 1,
-    data: JSON.stringify([
-        {
-            LibId: '001',
-            bookId: 1,
-            history: { date: '12/12/12', words: ['word', 'word'] }
-        }
-    ])
+    libId: '002',
+    bookId: 1,
+    history: [{ date: '12/12/12', words: ['word', 'word'] }]
+}
+const UPDATE_DATA_2 = {
+    userId: 1,
+    libId: '002',
+    bookId: 1,
+    history: [
+        { date: '12/12/12', words: ['word', 'word'] },
+        { date: '12/12/12', words: ['there', 'then'] }
+    ]
+}
+
+const UPDATE_DATA_3 = {
+    userId: 1,
+    libId: '002',
+    bookId: 2,
+    history: [{ date: '12/12/12', words: ['live', 'give'] }]
 }
 
 describe('@PATCH /api/reading/tracker/update', () => {
     describe('status: 200', () => {
         beforeAll(async () => {
+            await createBookTable()
             await createTrackerTable()
             await addTracker({ userId: 1 })
         })
         afterAll(async () => {
             await deleteTrackerTable()
+            await deleteBookTable()
         })
         test('should update the history in a book', async () => {
             const res = await updateTracker(UPDATE_DATA)
-            // const data = JSON.parse(res.text)
-            // expect(data[0].history).toEqual(UPDATE_BOOK_HISTORY_DATA.history)
+            const data = JSON.parse(res.text)
+            expect(data[1].books[0].history).toEqual(UPDATE_DATA.history)
             expect(res.status).toBe(200)
+
+            const res2 = await updateTracker(UPDATE_DATA_2)
+            const data2 = JSON.parse(res2.text)
+            expect(data2[1].books[0].history).toEqual(UPDATE_DATA_2.history)
+            expect(res2.status).toBe(200)
+
+            const res3 = await updateTracker(UPDATE_DATA_3)
+            const data3 = JSON.parse(res3.text)
+            expect(data3[1].books[1].history).toEqual(UPDATE_DATA_3.history)
+            expect(res3.status).toBe(200)
         })
     })
     describe('status: 400', () => {
@@ -43,7 +68,17 @@ describe('@PATCH /api/reading/tracker/update', () => {
             )
             expect(res.text).toEqual(
                 expect.stringContaining(
-                    "data must have required property 'data'"
+                    "data must have required property 'history'"
+                )
+            )
+            expect(res.text).toEqual(
+                expect.stringContaining(
+                    "data must have required property 'bookId'"
+                )
+            )
+            expect(res.text).toEqual(
+                expect.stringContaining(
+                    "data must have required property 'libId'"
                 )
             )
         })

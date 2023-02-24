@@ -115,3 +115,31 @@ export function updateWithTrackingData(library, data) {
         }
     })
 }
+
+function isBookTracked(data, json) {
+    return data.some(
+        (item) => item.libId === json.libId && item.bookId === json.bookId
+    )
+}
+
+export function updateTrackerData(trackerData, json) {
+    if (trackerData) {
+        const data = JSON.parse(trackerData)
+        // Existing book tracking to update
+        if (isBookTracked(data, json)) {
+            return data.map((item) => {
+                if (item.libId === json.libId && item.bookId === json.bookId) {
+                    return {
+                        ...item,
+                        history: json.history
+                    }
+                }
+                return item
+            })
+        }
+        // New book to track
+        return [...data, json]
+    }
+    // When data is null
+    return [json]
+}
