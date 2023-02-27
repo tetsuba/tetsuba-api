@@ -22,6 +22,7 @@ export default function updateTrackerHandler(req, res) {
                     error: err
                 })
 
+            console.log('updateTrackerHandler', row, req.body)
             const data = updateTrackerData(row.data, req.body)
             const PARAMS = [JSON.stringify(data), req.body.userId]
             res.sqlite.run(SQL__UPDATE, PARAMS, function callback(err) {

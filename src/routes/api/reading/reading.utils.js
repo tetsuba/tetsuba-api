@@ -1,11 +1,14 @@
 import sightWords from '../../../database/sightWords.js'
+import library from '../../../database/static/library.js'
 
 function compose(...func) {
     return (arg) => func.reduceRight((a, f) => f(a), arg)
 }
 
-export function getWordsFromBooks(books) {
-    return books
+export function getWordsFromBooks(lib) {
+    return lib
+        .map((collection) => collection.books)
+        .flat()
         .reduce((acc, book) => {
             return `${acc} ${book.story}`
         }, '')
@@ -52,47 +55,21 @@ function getSightWordsNotInList(words) {
     )
 }
 
-function getBooksRead(books) {
-    return books.filter((book) => book.history)
-}
-
-export const countSightWordsInBooks = compose(
-    countDuplicateWords,
-    getSightWordsFromBooks
-)
-
-export const getSightWordsNotInBooks = compose(
-    countDuplicateWords,
-    removeDuplicates,
-    getSightWordsNotInList
-)
-
-function getWordsFromHistory(books) {
-    return books
-        .map((book) => JSON.parse(book.history))
-        .map((history) => history.map(({ words }) => words))
-        .flat()
-        .flat()
-}
-
-export function getSightWordsData(books) {
-    const booksRead = getBooksRead(books)
-    const words = getWordsFromBooks(books)
-    const wordsRead = getWordsFromBooks(booksRead)
-    const wordsReadWrong = getWordsFromHistory(booksRead)
-
-    return {
-        sightWordsFromBooks: countSightWordsInBooks(words),
-        sightWordsNotInBooks: getSightWordsNotInBooks(words),
-        sightWordsReadInBooks: countSightWordsInBooks(wordsRead),
-        sightWordsReadWrong: countSightWordsInBooks(wordsReadWrong)
-    }
-}
-
-export function getWordsReadIncorrectly(books) {
-    const booksRead = getBooksRead(books)
-    const wordsReadWrong = getWordsFromHistory(booksRead)
-    return countDuplicateWords(wordsReadWrong)
+function getBooksRead(lib, history) {
+    return lib
+        .filter((collection) =>
+            history.some((book) => collection.id === book.libId)
+        )
+        .map((collection) => ({
+            ...collection,
+            books: collection.books.filter((storyBook) =>
+                history.some(
+                    (book) =>
+                        collection.id === book.libId &&
+                        storyBook.id === book.bookId
+                )
+            )
+        }))
 }
 
 export function updateWithTrackingData(library, data) {
@@ -144,18 +121,50 @@ export function updateTrackerData(trackerData, json) {
     return [json]
 }
 
+function getWords(books) {
+    return books
+        .map((book) => book.history.map(({ words }) => words))
+        .flat()
+        .flat()
+}
+
 function getWordsFromTracker(row) {
     if (row && row.data) {
         const data = JSON.parse(row.data)
-        return data
-            .map((book) => book.history.map(({ words }) => words))
-            .flat()
-            .flat()
+        return getWords(data)
     }
     return []
+}
+
+export function getSightWordsData(books, history) {
+    const historyData = JSON.parse(history)
+    library[0].books = books
+    const booksRead = getBooksRead(library, historyData)
+
+    const wordsTracked = getWords(historyData)
+    const words = getWordsFromBooks(library)
+    const wordsRead = getWordsFromBooks(booksRead)
+
+    return {
+        sightWordsFromBooks: countSightWordsInBooks(words),
+        sightWordsNotInBooks: getSightWordsNotInBooks(words),
+        sightWordsReadInBooks: countSightWordsInBooks(wordsRead),
+        sightWordsReadWrong: countSightWordsInBooks(wordsTracked)
+    }
 }
 
 export const countTrackerWords = compose(
     countDuplicateWords,
     getWordsFromTracker
+)
+
+export const countSightWordsInBooks = compose(
+    countDuplicateWords,
+    getSightWordsFromBooks
+)
+
+export const getSightWordsNotInBooks = compose(
+    countDuplicateWords,
+    removeDuplicates,
+    getSightWordsNotInList
 )

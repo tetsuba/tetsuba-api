@@ -2,6 +2,7 @@ import validate from '../../../../../validator.js'
 import BOOK_SCHEMA from './schema.js'
 import { SQL__SELECT_BOOKS } from '../../book/book/handler.js'
 import { getSightWordsData } from '../../reading.utils.js'
+import { SQL__SELECT_TRACKER } from '../../tracker/tracker/handler.js'
 
 export default function getSightWordsHandler(req, res) {
     // This is a hack to convert the userId to be an integer.
@@ -17,7 +18,19 @@ export default function getSightWordsHandler(req, res) {
             if (err) {
                 return res.status(500).json(err)
             }
-            res.status(200).json(getSightWordsData(rows))
+            res.sqlite.get(
+                SQL__SELECT_TRACKER,
+                PARAMS,
+                function callback(err, row) {
+                    if (err)
+                        return res.status(500).json({
+                            message: 'get tracker error',
+                            error: err
+                        })
+
+                    res.status(200).json(getSightWordsData(rows, row.data))
+                }
+            )
         })
     }
 }

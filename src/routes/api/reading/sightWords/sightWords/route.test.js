@@ -1,14 +1,26 @@
-import {
-    createBookTable,
-    deleteBookTable,
-    registerBook
-} from '../../book/bookTestAPI.js'
-import { updateBook } from '../../book/bookTestAPI.js'
+import { createBookTable, deleteBookTable } from '../../book/bookTestAPI.js'
 import { getSightWords } from '../sightWordsTestApi.js'
+import {
+    addTracker,
+    createTrackerTable,
+    deleteTrackerTable,
+    updateTracker
+} from '../../tracker/trackerTestApi.js'
 
-const UPDATE_BOOK_HISTORY_DATA = {
-    id: 1,
-    history: JSON.stringify([{ date: '12/12/12', words: ['my', 'story'] }])
+const UPDATE_DATA = {
+    userId: 1,
+    libId: '002',
+    bookId: 1,
+    history: [{ date: '12/12/12', words: ['word', 'word'] }]
+}
+const UPDATE_DATA_2 = {
+    userId: 1,
+    libId: '002',
+    bookId: 2,
+    history: [
+        { date: '12/12/12', words: ['word', 'word'] },
+        { date: '12/12/12', words: ['there', 'then'] }
+    ]
 }
 
 describe('@GET /api/reading/sightWords', () => {
@@ -16,25 +28,14 @@ describe('@GET /api/reading/sightWords', () => {
     describe('status: 200', () => {
         beforeAll(async () => {
             await createBookTable()
-            await registerBook({
-                userId: 1,
-                title: 'title',
-                story: 'This is a story'
-            })
-            await registerBook({
-                userId: 1,
-                title: 'title',
-                story: 'My story is about a horse'
-            })
-            await registerBook({
-                userId: 1,
-                title: 'title',
-                story: 'There is a story about a dog and a cat'
-            })
-            await updateBook(UPDATE_BOOK_HISTORY_DATA)
+            await createTrackerTable()
+            await addTracker({ userId: 1 })
+            await updateTracker(UPDATE_DATA)
+            await updateTracker(UPDATE_DATA_2)
         })
         afterAll(async () => {
             await deleteBookTable()
+            await deleteTrackerTable()
         })
         test('should respond with all books with the same userId', async () => {
             const res = await getSightWords(query)
