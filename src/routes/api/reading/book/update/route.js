@@ -7,11 +7,12 @@ router.patch('/update', updateBookHandler)
  * @swagger
  *
  * /api/reading/book/update:
- *   put:
+ *   patch:
+ *     deprecated: true
  *     security:
  *       - bearerAuth: []
- *     summary: Edit a book
- *     description: Edit a book and update the database
+ *     summary: Update a book's history
+ *     description: Update a book's history
  *     tags:
  *       - reading / book
  *     requestBody:

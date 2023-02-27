@@ -7,7 +7,7 @@ router.patch('/update', updateTrackerHandler)
  * @swagger
  *
  * /api/reading/tracker/update:
- *   put:
+ *   patch:
  *     security:
  *       - bearerAuth: []
  *     summary: Update tracker data

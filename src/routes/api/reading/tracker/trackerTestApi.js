@@ -40,3 +40,11 @@ export async function updateTracker(json, noToken) {
         .set('Accept', 'application/json')
         .set('Authorization', token)
 }
+
+export async function getTrackerWords(query, noToken) {
+    const token = noToken ? '' : `Bearer ${process.env.BEARER_TOKEN}`
+    return request(app)
+        .get(`/api/reading/tracker/words${query}`)
+        .set('Accept', 'application/json')
+        .set('Authorization', token)
+}

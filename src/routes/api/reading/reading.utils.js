@@ -143,3 +143,19 @@ export function updateTrackerData(trackerData, json) {
     // When data is null
     return [json]
 }
+
+function getWordsFromTracker(row) {
+    if (row && row.data) {
+        const data = JSON.parse(row.data)
+        return data
+            .map((book) => book.history.map(({ words }) => words))
+            .flat()
+            .flat()
+    }
+    return []
+}
+
+export const countTrackerWords = compose(
+    countDuplicateWords,
+    getWordsFromTracker
+)
