@@ -1,10 +1,11 @@
 import { tableName } from '../../../../../utils.js'
+import library from '../../../../../database/static/library.js'
 
 export const SQL__SELECT_ALL_BOOKS = `
   SELECT * FROM ${tableName('book')}
 `
 // TODO: get all user id books
-// need a userId to fing the books
+// need a userId to find the books
 const PARAMS_NONE = []
 export default function getAllBooksHandler(req, res) {
     res.sqlite.all(
@@ -14,6 +15,8 @@ export default function getAllBooksHandler(req, res) {
             if (err) {
                 return res.status(500).json(err)
             }
+
+            library[0].books = rows
             res.status(200).json(rows)
         }
     )

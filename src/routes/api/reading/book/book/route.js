@@ -13,7 +13,7 @@ router.get('', getBookHandler)
  *     security:
  *       - bearerAuth: []
  *     summary:
- *     description: Get all books with the same userId
+ *     description: Get all books
  *     tags:
  *       - reading / book
  *     parameters:
@@ -21,7 +21,7 @@ router.get('', getBookHandler)
  *         name: userId
  *         schema:
  *           type: string
- *         description: A user's id to track which book they registered
+ *         description: userId to get tracker history and books registered
  *     responses:
  *       200:
  *         description: OK
@@ -30,7 +30,7 @@ router.get('', getBookHandler)
  *            schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/book'
+ *                 $ref: '#/components/schemas/collection'
  *       401:
  *         description: Unauthorized
  *         content:

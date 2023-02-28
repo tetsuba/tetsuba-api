@@ -1,35 +1,30 @@
 import express from 'express'
-import deleteBookHandler from './handler.js'
-
+import createTrackerTableHandler from './handler.js'
 const router = express.Router()
 
-router.delete('/delete', deleteBookHandler)
+router.post('/create-table', createTrackerTableHandler)
 /**
  * @swagger
  *
- * /api/reading/book/delete:
- *   delete:
+ * /api/reading/tracker/create-table:
+ *  post:
  *     security:
  *       - bearerAuth: []
- *     summary: Delete a book
- *     description: Delete a book with a specified id
+ *     summary: Create a tracker table.
+ *     description: The main use for creating a tracker table is testing the api.
  *     tags:
- *       - reading / book
- *     parameters:
- *       - in: query
- *         name: bookId
- *         schema:
- *           type: string
- *         description: Delete a book from the database
+ *       - reading / tracker
  *     responses:
  *       200:
- *         description: OK - Return an updated list of books
+ *         description:
  *         content:
  *           application/json:
- *            schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/collection'
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: 'Tracker table created'
  *       401:
  *         description: Unauthorized
  *         content:

@@ -1,18 +1,17 @@
 import express from 'express'
-import updateBookHandler from './handler.js'
+import addTrackerHandler from './handler.js'
 const router = express.Router()
 
-router.patch('/update', updateBookHandler)
+router.post('/add', addTrackerHandler)
 /**
  * @swagger
  *
- * /api/reading/book/update:
- *   patch:
- *     deprecated: true
+ * /api/reading/book/register:
+ *   post:
  *     security:
  *       - bearerAuth: []
- *     summary: Update a book's history
- *     description: Update a book's history
+ *     summary: Register a new book
+ *     description: Register a new book
  *     tags:
  *       - reading / book
  *     requestBody:
@@ -21,26 +20,19 @@ router.patch('/update', updateBookHandler)
  *             schema:
  *               type: object
  *               properties:
- *                 id:
+ *                 userId:
  *                   type: integer
- *                 title:
- *                   type: string
- *                 story:
- *                   type: string
  *             example:
- *               id: 2
- *               title: "The Title"
- *               story: "Once upon a time"
+ *               userId: 2
  *     responses:
- *       200:
- *         description: OK
+ *       201:
+ *         description: Created
  *         content:
  *           application/json:
  *            schema:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/book'
- *
  *       400:
  *         description: Bad Request
  *         content:

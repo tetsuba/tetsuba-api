@@ -1,6 +1,8 @@
 import validate from '../../../../../validator.js'
 import REGISTER_USER_SCHEMA from './schema.js'
 import { getValuesFrom, tableName } from '../../../../../utils.js'
+import { SQL__INSERT_INTO_TRACKER } from '../../tracker/add/handler.js'
+import { SQL__SELECT_USER } from '../user/handler.js'
 
 const SQL__INSERT_INTO_USER = `
   INSERT INTO ${tableName(
@@ -26,8 +28,20 @@ export default function registerNewUserHandler(req, res) {
                             }
                         })
                 } else {
-                    res.status(201) // Created
-                        .json({ success: 'User registered!' })
+                    res.sqlite.get(
+                        SQL__SELECT_USER,
+                        [req.query.email],
+                        (err, row) => {
+                            res.sqlite.run(
+                                SQL__INSERT_INTO_TRACKER,
+                                [row.id],
+                                () => {
+                                    res.status(201) // Created
+                                        .json({ success: 'User registered!' })
+                                }
+                            )
+                        }
+                    )
                 }
             }
         )

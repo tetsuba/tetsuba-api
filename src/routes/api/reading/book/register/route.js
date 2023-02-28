@@ -38,7 +38,7 @@ router.post('/register', registerBookHandler)
  *            schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/book'
+ *                 $ref: '#/components/schemas/collection'
  *       400:
  *         description: Bad Request
  *         content:

@@ -1,42 +1,55 @@
-import {
-    createBookTable,
-    deleteBookTable,
-    getBook,
-    registerBook
-} from '../bookTestAPI.js'
+import { createBookTable, deleteBookTable } from '../../book/bookTestAPI.js'
+import { getSightWords } from '../sightWordsTestApi.js'
 import {
     addTracker,
     createTrackerTable,
-    deleteTrackerTable
+    deleteTrackerTable,
+    updateTracker
 } from '../../tracker/trackerTestApi.js'
 
-describe('@GET /api/reading/book', () => {
+const UPDATE_DATA = {
+    userId: 1,
+    libId: '002',
+    bookId: 1,
+    history: [{ date: '12/12/12', words: ['word', 'word'] }]
+}
+const UPDATE_DATA_2 = {
+    userId: 1,
+    libId: '002',
+    bookId: 2,
+    history: [
+        { date: '12/12/12', words: ['word', 'word'] },
+        { date: '12/12/12', words: ['there', 'then'] }
+    ]
+}
+
+describe('@GET /api/reading/sightWords', () => {
     const query = '?userId=1'
     describe('status: 200', () => {
         beforeAll(async () => {
             await createBookTable()
             await createTrackerTable()
             await addTracker({ userId: 1 })
-            await registerBook({
-                userId: 1,
-                title: 'title',
-                story: 'story'
-            })
+            await updateTracker(UPDATE_DATA)
+            await updateTracker(UPDATE_DATA_2)
         })
         afterAll(async () => {
             await deleteBookTable()
             await deleteTrackerTable()
         })
-        test('should respond with four book collections', async () => {
-            const res = await getBook(query)
+        test('should respond with all books with the same userId', async () => {
+            const res = await getSightWords(query)
             const data = JSON.parse(res.text)
             expect(res.status).toBe(200)
-            expect(data).toHaveLength(4)
+            expect(data).toHaveProperty('sightWordsFromBooks')
+            expect(data).toHaveProperty('sightWordsNotInBooks')
+            expect(data).toHaveProperty('sightWordsReadInBooks')
+            expect(data).toHaveProperty('sightWordsReadWrong')
         })
     })
     describe('status: 400', () => {
         test('empty query string', async () => {
-            const res = await getBook('')
+            const res = await getSightWords('')
             expect(res.status).toBe(400)
             expect(res.text).toEqual(
                 expect.stringContaining('userId must be integer')
@@ -46,14 +59,14 @@ describe('@GET /api/reading/book', () => {
     describe('status: 401', () => {
         test('with no Bearer token', async () => {
             const noToken = true
-            const res = await getBook('', noToken)
+            const res = await getSightWords('', noToken)
             expect(res.text).toEqual(expect.stringContaining('Not authorized'))
             expect(res.status).toBe(401)
         })
     })
     describe('status: 500', () => {
         test('should respond with an error if table does not exist', async () => {
-            const res = await getBook(query)
+            const res = await getSightWords(query)
             expect(res.status).toBe(500)
             expect(res.text).toEqual(expect.stringContaining('SQLITE_ERROR'))
         })

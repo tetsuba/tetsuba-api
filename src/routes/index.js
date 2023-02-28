@@ -1,11 +1,21 @@
 import express from 'express'
+import cors from 'cors'
+import bodyParser from 'body-parser'
+
+// ROUTES
 import user from './api/reading/user/index.js'
 import book from './api/reading/book/index.js'
+import sightWords from './api/reading/sightWords/index.js'
+import tracker from './api/reading/tracker/index.js'
+
+// DOCS
 import apiDocs from './docs/index.js'
-import bodyParser from 'body-parser'
+
+// MIDDLEWARE
 import { protectRoutes } from '../middleware/auth.js'
+
+// DATABASE
 import sqlite from '../database/index.js'
-import cors from 'cors'
 
 const app = express()
 
@@ -19,6 +29,8 @@ app.use(protectRoutes)
  */
 app.use('/api/reading', user)
 app.use('/api/reading', book)
+app.use('/api/reading', sightWords)
+app.use('/api/reading', tracker)
 
 /* API Documentation (Swagger)
  *

@@ -1,27 +1,27 @@
 import express from 'express'
-import getWordsHandler from './handler.js'
+import getWordsFromTrackerHandler from './handler.js'
 
 const router = express.Router()
 
-router.get('/words', getWordsHandler)
+router.get('/words', getWordsFromTrackerHandler)
 
 /**
  * @swagger
  *
- * /api/reading/book/words:
+ * /api/reading/tracker/words:
  *   get:
  *     security:
  *       - bearerAuth: []
  *     summary:
- *     description: A list of words a reader read incorrectly
+ *     description: Get a list of words displaying the frequency read incorrectly
  *     tags:
- *       - reading / book
+ *       - reading / tracker
  *     parameters:
  *       - in: query
  *         name: userId
  *         schema:
  *           type: string
- *         description: A user's id to track which book they registered
+ *         description: A user's id to find tracking data
  *     responses:
  *       200:
  *         description: OK
