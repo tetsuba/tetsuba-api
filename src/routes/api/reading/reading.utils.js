@@ -56,20 +56,22 @@ function getSightWordsNotInList(words) {
 }
 
 function getBooksRead(lib, history) {
-    return lib
-        .filter((collection) =>
-            history.some((book) => collection.id === book.libId)
-        )
-        .map((collection) => ({
-            ...collection,
-            books: collection.books.filter((storyBook) =>
-                history.some(
-                    (book) =>
-                        collection.id === book.libId &&
-                        storyBook.id === book.bookId
-                )
-            )
-        }))
+    return history
+        ? lib
+              .filter((collection) =>
+                  history.some((book) => collection.id === book.libId)
+              )
+              .map((collection) => ({
+                  ...collection,
+                  books: collection.books.filter((storyBook) =>
+                      history.some(
+                          (book) =>
+                              collection.id === book.libId &&
+                              storyBook.id === book.bookId
+                      )
+                  )
+              }))
+        : []
 }
 
 export function updateWithTrackingData(library, data) {
@@ -123,9 +125,11 @@ export function updateTrackerData(trackerData, json) {
 
 function getWords(books) {
     return books
-        .map((book) => book.history.map(({ words }) => words))
-        .flat()
-        .flat()
+        ? books
+              .map((book) => book.history.map(({ words }) => words))
+              .flat()
+              .flat()
+        : []
 }
 
 function getWordsFromTracker(row) {

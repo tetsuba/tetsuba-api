@@ -30,14 +30,12 @@ describe('@GET /api/reading/sightWords', () => {
             await createBookTable()
             await createTrackerTable()
             await addTracker({ userId: 1 })
-            await updateTracker(UPDATE_DATA)
-            await updateTracker(UPDATE_DATA_2)
         })
         afterAll(async () => {
             await deleteBookTable()
             await deleteTrackerTable()
         })
-        test('should respond with all books with the same userId', async () => {
+        test('should respond with four groups of sight words', async () => {
             const res = await getSightWords(query)
             const data = JSON.parse(res.text)
             expect(res.status).toBe(200)
@@ -45,6 +43,17 @@ describe('@GET /api/reading/sightWords', () => {
             expect(data).toHaveProperty('sightWordsNotInBooks')
             expect(data).toHaveProperty('sightWordsReadInBooks')
             expect(data).toHaveProperty('sightWordsReadWrong')
+            expect(data.sightWordsReadWrong).toHaveLength(0)
+            expect(data.sightWordsReadInBooks).toHaveLength(0)
+        })
+        test('should respond with sight words been read', async () => {
+            await updateTracker(UPDATE_DATA)
+            await updateTracker(UPDATE_DATA_2)
+            const res = await getSightWords(query)
+            const data = JSON.parse(res.text)
+            expect(res.status).toBe(200)
+            expect(data.sightWordsReadWrong).toHaveLength(2)
+            expect(data.sightWordsReadInBooks).toHaveLength(9)
         })
     })
     describe('status: 400', () => {
