@@ -156,8 +156,74 @@ export default [
         books: [
             {
                 id: 1,
-                title: '',
-                story: '',
+                title: 'The Greedy Dog',
+                story: 'Dog was always hungry. One day, he trotted to the market. He spotted a bone. "Look at that bone," Dog barked. "I want it!" No one was looking. Greedy Dog grabbed the bone. Then he ran away. He ran and ran. I\'m so clever! Soon, he came to a river. Dog looked into the water. He saw another dog! "That dog has a bigger node," he thought. "I want it!" He growled at the dog in the water. The dog in the water growled back. He barked at the dog in the water. Woof! The bone fell out of his mouth. Splash! The other dog vanished. "Oh no!" barked Dog. "Now I have no bone at all". There was no dog in the water. It was Greedy Dog\'s reflection all along. I\'m so silly!',
+                history: null
+            },
+            {
+                id: 2,
+                title: 'The Wish Fish',
+                story: 'This story is about Bob, Bet, the sea, big fish, small fish and a magic fish. Bob and Bet live by the sea. They like fish. Bob fishes all day. He catches big fish and small fish. One day, he catches a magic fish. The fish gives Bob and Bet three wishes. "I wish to be rich," says Bob. "I wish to be richer," says Bet. "I wish to be richer still!" she says. "Too greedy!" says the fish.',
+                history: null
+            },
+            {
+                id: 3,
+                title: "A Rabbit's Tale",
+                story: 'Rabbit was sad. His home was too small. "I need more room," he said. Owl is clever. Maybe he can help. He went to see Owl. My home is too small. What can I do? Owl thought. "Ask your brothers and sisters to stay," he said. Rabit was puzzled, but he did as Owl said. All his brothers and sisters came. It was a tight squeeze. Rabbit went back to Owl. Now there\'s less room! What can I do? Owl smiled. "Ask all your friends too". "Really?" said Rabbit. But he did. All his friends came. Rabbit couldn\'t move. He rand to Owl. There\'s no room for me. Tell them it\'s time to go home. Everyone went home. Rabbit was happy. "All this space!" Thank you Owl.',
+                history: null
+            },
+            {
+                id: 4,
+                title: 'The Lion and the Mouse',
+                story: 'Lion was fast asleep. Something tickled his nose. Aaaaaaaa - Chooooooooo. Lion woke up. A mouse! "How dare you wake me!" Lion roared. He raised his paw "Please don\'t kill me," begged the mouse. "Maybe I can save your life too, one day". Lion laughed. You\'re too small to save anyone. The next day, Lion walked into a trap. Help! The mouse heard him. Don\'t worry, I can help you. She nibbled through the ropes and Lion was free. "I\'m sorry, little mouse," said Lion. "I was wrong". "Even little friends can be good friends".',
+                history: null
+            },
+            {
+                id: 5,
+                title: 'Old Mac Donald had a farm',
+                story: 'Old MacDonald had a farm, E I E I O. And on his farm he had some cows, E I E I O. With a moo-moo here, and a moo-moo there. Here a moo, there a moo, everywhere a moo-moo. Old MacDonald had a farm, E I E I O. And on his farm he had some sheep, E I E I O. With a baa-baa here, and a baa-baa there. Here a baa, there a baa, everywhere a baa-baa. Old MacDonald had a farm, E I E I O. And on his farm he had some pigs, E I E I O. With an oink-oink here, and an oink-oink there. Here an oink, there an oink, everywhere an oink-oink. Old MacDonald had a farm, E I E I O.  And on his farm he had some hens, E I E I O. With a cluck-cluck here, and a cluck-cluck there. Here a cluck, there a cluck, everywhere a cluck-cluck. Old MacDonald had a farm, E I E I O.',
+                history: null
+            },
+            {
+                id: 6,
+                title: 'The Fox and the Stork',
+                story: 'Fox and Stork were friends, but Fox loved playing tricks. One day, he had an idea. He asked Stork to dinner. Stork was very hungry. Fox poured soup into wide bowls. Pool Stork! She couldn\'t eat a thing. "Don\'t you like it?" said Fox. I\'ll eat it, then. The next day, Stork asked Fox to dinner. Stork poured soup into tall jars. Poor Fox! He couldn\'t eat a thing. Fox was angry. "You tricked me!" But Stork said, "You tricked me first". "Always be kind to your friends," said Stork. "and they will be kind to you".',
+                history: null
+            },
+            {
+                id: 7,
+                title: 'The Ant and the Grasshopper',
+                story: 'Grasshopper sings in the sun. Ant works. "Play with me," says Grasshopper. "I can\'t " says Ant. I need food for the winter. But it\'s summer. "Winter will come," says Ant. "And you will be hungry". Grasshopper laughs and sings. Ant carries more corn. Winter comes. Ant is happy. Grasshopper is cold and very hungry. "Come inside," says Ant. "Thank you," says Grasshopper. "Next summer I\'ll work too".  ',
+                history: null
+            },
+            {
+                id: 8,
+                title: 'King Midas and the Gold',
+                story: 'King Midas was very rich. He was kind, too. One day, he met an old man. i\'m lost! Midas helped the man to find his house. Dad! "My son is a god," said the old man. "He can give you a wish". "I love gold," said King Midas. "I wish I could touch things and turn them to gold". King Midas touched his stick and it turned to gold. He touched his palace and it turned to gold. He touched his dinner and that turned to gold, too. "How can I make it stop?" said King Midas. "There is a secret river in the hills," said the god. "Find it and wash yourself in it". Midas walked a very long way. At last, he found the river. And the water washed away his golden touch.',
+                history: null
+            },
+            {
+                id: 9,
+                title: 'Anansi and the Bag of Wisdom',
+                story: 'Anansi was king of the spiders. One day, a god gave him a present. "This bag has all the wisdom in the world". "Anansi, you must share it". Anansi frowned. He didn\'t want to share it. I could be the cleverest in the world. "I must hide the bag," he thought. He found the tallest tree in the jungle and started to climb. But the bag got in the way. His son tried to help. Put the bag on your back. Hurray! It worked. "But I have the bag of wisdom," Anansi said. "I should know it goes on my back". He threw the bag down into a bush. It burst open. Wisdom flew all over the world. Everyone had some. Now everyone knows something but no one knows everything.',
+                history: null
+            },
+            {
+                id: 10,
+                title: 'The Fox and the Crow',
+                story: 'Fox was always hungry. One day, he saw Crow with some cheese. I want that cheese. He grinned at Crow. "You\'re pretty!" I am. "What beautiful feathers!" They are. "Can you sing too?" he asked. Crow nodded. She opened her beak. Down fell the cheese. Fox snapped it up. "That was mine!" cried Crow. Fox laughed. "Don\'t always believe people who day nice things," he said. "Sometimes they just want something from you".',
+                history: null
+            },
+            {
+                id: 11,
+                title: 'The Three Wishes',
+                story: 'This story is about Ned and Nat, a fairy and a sausage. Ned and Nat were hungry. They were always hungry. Ned worked in the fields. Help! One day, he helped a fairy. "Thank you". "Have three wishes," said the fairy. Ned ran home. "Nat! We have three wishes!" he shouted. "Ooh!" said Nat. "I wish for a sausage!" said Ned. "A sausage?" said Nat. "What a silly wish". You fool! But I\'m hungry. Ned was cross. "I wish the sausage was the end of your nose". And it was. Nat was very, very, very cross. "Oops!" said Ned. "Ned!" wailed Nat. "Do something". "I wish the sausage was off your nose," said Ned. And it was. "Now we have no wishes," said Nat. "But we do have a sausage!" said Ned.',
+                history: null
+            },
+            {
+                id: 12,
+                title: 'The Sun and the Wind',
+                story: '"Look at me," said the sun. "Listen to me," said the wind. "I\'m string," said the sun. "I\'m stronger," said the wind. "Show me!" said the sun. "See that man? Can you take his coat off?" "All right," said the wind. He\'s cold. He\'s colder. "He\'s hiding! My turn," said the sun. Look. He\'s coming out now. He\'s warm. He\'s warmer. "I win," said the sun. "Huff!" said the wind.',
                 history: null
             }
         ]

@@ -136,6 +136,10 @@ function getWordsFromTracker(row) {
     return []
 }
 
+function sortWordsByHighestNumberFirst(words) {
+    return words.sort((a, b) => b.index - a.index)
+}
+
 export function getSightWordsData(books, history) {
     const historyData = JSON.parse(history)
     library[0].books = books
@@ -154,16 +158,19 @@ export function getSightWordsData(books, history) {
 }
 
 export const countTrackerWords = compose(
+    sortWordsByHighestNumberFirst,
     countDuplicateWords,
     getWordsFromTracker
 )
 
 export const countSightWordsInBooks = compose(
+    sortWordsByHighestNumberFirst,
     countDuplicateWords,
     getSightWordsFromBooks
 )
 
 export const getSightWordsNotInBooks = compose(
+    sortWordsByHighestNumberFirst,
     countDuplicateWords,
     removeDuplicates,
     getSightWordsNotInList
