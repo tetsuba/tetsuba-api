@@ -28,9 +28,39 @@ router.get('/words', getWordsFromTrackerHandler)
  *         content:
  *           application/json:
  *            schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/word'
+ *               type: object
+ *               properties:
+ *                 readIncorrectly:
+ *                   type: object
+ *                   properties:
+ *                     oneWeekAgo:
+ *                       type: array
+ *                       items:
+ *                        $ref: '#/components/schemas/word'
+ *                     oneMonthAgo:
+ *                       type: array
+ *                       items:
+ *                         $ref: '#/components/schemas/word'
+ *                     history:
+ *                       type: array
+ *                       items:
+ *                         $ref: '#/components/schemas/word'
+ *                 lastBookRead:
+ *                   type: array
+ *                   items:
+ *                     properties:
+ *                       bookId:
+ *                         type: integer
+ *                       libId:
+ *                         type: string
+ *                       date:
+ *                         type: string
+ *                       title:
+ *                         type: string
+ *                       words:
+ *                         type: array
+ *                         items:
+ *                           type: string
  *       401:
  *         description: Unauthorized
  *         content:
