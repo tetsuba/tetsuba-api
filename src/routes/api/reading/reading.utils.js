@@ -1,3 +1,4 @@
+import moment from 'moment'
 import sightWords from '../../../database/sightWords.js'
 import library from '../../../database/static/library.js'
 
@@ -132,12 +133,104 @@ function getWords(books) {
         : []
 }
 
-function getWordsFromTracker(row) {
+function dateIsAfterOne(unit, date) {
+    const oneWeek = moment().subtract(1, unit)
+    return moment(date, 'DD/MM/YYYY').isAfter(oneWeek)
+}
+
+function convertToWordsReadIncorrectly(acc, book) {
+    if (dateIsAfterOne('week', book.date)) {
+        return {
+            ...acc,
+            oneWeekAgo: acc.oneWeekAgo.concat(book.words)
+        }
+    } else if (dateIsAfterOne('month', book.date)) {
+        return {
+            ...acc,
+            oneMonthAgo: acc.oneMonthAgo.concat(book.words)
+        }
+    } else {
+        return {
+            ...acc,
+            history: acc.history.concat(book.words)
+        }
+    }
+}
+
+function countDuplicateWordsInObject(obj) {
+    const keys = Object.keys(obj)
+    return keys.reduce((o, key) => {
+        return {
+            ...o,
+            [key]: countDuplicateWords(o[key])
+        }
+    }, obj)
+}
+
+export function getLastBookRead(row) {
     if (row && row.data) {
         const data = JSON.parse(row.data)
-        return getWords(data)
+        return data.reduce(
+            (capture, book) => {
+                const compareDate = moment(capture[0].date, 'DD/MM/YYYY')
+                book.history.forEach((data) => {
+                    if (moment(data.date, 'DD/MM/YYYY').isAfter(compareDate)) {
+                        capture = [
+                            {
+                                date: data.date,
+                                bookId: book.bookId,
+                                libId: book.libId,
+                                words: data.words
+                            }
+                        ]
+                    } else if (
+                        moment(data.date, 'DD/MM/YYYY').isSame(compareDate)
+                    ) {
+                        capture = capture.concat([
+                            {
+                                date: data.date,
+                                bookId: book.bookId,
+                                libId: book.libId,
+                                words: data.words
+                            }
+                        ])
+                    }
+                })
+                return capture
+            },
+            [{ date: '23/02/2023' }]
+        )
     }
     return []
+}
+
+export function getBookTitle(lastBookRead, lib) {
+    return lastBookRead.map((bookRead) => {
+        const title = lib
+            .find((collection) => collection.id === bookRead.libId)
+            .books.find((book) => book.id === bookRead.bookId).title
+
+        return {
+            ...bookRead,
+            title
+        }
+    })
+}
+
+function getWordsFromTracker(row) {
+    const wordsReadIncorrectly = {
+        oneWeekAgo: [],
+        oneMonthAgo: [],
+        history: []
+    }
+    if (row && row.data) {
+        const data = JSON.parse(row.data)
+        return data
+            .map((book) => book.history.filter((a) => a.words.length))
+            .flat()
+            .reduce(convertToWordsReadIncorrectly, wordsReadIncorrectly)
+    }
+    return wordsReadIncorrectly
 }
 
 function sortWordsByHighestNumberFirst(words) {
@@ -162,8 +255,7 @@ export function getSightWordsData(books, history) {
 }
 
 export const countTrackerWords = compose(
-    sortWordsByHighestNumberFirst,
-    countDuplicateWords,
+    countDuplicateWordsInObject,
     getWordsFromTracker
 )
 

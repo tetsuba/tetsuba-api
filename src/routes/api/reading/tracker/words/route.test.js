@@ -5,20 +5,37 @@ import {
     updateTracker,
     getTrackerWords
 } from '../trackerTestApi.js'
+import moment from 'moment'
+import {
+    createBookTable,
+    deleteBookTable,
+    registerBook
+} from '../../book/bookTestAPI.js'
 
 const UPDATE_DATA = {
     userId: 1,
     libId: '001',
     bookId: 1,
-    history: [{ date: '12/12/12', words: ['word', 'word'] }]
+    history: [
+        {
+            date: moment().subtract(2, 'days').format('DD/MM/YYYY'),
+            words: ['here', 'hair']
+        }
+    ]
 }
 const UPDATE_DATA_2 = {
     userId: 1,
     libId: '002',
     bookId: 2,
     history: [
-        { date: '12/12/12', words: ['word', 'word'] },
-        { date: '12/12/12', words: ['there', 'then'] }
+        {
+            date: moment().subtract(20, 'days').format('DD/MM/YYYY'),
+            words: ['been', 'seen']
+        },
+        {
+            date: moment().subtract(40, 'days').format('DD/MM/YYYY'),
+            words: ['there', 'then']
+        }
     ]
 }
 
@@ -26,6 +43,12 @@ describe('@GET /api/reading/tracker/words', () => {
     const query = '?userId=1'
     describe('status: 200', () => {
         beforeAll(async () => {
+            await createBookTable()
+            await registerBook({
+                userId: 1,
+                title: 'new book',
+                story: 'This is a story'
+            })
             await createTrackerTable()
             await addTracker({
                 userId: 1
@@ -35,21 +58,35 @@ describe('@GET /api/reading/tracker/words', () => {
             })
         })
         afterAll(async () => {
+            await deleteBookTable()
             await deleteTrackerTable()
         })
         test('should respond with an empty array', async () => {
             const res = await getTrackerWords(query)
             expect(res.status).toBe(200)
-            expect(res.text).toBe('[]')
+            expect(res.text).toBe(
+                '{"readIncorrectly":{"oneWeekAgo":[],"oneMonthAgo":[],"history":[]},"lastBookRead":[]}'
+            )
         })
         test('should respond with a frequency of words when tracker is updated', async () => {
             await updateTracker(UPDATE_DATA)
             await updateTracker(UPDATE_DATA_2)
             const res = await getTrackerWords(query)
             expect(res.status).toBe(200)
-            expect(res.text).toBe(
-                '[{"word":"word","index":4},{"word":"there","index":1},{"word":"then","index":1}]'
-            )
+            const data = JSON.parse(res.text)
+            expect(data.readIncorrectly.oneWeekAgo).toEqual([
+                { word: 'here', index: 1 },
+                { word: 'hair', index: 1 }
+            ])
+            expect(data.readIncorrectly.oneMonthAgo).toEqual([
+                { word: 'been', index: 1 },
+                { word: 'seen', index: 1 }
+            ])
+            expect(data.readIncorrectly.history).toEqual([
+                { word: 'there', index: 1 },
+                { word: 'then', index: 1 }
+            ])
+            expect(data.lastBookRead).toHaveLength(1)
         })
     })
     describe('status: 400', () => {
