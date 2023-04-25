@@ -11,7 +11,10 @@ export function getWordsFromBooks(lib) {
         .map((collection) => collection.books)
         .flat()
         .reduce((acc, book) => {
-            return `${acc} ${book.story}`
+            const story = Array.isArray(book.story)
+                ? book.story.join(' ')
+                : book.story
+            return `${acc} ${story}`
         }, '')
         .split(' ')
         .map((word) =>

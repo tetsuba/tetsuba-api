@@ -3,7 +3,7 @@ const REGISTER_BOOK_SCHEMA = {
     properties: {
         userId: { type: 'number' },
         title: { type: 'string' },
-        story: { type: 'string' }
+        story: { type: 'array' }
     },
     required: ['userId', 'title', 'story'],
     additionalProperties: false

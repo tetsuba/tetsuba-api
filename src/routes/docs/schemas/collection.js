@@ -29,13 +29,13 @@ export default {
                 {
                     id: 1,
                     title: 'title',
-                    story: '',
+                    story: ['This is a sentence.', 'This is a sentence.'],
                     history: ''
                 },
                 {
                     id: 2,
                     title: 'title',
-                    story: '',
+                    story: ['This is a sentence.', 'This is a sentence.'],
                     history: ''
                 }
             ]

@@ -17,7 +17,15 @@ export function responseGetBooks(db, res, userId, status) {
                 error: err
             })
 
-        library[0].books = rows
+        library[0].books = rows.map((book) => {
+            // TODO: remove ternary operator when all stories are an array
+            return {
+                ...book,
+                story: book.story.match(/\[/)
+                    ? JSON.parse(book.story)
+                    : book.story
+            }
+        })
 
         db.get(SQL__SELECT_TRACKER, [userId], function (err, row) {
             if (err)

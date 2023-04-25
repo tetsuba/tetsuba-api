@@ -12,7 +12,7 @@ import {
 const BOOK_DATA = {
     userId: 1,
     title: 'A new story',
-    story: 'Once upon a time'
+    story: ['Once upon a time.', 'There was a whale.']
 }
 
 describe('@POST /api/reading/book/register', () => {
