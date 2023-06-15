@@ -47,7 +47,7 @@ describe('@GET /api/reading/tracker/words', () => {
             await registerBook({
                 userId: 1,
                 title: 'new book',
-                story: 'This is a story'
+                story: ['This is a story']
             })
             await createTrackerTable()
             await addTracker({

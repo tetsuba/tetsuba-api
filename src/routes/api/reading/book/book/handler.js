@@ -35,6 +35,7 @@ export function responseGetBooks(db, res, userId, status) {
                 })
             const tracker = row.data ? JSON.parse(row.data) : []
             const updatedLibrary = updateWithTrackingData(library, tracker)
+            console.log('BOOK', updatedLibrary)
             res.status(status || 200).json(updatedLibrary)
         })
     })

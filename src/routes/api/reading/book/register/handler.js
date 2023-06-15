@@ -10,6 +10,7 @@ const SQL__INSERT_INTO_BOOK = `
 export default function registerBookHandler(req, res) {
     const db = res.sqlite
     const errors = validate(REGISTER_BOOK_SCHEMA, req.body)
+    console.log('Register Book', errors)
     if (errors) {
         res.status(400) // Bad Request
             .json({ error: errors })

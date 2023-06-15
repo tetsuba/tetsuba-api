@@ -19,12 +19,12 @@ describe('@DELETE /api/reading/book/delete', () => {
             await registerBook({
                 userId: 1,
                 title: 'title',
-                story: 'story'
+                story: ['story']
             })
             await registerBook({
                 userId: 2, // userId must match the bearer token
                 title: 'title2',
-                story: 'story2'
+                story: ['story2']
             })
             await createTrackerTable()
             await addTracker({ userId: 1 })

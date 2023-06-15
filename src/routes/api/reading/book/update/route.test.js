@@ -8,7 +8,7 @@ import {
 const REGISTER_BOOK_DATA = {
     userId: 1,
     title: 'Book Title',
-    story: 'This is a story.'
+    story: ['This is a story.']
 }
 
 const UPDATE_BOOK_HISTORY_DATA = {
