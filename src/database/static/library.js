@@ -784,8 +784,225 @@ export default [
         books: [
             {
                 id: 1,
-                title: '',
-                story: '',
+                title: 'King Donkey Ears',
+                story: [
+                    "This story is about a king, Meg a servant, the king's best friend, a tree, a woodcutter and a harp",
+                    'There was once a king with a big secret.',
+                    "He didn't even tell his best friend.",
+                    'No one knew... except the servant who cut his hair.',
+                    'Every month, the king had a hair cut. Snip!',
+                    'Then he sent the servant to prison. Shh!',
+                    "In July, it was Meg's turn.",
+                    "Meg saw the king's ears",
+                    'Er... what lovely hair...',
+                    "She was shocked, but she didn't say.",
+                    'As soon as Meg had finished, the king cried, Off to jail!',
+                    '"But my mother is sick," said Meg. "She needs me."',
+                    'The king thought of his own mother.',
+                    "He didn't like putting people in jail.",
+                    '"Okay," said the king.',
+                    '"Promise you\'ll never tell anyone." I promise!',
+                    'That night, it was all Meg could think about.',
+                    "She had to tell. I'm going to burst!",
+                    "At last, she had an idea. She wouldn't tell anyone.",
+                    "She'd tell a tree!",
+                    "The king's got donkey's ears!",
+                    'So she did. Now Meg felt much better.',
+                    'Later, a woodcutter chopped down the tree.',
+                    'The tree became a harp.',
+                    'One day, the king gave a huge concert.',
+                    'But the new harp played a very strange tune.',
+                    "The king's got donkey's ears... The king's got donkey's ears...",
+                    '"You told my secret!" the king roared at Meg.',
+                    "The king's best friend came forward.",
+                    '"It\'s not a secret," he said. "We all know."',
+                    '"And you don\'t mind?" asked the king',
+                    '"Of course not!"',
+                    'So the king freed all the sevants.',
+                    'And he learned to love his ears.'
+                ],
+                history: null
+            },
+            {
+                id: 2,
+                title: 'How Elephants lost their Wings',
+                story: [
+                    'This story is about flying elephants, two gods, houses, peakocks and banana trees.',
+                    'Once upon a time, elephants could fly.',
+                    'They flew everywhere.',
+                    'They flew high into the sky and down to the ground.',
+                    'They even looped the loop.',
+                    'Sometimes, the gods flew on their backs.',
+                    'But the elephants were noisy.',
+                    'The yelled, and crowed like roosters.',
+                    'Trees and houses shook below them.',
+                    'They flew into trees and smashed them.',
+                    'They landed on houses... and fell right through.',
+                    'Soon all the trees were broken and there were no houses left.',
+                    '"We must stop them," said the gods, and they thought of a trick.',
+                    'They invited the elephants to a grand feast. The elephants ate and ate.',
+                    'When their tummies were full, they slept.',
+                    'The gods took away their wings.',
+                    'They gave them to the peacocks and the banana trees.',
+                    'The elephants were very cross.',
+                    'They shouted and they stomped.',
+                    "But they didn't get their wings back and they never flew again."
+                ],
+                history: null
+            },
+            {
+                id: 3,
+                title: 'The Dragon and the Phoenix',
+                story: [
+                    'This is the story of Dragon Moutain, Phoenix Mountain and a shining lake.',
+                    'It begins thousands of years ago, in China.',
+                    'Long, long ago, a dragon lived beside a magic river.',
+                    'A dark forest grew on the other side of the river.',
+                    'Every day, the dragon swam in the river.',
+                    'Every day, the phoenix flew in the sky above.',
+                    'One day, they met on an island in the river.',
+                    "A shiny pebble lay on the sand. It's beautiful",
+                    'The dragon washed it in the river.',
+                    'The phoenix polished it with a feather. And the pebble became a pearl.',
+                    'The dragon and the phoenix stayed on the island watching the pearl.',
+                    'The pearl shone brighter than stars brighter than the sun.',
+                    'It was so bright, the Queen of Heaven saw it shine.',
+                    '"I want that pearl!" she said.',
+                    'That night, she sent a guard to steal it.',
+                    'In the morning, the pearl was gone.',
+                    'The dragon looked in the magic river.',
+                    'The phoenix looked in the dark forest. No pearl there.',
+                    'Then they saw it shining in the sky.',
+                    'They flew up to Heaven and saw the Queen.',
+                    "That pearl is ours! No, it's mine.",
+                    'The pearl fell from the sky...',
+                    'It landed on the ground and became a shining lake.',
+                    'We must never leave it.',
+                    'The dragon and the phoenix lay beside it.',
+                    'They are still there today.'
+                ],
+                history: null
+            },
+            {
+                id: 4,
+                title: 'One, Two, Buckle My Shoe',
+                story: [
+                    'One, Two, buckle my shoe.',
+                    'Three, four, knock at the door.',
+                    'Five, six, pick up sticks.',
+                    'Seven, eight, lay them straight.',
+                    'Nine, ten, a big fat hen.',
+                    'Eleven, twelve, dig and delve.',
+                    'Thirteen, fourteen, maids a courting.',
+                    'Fifteen, sixteen, maids in the kitchen',
+                    'Seventeen, eighteen, maids a waiting.',
+                    "Nineteen, twenty, my plate's empty.",
+                    'Twenty one, twenty two, shoo fox, shoo!',
+                    'Twenty three, twenty four, home once more.',
+                    "Twenty five, twenty six, Let's get this fixed.",
+                    'Twenty seven, twenty eight, fasten the gate.',
+                    "Twenty nine, thirty, You're safe now Gertie."
+                ],
+                history: null
+            },
+            {
+                id: 5,
+                title: 'How Bear Lost his Tail',
+                story: [
+                    'Once upon a time, Bear gad a long, thick tail.',
+                    'The other animals loved his tail.',
+                    "Bear didn't like it at all.",
+                    'He tripped over it when he was walking.',
+                    'It tickled his nose when he tried to sleep.',
+                    'Little anibals would even ride on it.',
+                    "It's not fair!",
+                    '"Bear\'s tail is better than mine," thought Fox.',
+                    'He decided to play a trick on him.',
+                    'He crept over to a fisherman and took a few fish.',
+                    'Fox carried the fish to an ice hole in the lake.',
+                    'Bear smelled them. He came closer.',
+                    '"Those fish look delicious," said bear.',
+                    '"I can show you how to catch them," said Fox.',
+                    '"Put your tail in the hole," Fox told Bear.',
+                    '"The fish will bite it and you can pull them out."',
+                    'It may take some time.',
+                    'Bear waited and waited.',
+                    'Day became night.',
+                    'The night grew cold. It began to snow.',
+                    'The next day, Fox came back. Was Bear still there?',
+                    'Fox could only see a huge heap of snow. "Bear?" he shouted.',
+                    'Bear jumped up. But his tail had frozen in the lake.',
+                    'It broke off.',
+                    '"I\'m so sorry!" Fox cried. "I didn\'t know that would happen."',
+                    "Bear looked at his new short tail, and smiled. That's better!",
+                    "Bear padded away and he didn't trip once."
+                ],
+                history: null
+            },
+            {
+                id: 6,
+                title: 'Clever Rabbit and the Wolves',
+                story: [],
+                history: null
+            },
+            {
+                id: 7,
+                title: 'There Was A Crooked Man',
+                story: [],
+                history: null
+            },
+            {
+                id: 8,
+                title: 'The Old Women who lived in a Shoe',
+                story: [],
+                history: null
+            },
+            {
+                id: 9,
+                title: 'Clever Rabbit and the Lion',
+                story: [],
+                history: null
+            },
+            {
+                id: 10,
+                title: 'The Tortoise and the Eagle',
+                story: [],
+                history: null
+            },
+            {
+                id: 11,
+                title: 'The Daydreamer',
+                story: [],
+                history: null
+            },
+            {
+                id: 12,
+                title: 'Old Mother Hubbard',
+                story: [],
+                history: null
+            },
+            {
+                id: 13,
+                title: 'The Magic Melon',
+                story: [],
+                history: null
+            },
+            {
+                id: 14,
+                title: 'Little Miss Muffet',
+                story: [],
+                history: null
+            },
+            {
+                id: 15,
+                title: 'Doctor Foster went to Gloucester',
+                story: [],
+                history: null
+            },
+            {
+                id: 16,
+                title: 'The Genie in the Bottle',
+                story: [],
                 history: null
             }
         ]

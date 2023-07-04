@@ -3,8 +3,6 @@ import validate from '../../../../../validator.js'
 import { tableName } from '../../../../../utils.js'
 import { createJWT } from '../../../../../middleware/auth.js'
 
-const ERROR_MESSAGE = { error: 'Incorrect username or password' }
-
 const SQL__SELECT_USER = `
   SELECT * FROM ${tableName('user')} WHERE email = ?
 `
@@ -12,11 +10,10 @@ function passwordMatch(userPassword, rowPassword) {
     return userPassword === rowPassword
 }
 
-export default function loginUserHandler(req, res) {
+export default function loginUserHandler(req, res, next) {
     const errors = validate(LOGIN_USER_SCHEMA, req.body)
     if (errors) {
-        res.status(400) // Bad Request
-            .json({ error: { message: errors } })
+        next({ status: 400, stack: errors })
     } else {
         res.sqlite.get(
             SQL__SELECT_USER,
@@ -29,10 +26,16 @@ export default function loginUserHandler(req, res) {
                         delete row.password
                         res.status(200).json({ token, data: row })
                     } else {
-                        res.status(500).json(ERROR_MESSAGE)
+                        next({
+                            status: 500,
+                            stack: 'Incorrect username or password'
+                        })
                     }
                 } else {
-                    res.status(500).json(ERROR_MESSAGE)
+                    next({
+                        status: 500,
+                        stack: 'Incorrect username or password'
+                    })
                 }
             }
         )

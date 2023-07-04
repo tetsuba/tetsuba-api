@@ -38,56 +38,66 @@ describe('@POST /api/reading/book/register', () => {
     describe('status: 400', () => {
         test('with no properties', async () => {
             const res = await registerBook({})
+            const json = JSON.parse(res.text)
             expect(res.status).toBe(400)
-            expect(res.text).toEqual(
-                expect.stringContaining(
-                    "data must have required property 'userId'"
-                )
-            )
-            expect(res.text).toEqual(
-                expect.stringContaining(
-                    "data must have required property 'title'"
-                )
-            )
-            expect(res.text).toEqual(
-                expect.stringContaining(
-                    "data must have required property 'story'"
-                )
-            )
+            expect(json).toEqual({
+                success: false,
+                status: 400,
+                message: 'Bad request',
+                stack: "data must have required property 'userId', data must have required property 'title', data must have required property 'story'"
+            })
         })
         test('with userId as a string', async () => {
             const res = await registerBook({ ...BOOK_DATA, userId: '011' })
+            const json = JSON.parse(res.text)
             expect(res.status).toBe(400)
-            expect(res.text).toEqual(
-                expect.stringContaining('userId must be number')
-            )
+            expect(json).toEqual({
+                success: false,
+                status: 400,
+                message: 'Bad request',
+                stack: 'data/userId must be number'
+            })
         })
         test('with an additional property', async () => {
             const res = await registerBook({
                 ...BOOK_DATA,
                 newProperty: 'something'
             })
+            const json = JSON.parse(res.text)
             expect(res.status).toBe(400)
-            expect(res.text).toEqual(
-                expect.stringContaining(
-                    'data must NOT have additional properties'
-                )
-            )
+            expect(json).toEqual({
+                success: false,
+                status: 400,
+                message: 'Bad request',
+                stack: 'data must NOT have additional properties'
+            })
         })
     })
     describe('status: 401', () => {
         test('with no Bearer token', async () => {
             const noToken = true
             const res = await registerBook({}, noToken)
-            expect(res.text).toEqual(expect.stringContaining('Not authorized'))
+            const json = JSON.parse(res.text)
             expect(res.status).toBe(401)
+            expect(json).toEqual({
+                success: false,
+                status: 401,
+                message: 'Unauthorized',
+                stack: ''
+            })
         })
     })
     describe('status: 500', () => {
         test('should respond with an error if table does not exist', async () => {
             const res = await registerBook(BOOK_DATA)
+            const json = JSON.parse(res.text)
             expect(res.status).toBe(500)
-            expect(res.text).toEqual(expect.stringContaining('SQLITE_ERROR'))
+            expect(json).toEqual({
+                success: false,
+                status: 500,
+                message: 'Internal Server Error',
+                stack: json.stack
+            })
         })
     })
 })

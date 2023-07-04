@@ -6,7 +6,7 @@ router.post('/add', addTrackerHandler)
 /**
  * @swagger
  *
- * /api/reading/book/register:
+ * /api/reading/tracker/add:
  *   post:
  *     security:
  *       - bearerAuth: []

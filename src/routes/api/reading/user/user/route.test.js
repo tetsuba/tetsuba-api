@@ -52,29 +52,54 @@ describe('@GET /api/reading/user', () => {
         })
         test('requests without Bearer token', async () => {
             const res = await getUserDetails()
-
+            const json = JSON.parse(res.text)
             expect(res.status).toBe(401)
-            expect(res.text).toEqual(expect.stringContaining('Not authorized'))
+            expect(json).toEqual({
+                success: false,
+                status: 401,
+                message: 'Unauthorized',
+                stack: ''
+            })
         })
         test('should respond with an 401 error [Incorrect Bearer token]', async () => {
             const res = await getUserDetails('sdklfjskdfjsdkfjl')
+            const json = JSON.parse(res.text)
             expect(res.status).toBe(401)
-            expect(res.text).toEqual(expect.stringContaining('Not authorized'))
-        })
-        test('with a Bearer token with incorrect email', async () => {
-            const tokenWithWrongEmail = process.env.BEARER_TOKEN_WRONG_EMAIL
-            const res = await getUserDetails(tokenWithWrongEmail)
-
-            expect(res.status).toBe(401)
-            expect(res.text).toEqual(expect.stringContaining('Not authorized'))
+            expect(json).toEqual({
+                success: false,
+                status: 401,
+                message: 'Unauthorized',
+                stack: {
+                    expired: false
+                }
+            })
         })
     })
     describe('status: 500', () => {
         test('should respond with an error if table does not exist', async () => {
             const tokenWithWrongEmail = process.env.BEARER_TOKEN_WRONG_EMAIL
             const res = await getUserDetails(tokenWithWrongEmail)
+            const json = JSON.parse(res.text)
             expect(res.status).toBe(500)
-            expect(res.text).toEqual(expect.stringContaining('SQLITE_ERROR'))
+            expect(json).toEqual({
+                success: false,
+                status: 500,
+                message: 'Internal Server Error',
+                stack: json.stack
+            })
+        })
+
+        test('with a Bearer token with incorrect email', async () => {
+            const tokenWithWrongEmail = process.env.BEARER_TOKEN_WRONG_EMAIL
+            const res = await getUserDetails(tokenWithWrongEmail)
+            const json = JSON.parse(res.text)
+            expect(res.status).toBe(500)
+            expect(json).toEqual({
+                success: false,
+                status: 500,
+                message: 'Internal Server Error',
+                stack: json.stack
+            })
         })
     })
 })

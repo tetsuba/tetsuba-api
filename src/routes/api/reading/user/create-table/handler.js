@@ -13,10 +13,10 @@ const SQL__CREATE_TABLE_USER = `
 
 const PARAMS_NONE = []
 
-export default function createUserTableHandler(req, res) {
+export default function createUserTableHandler(req, res, next) {
     res.sqlite.run(SQL__CREATE_TABLE_USER, PARAMS_NONE, function callback(err) {
         if (err) {
-            return res.status(500).json(err)
+            next({ status: 500, stack: err })
         }
         res.status(200).json({ message: 'User table created' })
     })

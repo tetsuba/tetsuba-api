@@ -23,8 +23,14 @@ describe('@GET /api/reading/user/all', () => {
     describe('status: 500', () => {
         test('should respond with an error if table does not exist', async () => {
             const res = await getAllUsers()
+            const json = JSON.parse(res.text)
             expect(res.status).toBe(500)
-            expect(res.text).toEqual(expect.stringContaining('SQLITE_ERROR'))
+            expect(json).toEqual({
+                success: false,
+                status: 500,
+                message: 'Internal Server Error',
+                stack: json.stack
+            })
         })
     })
 })

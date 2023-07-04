@@ -6,14 +6,20 @@ export const SQL__SELECT_USER = `
   )} WHERE email = ?
 `
 
-export default function getUserHandler(req, res) {
+export default function getUserHandler(req, res, next) {
     res.sqlite.get(
         SQL__SELECT_USER,
         [res.user.email],
         function callback(err, row) {
-            if (err) return res.status(500).json(err)
-            if (!row) return res.status(401).json({ message: 'Not authorized' })
-            res.status(200).json(row)
+            if (err) {
+                next({ status: 500, stack: err })
+            } else {
+                if (!row) {
+                    next({ status: 500, stack: 'email not found' })
+                } else {
+                    res.status(200).json(row)
+                }
+            }
         }
     )
 }

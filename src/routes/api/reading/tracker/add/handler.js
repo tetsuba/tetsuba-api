@@ -5,21 +5,23 @@ import SCHEMA from './schema.js'
 export const SQL__INSERT_INTO_TRACKER = `
     INSERT INTO ${tableName('tracker')}(userId) values (?)
 `
-export default function addTrackerHandler(req, res) {
+export default function addTrackerHandler(req, res, next) {
     const db = res.sqlite
     const errors = validate(SCHEMA, req.body)
     if (errors) {
-        res.status(400).json({ error: errors })
+        next({ status: 400, stack: errors })
     } else {
+        console.log('USERID', req.body.userId)
         db.run(
             SQL__INSERT_INTO_TRACKER,
             [req.body.userId],
             function callback(err) {
+                console.log('TRACKER ---- ', err)
                 if (err) {
-                    res.status(500).json({ message: err.message })
-                    return null
+                    next({ status: 500, stack: err })
+                } else {
+                    res.status(201).json({ message: 'New Tracker Added' })
                 }
-                res.status(201).json({ message: 'New Tracker Added' })
             }
         )
     }

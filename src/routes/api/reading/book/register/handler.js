@@ -7,13 +7,12 @@ const SQL__INSERT_INTO_BOOK = `
     INSERT INTO ${tableName('book')}(userId, title, story) values (?,?,?)
 `
 
-export default function registerBookHandler(req, res) {
+export default function registerBookHandler(req, res, next) {
     const db = res.sqlite
     const errors = validate(REGISTER_BOOK_SCHEMA, req.body)
     console.log('Register Book', errors)
     if (errors) {
-        res.status(400) // Bad Request
-            .json({ error: errors })
+        next({ status: 400, stack: errors })
     } else {
         const PARAMS = [
             req.body.userId,
@@ -22,10 +21,10 @@ export default function registerBookHandler(req, res) {
         ]
         db.run(SQL__INSERT_INTO_BOOK, PARAMS, function callback(err) {
             if (err) {
-                res.status(500).json({ message: err.message })
-                return null
+                next({ status: 500, stack: err })
+            } else {
+                responseGetBooks(res.sqlite, res, req.body.userId, 201, next)
             }
-            responseGetBooks(res.sqlite, res, req.body.userId, 201)
         })
     }
 }

@@ -23,7 +23,7 @@ function unProtectedRoute(url) {
 }
 
 export function protectRoutes(req, res, next) {
-    console.log('[UNPROTECTED ROUTES]: ', unProtectedRoute(req.url), req.url)
+    console.log('unProtectedRoute', unProtectedRoute(req.url), req.url)
     if (unProtectedRoute(req.url)) return next()
     const token = getBearerToken(req.headers)
 
@@ -31,6 +31,7 @@ export function protectRoutes(req, res, next) {
     // console.log(token)
 
     if (token) {
+        console.log('token', token)
         try {
             const user = jwt.verify(token, getSecret())
             // console.log('[user]', user)
@@ -39,9 +40,9 @@ export function protectRoutes(req, res, next) {
         } catch (e) {
             const expired = e.message === 'jwt expired'
             // console.log(e.message, expired)
-            res.status(401).json({ message: 'Not authorized', expired })
+            next({ status: 401, stack: { expired } })
         }
     } else {
-        res.status(401).json({ message: 'Not authorized' })
+        next({ status: 401, stack: '' })
     }
 }
