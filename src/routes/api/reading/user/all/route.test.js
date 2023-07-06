@@ -20,6 +20,20 @@ describe('@GET /api/reading/user/all', () => {
         })
     })
 
+    describe('status: 401', () => {
+        test('with no Bearer token', async () => {
+            const noToken = true
+            const res = await getAllUsers(noToken)
+            const json = JSON.parse(res.text)
+            expect(json).toEqual({
+                success: false,
+                status: 401,
+                message: 'Unauthorized',
+                stack: ''
+            })
+        })
+    })
+
     describe('status: 500', () => {
         test('should respond with an error if table does not exist', async () => {
             const res = await getAllUsers()

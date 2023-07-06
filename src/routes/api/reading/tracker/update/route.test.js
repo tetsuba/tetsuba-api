@@ -124,5 +124,17 @@ describe('@PATCH /api/reading/tracker/update', () => {
                 stack: json.stack
             })
         })
+
+        test('should respond with an error if table does not exist', async () => {
+            const res = await updateTracker(UPDATE_DATA)
+            const json = JSON.parse(res.text)
+            expect(res.status).toBe(500)
+            expect(json).toEqual({
+                success: false,
+                status: 500,
+                message: 'Internal Server Error',
+                stack: json.stack
+            })
+        })
     })
 })

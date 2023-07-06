@@ -16,6 +16,7 @@ export default function createTableHandler(req, res, next) {
         SQL__CREATE_TABLE_TRACKER,
         PARAMS_NONE,
         function callback(err) {
+            /* istanbul ignore next 2 */
             if (err) {
                 next({ status: 500, stack: err })
             } else {

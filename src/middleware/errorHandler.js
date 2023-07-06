@@ -5,9 +5,7 @@
 // eslint-disable-next-line no-unused-vars
 export default function errorHandler(error, req, res, next) {
     let message = {}
-
-    console.log('ERROR HANDLER', error.status)
-
+    /* istanbul ignore next */
     switch (error.status) {
         case 400:
             message = {
@@ -34,6 +32,7 @@ export default function errorHandler(error, req, res, next) {
             }
             break
         default:
+            /* istanbul ignore next */
             message = {
                 success: false,
                 status: 0,

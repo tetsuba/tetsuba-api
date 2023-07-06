@@ -11,12 +11,10 @@ export default function addTrackerHandler(req, res, next) {
     if (errors) {
         next({ status: 400, stack: errors })
     } else {
-        console.log('USERID', req.body.userId)
         db.run(
             SQL__INSERT_INTO_TRACKER,
             [req.body.userId],
             function callback(err) {
-                console.log('TRACKER ---- ', err)
                 if (err) {
                     next({ status: 500, stack: err })
                 } else {

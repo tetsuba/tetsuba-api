@@ -117,7 +117,7 @@ describe('@GET /api/reading/tracker/words', () => {
         })
     })
     describe('status: 500', () => {
-        test('should respond with an error if table does not exist', async () => {
+        test('should respond with an error if Tracker table does not exist', async () => {
             const res = await getTrackerWords(query)
             const json = JSON.parse(res.text)
             expect(res.status).toBe(500)
@@ -127,6 +127,19 @@ describe('@GET /api/reading/tracker/words', () => {
                 message: 'Internal Server Error',
                 stack: json.stack
             })
+        })
+        test('should respond with an error if Book table does not exist', async () => {
+            await createTrackerTable()
+            const res = await getTrackerWords(query)
+            const json = JSON.parse(res.text)
+            expect(res.status).toBe(500)
+            expect(json).toEqual({
+                success: false,
+                status: 500,
+                message: 'Internal Server Error',
+                stack: json.stack
+            })
+            await deleteTrackerTable()
         })
     })
 })

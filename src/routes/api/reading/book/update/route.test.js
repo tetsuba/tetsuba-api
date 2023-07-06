@@ -28,7 +28,6 @@ describe('@PATCH /api/reading/book/update', () => {
         test('should update the history in a book', async () => {
             const res = await updateBook(UPDATE_BOOK_HISTORY_DATA)
             const data = JSON.parse(res.text)
-            console.log(data)
             expect(data[0].history).toEqual(UPDATE_BOOK_HISTORY_DATA.history)
             expect(res.status).toBe(200)
         })

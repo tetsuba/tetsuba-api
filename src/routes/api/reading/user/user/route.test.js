@@ -90,6 +90,7 @@ describe('@GET /api/reading/user', () => {
         })
 
         test('with a Bearer token with incorrect email', async () => {
+            await createUserTable()
             const tokenWithWrongEmail = process.env.BEARER_TOKEN_WRONG_EMAIL
             const res = await getUserDetails(tokenWithWrongEmail)
             const json = JSON.parse(res.text)
@@ -98,8 +99,9 @@ describe('@GET /api/reading/user', () => {
                 success: false,
                 status: 500,
                 message: 'Internal Server Error',
-                stack: json.stack
+                stack: 'email not found'
             })
+            await deleteUserTable()
         })
     })
 })

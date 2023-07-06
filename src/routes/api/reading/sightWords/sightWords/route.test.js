@@ -80,7 +80,7 @@ describe('@GET /api/reading/sightWords', () => {
         })
     })
     describe('status: 500', () => {
-        test('should respond with an error if table does not exist', async () => {
+        test('should respond with an error if book table does not exist', async () => {
             const res = await getSightWords(query)
             const json = JSON.parse(res.text)
             expect(res.status).toBe(500)
@@ -90,6 +90,20 @@ describe('@GET /api/reading/sightWords', () => {
                 message: 'Internal Server Error',
                 stack: json.stack
             })
+        })
+
+        test('should respond with an error if tracker table does not exist', async () => {
+            await createBookTable()
+            const res = await getSightWords(query)
+            const json = JSON.parse(res.text)
+            expect(res.status).toBe(500)
+            expect(json).toEqual({
+                success: false,
+                status: 500,
+                message: 'Internal Server Error',
+                stack: json.stack
+            })
+            await deleteBookTable()
         })
     })
 })
