@@ -4,6 +4,10 @@ import {
     updateBook,
     registerBook
 } from '../bookTestAPI.js'
+import {
+    toExpect401Status,
+    toExpect500Status
+} from '../../../../../setup-tests.js'
 
 const REGISTER_BOOK_DATA = {
     userId: 1,
@@ -77,27 +81,13 @@ describe('@PATCH /api/reading/book/update', () => {
         test('with no Bearer token', async () => {
             const noToken = true
             const res = await updateBook({}, noToken)
-            const json = JSON.parse(res.text)
-            expect(res.status).toBe(401)
-            expect(json).toEqual({
-                success: false,
-                status: 401,
-                message: 'Unauthorized',
-                stack: ''
-            })
+            toExpect401Status(res)
         })
     })
     describe('status: 500', () => {
         test('should respond with an error if table does not exist', async () => {
             const res = await updateBook(UPDATE_BOOK_HISTORY_DATA)
-            const json = JSON.parse(res.text)
-            expect(res.status).toBe(500)
-            expect(json).toEqual({
-                success: false,
-                status: 500,
-                message: 'Internal Server Error',
-                stack: json.stack
-            })
+            toExpect500Status(res)
         })
     })
 })

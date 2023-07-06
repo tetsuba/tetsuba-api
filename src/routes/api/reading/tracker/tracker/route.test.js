@@ -4,6 +4,10 @@ import {
     addTracker,
     getTracker
 } from '../trackerTestApi.js'
+import {
+    toExpect401Status,
+    toExpect500Status
+} from '../../../../../setup-tests.js'
 
 describe('@GET /api/reading/tracker', () => {
     const query = '?userId=2'
@@ -43,27 +47,13 @@ describe('@GET /api/reading/tracker', () => {
         test('with no Bearer token', async () => {
             const noToken = true
             const res = await getTracker('', noToken)
-            const json = JSON.parse(res.text)
-            expect(res.status).toBe(401)
-            expect(json).toEqual({
-                success: false,
-                status: 401,
-                message: 'Unauthorized',
-                stack: ''
-            })
+            toExpect401Status(res)
         })
     })
     describe('status: 500', () => {
         test('should respond with an error if table does not exist', async () => {
             const res = await getTracker(query)
-            const json = JSON.parse(res.text)
-            expect(res.status).toBe(500)
-            expect(json).toEqual({
-                success: false,
-                status: 500,
-                message: 'Internal Server Error',
-                stack: json.stack
-            })
+            toExpect500Status(res)
         })
     })
 })

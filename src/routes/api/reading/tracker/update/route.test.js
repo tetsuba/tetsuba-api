@@ -5,6 +5,10 @@ import {
     updateTracker
 } from '../trackerTestApi.js'
 import { createBookTable, deleteBookTable } from '../../book/bookTestAPI.js'
+import {
+    toExpect401Status,
+    toExpect500Status
+} from '../../../../../setup-tests.js'
 
 const UPDATE_DATA = {
     userId: 1,
@@ -102,39 +106,13 @@ describe('@PATCH /api/reading/tracker/update', () => {
         test('with no Bearer token', async () => {
             const noToken = true
             const res = await updateTracker({}, noToken)
-            const json = JSON.parse(res.text)
-            expect(res.status).toBe(401)
-            expect(json).toEqual({
-                success: false,
-                status: 401,
-                message: 'Unauthorized',
-                stack: ''
-            })
+            toExpect401Status(res)
         })
     })
     describe('status: 500', () => {
         test('should respond with an error if table does not exist', async () => {
             const res = await updateTracker(UPDATE_DATA)
-            const json = JSON.parse(res.text)
-            expect(res.status).toBe(500)
-            expect(json).toEqual({
-                success: false,
-                status: 500,
-                message: 'Internal Server Error',
-                stack: json.stack
-            })
-        })
-
-        test('should respond with an error if table does not exist', async () => {
-            const res = await updateTracker(UPDATE_DATA)
-            const json = JSON.parse(res.text)
-            expect(res.status).toBe(500)
-            expect(json).toEqual({
-                success: false,
-                status: 500,
-                message: 'Internal Server Error',
-                stack: json.stack
-            })
+            toExpect500Status(res)
         })
     })
 })

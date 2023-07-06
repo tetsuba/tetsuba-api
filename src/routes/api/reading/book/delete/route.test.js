@@ -9,6 +9,10 @@ import {
     createTrackerTable,
     deleteTrackerTable
 } from '../../tracker/trackerTestApi.js'
+import {
+    toExpect401Status,
+    toExpect500Status
+} from '../../../../../setup-tests.js'
 
 const mockQuery = '?bookId=2'
 
@@ -57,27 +61,13 @@ describe('@DELETE /api/reading/book/delete', () => {
         test('with no Bearer token', async () => {
             const noToken = true
             const res = await deleteBook({}, noToken)
-            const json = JSON.parse(res.text)
-            expect(res.status).toBe(401)
-            expect(json).toEqual({
-                success: false,
-                status: 401,
-                message: 'Unauthorized',
-                stack: ''
-            })
+            toExpect401Status(res)
         })
     })
     describe('status: 500', () => {
         test('should respond with an error if table does not exist', async () => {
             const res = await deleteBook(mockQuery)
-            const json = JSON.parse(res.text)
-            expect(res.status).toBe(500)
-            expect(json).toEqual({
-                success: false,
-                status: 500,
-                message: 'Internal Server Error',
-                stack: json.stack
-            })
+            toExpect500Status(res)
         })
     })
 })

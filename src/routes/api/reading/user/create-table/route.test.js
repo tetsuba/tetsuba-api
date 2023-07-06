@@ -1,4 +1,8 @@
 import { createUserTable, deleteUserTable } from '../userTestAPI'
+import {
+    toExpect401Status,
+    toExpect500Status
+} from '../../../../../setup-tests.js'
 
 describe('@PUT /api/reading/user/create-table', () => {
     afterAll(async () => {
@@ -17,13 +21,7 @@ describe('@PUT /api/reading/user/create-table', () => {
         test('with no Bearer token', async () => {
             const noToken = true
             const res = await createUserTable(noToken)
-            const json = JSON.parse(res.text)
-            expect(json).toEqual({
-                success: false,
-                status: 401,
-                message: 'Unauthorized',
-                stack: ''
-            })
+            toExpect401Status(res)
         })
     })
     describe.skip('status: 500', () => {
@@ -31,14 +29,7 @@ describe('@PUT /api/reading/user/create-table', () => {
             const res = await createUserTable()
             // TODO: Not sure why the sql error is not triggered.
             //       I can see the user table still exists.
-            const json = JSON.parse(res.text)
-            expect(res.status).toBe(500)
-            expect(json).toEqual({
-                success: false,
-                status: 500,
-                message: 'Internal Server Error',
-                stack: json.stack
-            })
+            toExpect500Status(res)
         })
     })
 })
