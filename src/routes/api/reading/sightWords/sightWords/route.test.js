@@ -6,6 +6,10 @@ import {
     deleteTrackerTable,
     updateTracker
 } from '../../tracker/trackerTestApi.js'
+import {
+    toExpect401Status,
+    toExpect500Status
+} from '../../../../../setup-tests.js'
 
 const UPDATE_DATA = {
     userId: 1,
@@ -69,15 +73,20 @@ describe('@GET /api/reading/sightWords', () => {
         test('with no Bearer token', async () => {
             const noToken = true
             const res = await getSightWords('', noToken)
-            expect(res.text).toEqual(expect.stringContaining('Not authorized'))
-            expect(res.status).toBe(401)
+            toExpect401Status(res)
         })
     })
     describe('status: 500', () => {
-        test('should respond with an error if table does not exist', async () => {
+        test('should respond with an error if book table does not exist', async () => {
             const res = await getSightWords(query)
-            expect(res.status).toBe(500)
-            expect(res.text).toEqual(expect.stringContaining('SQLITE_ERROR'))
+            toExpect500Status(res)
+        })
+
+        test('should respond with an error if tracker table does not exist', async () => {
+            await createBookTable()
+            const res = await getSightWords(query)
+            toExpect500Status(res)
+            await deleteBookTable()
         })
     })
 })

@@ -3,6 +3,10 @@ import {
     deleteUserTable,
     getAllUsers
 } from '../userTestAPI.js'
+import {
+    toExpect401Status,
+    toExpect500Status
+} from '../../../../../setup-tests.js'
 
 describe('@GET /api/reading/user/all', () => {
     describe('status: 200', () => {
@@ -20,11 +24,18 @@ describe('@GET /api/reading/user/all', () => {
         })
     })
 
+    describe('status: 401', () => {
+        test('with no Bearer token', async () => {
+            const noToken = true
+            const res = await getAllUsers(noToken)
+            toExpect401Status(res)
+        })
+    })
+
     describe('status: 500', () => {
         test('should respond with an error if table does not exist', async () => {
             const res = await getAllUsers()
-            expect(res.status).toBe(500)
-            expect(res.text).toEqual(expect.stringContaining('SQLITE_ERROR'))
+            toExpect500Status(res)
         })
     })
 })

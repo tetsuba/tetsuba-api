@@ -1,4 +1,8 @@
 import { createUserTable, deleteUserTable } from '../userTestAPI.js'
+import {
+    toExpect401Status,
+    toExpect500Status
+} from '../../../../../setup-tests.js'
 
 describe('@PUT /api/reading/user/delete-table', () => {
     describe('status: 200', () => {
@@ -23,15 +27,13 @@ describe('@PUT /api/reading/user/delete-table', () => {
         test('with no Bearer token', async () => {
             const noToken = true
             const res = await deleteUserTable(noToken)
-            expect(res.text).toEqual(expect.stringContaining('Not authorized'))
-            expect(res.status).toBe(401)
+            toExpect401Status(res)
         })
     })
     describe('status: 500', () => {
         test('should error if no user table exists', async () => {
             const res = await deleteUserTable()
-            expect(res.status).toBe(500)
-            expect(res.text).toEqual(expect.stringContaining('SQLITE_ERROR'))
+            toExpect500Status(res)
         })
     })
 })

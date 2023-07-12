@@ -9,30 +9,36 @@ const SQL__UPDATE = `
     UPDATE ${tableName('tracker')} SET data=? WHERE userId = ?
 `
 
-export default function updateTrackerHandler(req, res) {
+export default function updateTrackerHandler(req, res, next) {
     const errors = validate(SCHEMA, req.body)
     if (errors) {
-        res.status(400).json({ error: errors })
+        next({ status: 400, stack: errors })
     } else {
         const db = res.sqlite
-        db.get(SQL__SELECT_TRACKER, [res.user.id], function callback(err, row) {
-            if (err)
-                return res.status(500).json({
-                    message: 'get tracker error',
-                    error: err
-                })
-
-            console.log('updateTrackerHandler', row, req.body)
-            const data = updateTrackerData(row.data, req.body)
-            const PARAMS = [JSON.stringify(data), req.body.userId]
-            res.sqlite.run(SQL__UPDATE, PARAMS, function callback(err) {
-                if (err)
-                    return res.status(500).json({
-                        message: 'update tracker error',
-                        error: err
+        db.get(
+            SQL__SELECT_TRACKER,
+            [res.user.id],
+            function callback(error, row) {
+                if (error) {
+                    next({ status: 500, stack: error })
+                } else {
+                    const data = updateTrackerData(row.data, req.body)
+                    const PARAMS = [JSON.stringify(data), req.body.userId]
+                    res.sqlite.run(SQL__UPDATE, PARAMS, function callback(err) {
+                        if (err) {
+                            next({ status: 500, stack: err })
+                        } else {
+                            responseGetBooks(
+                                res.sqlite,
+                                res,
+                                req.body.userId,
+                                false,
+                                next
+                            )
+                        }
                     })
-                responseGetBooks(res.sqlite, res, req.body.userId)
-            })
-        })
+                }
+            }
+        )
     }
 }

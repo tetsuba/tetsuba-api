@@ -37,17 +37,15 @@ describe('@POST /api/reading/user/login', () => {
                 p: '123'
             }
             const res = await loginUser(CREDENTIALS_MISSING_PASSWORD)
+            const json = JSON.parse(res.text)
+
             expect(res.status).toBe(400)
-            expect(res.text).toEqual(
-                expect.stringContaining(
-                    "data must have required property 'password'"
-                )
-            )
-            expect(res.text).toEqual(
-                expect.stringContaining(
-                    'data must NOT have additional properties'
-                )
-            )
+            expect(json).toEqual({
+                success: false,
+                status: 400,
+                message: 'Bad request',
+                stack: "data must have required property 'password', data must NOT have additional properties"
+            })
         })
     })
     describe('status: 500', () => {
@@ -56,20 +54,28 @@ describe('@POST /api/reading/user/login', () => {
                 username: 'bob@bob.com',
                 password: '1'
             })
+            const json = JSON.parse(res.text)
             expect(res.status).toBe(500)
-            expect(res.text).toEqual(
-                expect.stringContaining('Incorrect username or password')
-            )
+            expect(json).toEqual({
+                success: false,
+                status: 500,
+                message: 'Internal Server Error',
+                stack: 'Incorrect username or password'
+            })
         })
         test('with incorrect email', async () => {
             const res = await loginUser({
                 username: 'bob22@bob.com',
                 password: '123456'
             })
+            const json = JSON.parse(res.text)
             expect(res.status).toBe(500)
-            expect(res.text).toEqual(
-                expect.stringContaining('Incorrect username or password')
-            )
+            expect(json).toEqual({
+                success: false,
+                status: 500,
+                message: 'Internal Server Error',
+                stack: 'Incorrect username or password'
+            })
         })
     })
 })

@@ -3,6 +3,10 @@ import {
     deleteBookTable,
     getAllBooks
 } from '../bookTestAPI.js'
+import {
+    toExpect401Status,
+    toExpect500Status
+} from '../../../../../setup-tests.js'
 
 describe('@GET /api/reading/book/all', () => {
     describe('status: 200', () => {
@@ -23,15 +27,13 @@ describe('@GET /api/reading/book/all', () => {
         test('with no Bearer token', async () => {
             const noToken = true
             const res = await getAllBooks(noToken)
-            expect(res.text).toEqual(expect.stringContaining('Not authorized'))
-            expect(res.status).toBe(401)
+            toExpect401Status(res)
         })
     })
     describe('status: 500', () => {
         test('should respond with an error if table does not exist', async () => {
             const res = await getAllBooks()
-            expect(res.status).toBe(500)
-            expect(res.text).toEqual(expect.stringContaining('SQLITE_ERROR'))
+            toExpect500Status(res)
         })
     })
 })

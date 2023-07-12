@@ -5,6 +5,10 @@ import {
     updateTracker
 } from '../trackerTestApi.js'
 import { createBookTable, deleteBookTable } from '../../book/bookTestAPI.js'
+import {
+    toExpect401Status,
+    toExpect500Status
+} from '../../../../../setup-tests.js'
 
 const UPDATE_DATA = {
     userId: 1,
@@ -60,64 +64,55 @@ describe('@PATCH /api/reading/tracker/update', () => {
     describe('status: 400', () => {
         test('with no properties', async () => {
             const res = await updateTracker({})
+            const json = JSON.parse(res.text)
             expect(res.status).toBe(400)
-            expect(res.text).toEqual(
-                expect.stringContaining(
-                    "data must have required property 'userId'"
-                )
-            )
-            expect(res.text).toEqual(
-                expect.stringContaining(
-                    "data must have required property 'history'"
-                )
-            )
-            expect(res.text).toEqual(
-                expect.stringContaining(
-                    "data must have required property 'bookId'"
-                )
-            )
-            expect(res.text).toEqual(
-                expect.stringContaining(
-                    "data must have required property 'libId'"
-                )
-            )
+            expect(json).toEqual({
+                success: false,
+                status: 400,
+                message: 'Bad request',
+                stack: "data must have required property 'userId', data must have required property 'history', data must have required property 'libId', data must have required property 'bookId'"
+            })
         })
         test('with id as a string', async () => {
             const res = await updateTracker({
                 ...UPDATE_DATA,
                 userId: '011'
             })
+            const json = JSON.parse(res.text)
             expect(res.status).toBe(400)
-            expect(res.text).toEqual(
-                expect.stringContaining('userId must be number')
-            )
+            expect(json).toEqual({
+                success: false,
+                status: 400,
+                message: 'Bad request',
+                stack: 'data/userId must be number'
+            })
         })
         test('with an additional property', async () => {
             const res = await updateTracker({
                 ...UPDATE_DATA,
                 newProperty: 'something'
             })
+            const json = JSON.parse(res.text)
             expect(res.status).toBe(400)
-            expect(res.text).toEqual(
-                expect.stringContaining(
-                    'data must NOT have additional properties'
-                )
-            )
+            expect(json).toEqual({
+                success: false,
+                status: 400,
+                message: 'Bad request',
+                stack: 'data must NOT have additional properties'
+            })
         })
     })
     describe('status: 401', () => {
         test('with no Bearer token', async () => {
             const noToken = true
             const res = await updateTracker({}, noToken)
-            expect(res.text).toEqual(expect.stringContaining('Not authorized'))
-            expect(res.status).toBe(401)
+            toExpect401Status(res)
         })
     })
     describe('status: 500', () => {
         test('should respond with an error if table does not exist', async () => {
             const res = await updateTracker(UPDATE_DATA)
-            expect(res.status).toBe(500)
-            expect(res.text).toEqual(expect.stringContaining('SQLITE_ERROR'))
+            toExpect500Status(res)
         })
     })
 })

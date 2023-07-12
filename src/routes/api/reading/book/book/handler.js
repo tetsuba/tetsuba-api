@@ -9,37 +9,45 @@ export const SQL__SELECT_BOOKS = `
   SELECT * FROM ${tableName('book')} WHERE userId = ?
 `
 
-export function responseGetBooks(db, res, userId, status) {
-    db.all(SQL__SELECT_BOOKS, [userId], function (err, rows) {
-        if (err)
-            return res.status(500).json({
-                message: 'get books error',
-                error: err
+export function responseGetBooks(db, res, userId, status, next) {
+    db.all(SQL__SELECT_BOOKS, [userId], function (error, rows) {
+        if (error) {
+            next({ status: 500, stack: error })
+        } else {
+            library[0].books = rows.map((book) => {
+                // TODO: remove ternary operator when all stories are an array
+                return {
+                    ...book,
+                    story: book.story.match(/\[/)
+                        ? JSON.parse(book.story)
+                        : book.story
+                }
             })
 
-        library[0].books = rows
-
-        db.get(SQL__SELECT_TRACKER, [userId], function (err, row) {
-            if (err)
-                return res.status(500).json({
-                    message: 'get tracker error',
-                    error: err
-                })
-            const tracker = row.data ? JSON.parse(row.data) : []
-            const updatedLibrary = updateWithTrackingData(library, tracker)
-            res.status(status || 200).json(updatedLibrary)
-        })
+            db.get(SQL__SELECT_TRACKER, [userId], function (err, row) {
+                if (err) {
+                    next({ status: 500, stack: err })
+                } else {
+                    const tracker = row.data ? JSON.parse(row.data) : []
+                    const updatedLibrary = updateWithTrackingData(
+                        library,
+                        tracker
+                    )
+                    res.status(status || 200).json(updatedLibrary)
+                }
+            })
+        }
     })
 }
 
-export default function getBookHandler(req, res) {
+export default function getBookHandler(req, res, next) {
     // This is a hack to convert the userId to be an integer.
     req.query.userId = +req.query.userId
     // *****************************************************
     const errors = validate(BOOK_SCHEMA, req.query)
     if (errors) {
-        res.status(400).json({ error: errors })
+        next({ status: 400, stack: errors })
     } else {
-        responseGetBooks(res.sqlite, res, req.query.userId)
+        responseGetBooks(res.sqlite, res, req.query.userId, false, next)
     }
 }

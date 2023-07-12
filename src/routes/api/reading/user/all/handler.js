@@ -5,15 +5,16 @@ export const SQL__SELECT_ALL_USERS = `
 `
 
 const PARAMS_NONE = []
-export default function getAllUsersHandler(req, res) {
+export default function getAllUsersHandler(req, res, next) {
     res.sqlite.all(
         SQL__SELECT_ALL_USERS,
         PARAMS_NONE,
         function callback(err, rows) {
             if (err) {
-                return res.status(500).json(err)
+                next({ status: 500, stack: err })
+            } else {
+                res.status(200).json(rows)
             }
-            res.status(200).json(rows)
         }
     )
 }

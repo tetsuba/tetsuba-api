@@ -13,6 +13,7 @@ import apiDocs from './docs/index.js'
 
 // MIDDLEWARE
 import { protectRoutes } from '../middleware/auth.js'
+import errorHandler from '../middleware/errorHandler.js'
 
 // DATABASE
 import sqlite from '../database/index.js'
@@ -31,6 +32,11 @@ app.use('/api/reading', user)
 app.use('/api/reading', book)
 app.use('/api/reading', sightWords)
 app.use('/api/reading', tracker)
+
+/* Error Handler
+ * This middleware must be set at the end of the routes to work.
+ */
+app.use(errorHandler)
 
 /* API Documentation (Swagger)
  *

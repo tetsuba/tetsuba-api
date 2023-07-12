@@ -10,23 +10,17 @@ const SQL__INSERT_INTO_USER = `
   )}(firstName, lastName, email, password) values (?,?,?,?)
 `
 
-export default function registerNewUserHandler(req, res) {
+export default function registerNewUserHandler(req, res, next) {
     const errors = validate(REGISTER_USER_SCHEMA, req.query)
     if (errors) {
-        res.status(400) // Bad Request
-            .json({ error: { message: errors } })
+        next({ status: 400, stack: errors })
     } else {
         res.sqlite.run(
             SQL__INSERT_INTO_USER,
             getValuesFrom(req.query),
             function callback(err) {
                 if (err) {
-                    res.status(500) // Internal Server Error
-                        .json({
-                            error: {
-                                message: err.message
-                            }
-                        })
+                    next({ status: 500, stack: err.message })
                 } else {
                     res.sqlite.get(
                         SQL__SELECT_USER,

@@ -6,18 +6,16 @@ const SQL__UPDATE_BOOK = `
     UPDATE ${tableName('book')} SET title=?,  story=? WHERE id = ?
 `
 
-export default function editBookHandler(req, res) {
+export default function editBookHandler(req, res, next) {
     const errors = validate(EDIT_BOOK_SCHEMA, req.body)
     if (errors) {
-        res.status(400) // Bad Request
-            .json({ error: errors })
+        next({ status: 400, stack: errors })
     } else {
         const { id, story, title } = req.body
         const PARAMS = [title, story, id]
         res.sqlite.run(SQL__UPDATE_BOOK, PARAMS, function callback(err) {
             if (err) {
-                res.status(500) // Internal Server Error
-                    .json({ error: err.message })
+                next({ status: 500, stack: err })
             } else {
                 res.status(200) // Created
                     .json({ message: 'Book updated' })
