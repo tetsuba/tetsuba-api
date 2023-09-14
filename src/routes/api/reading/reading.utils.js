@@ -209,14 +209,22 @@ export function getLastBookRead(row) {
 
 export function getBookTitle(lastBookRead, lib) {
     return lastBookRead.map((bookRead) => {
-        const title = lib
-            .find((collection) => collection.id === bookRead.libId)
-            .books.find((book) => book.id === bookRead.bookId).title
-
-        return {
-            ...bookRead,
-            title
+        const collection = lib.find(
+            (collection) => collection.id === bookRead.libId
+        )
+        if (collection.books.length > 0) {
+            const book = collection.books.find(
+                (book) => book.id === bookRead.bookId
+            )
+            if (book) {
+                return {
+                    ...bookRead,
+                    title: book.title
+                }
+            }
+            return bookRead
         }
+        return bookRead
     })
 }
 
