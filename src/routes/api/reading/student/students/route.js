@@ -1,36 +1,36 @@
 import express from 'express'
-import deleteBookHandler from './handler.js'
+import getBookHandler from './handler.js'
 
 const router = express.Router()
 
-router.delete('/delete', deleteBookHandler)
+router.get('', getBookHandler)
+
 /**
  * @swagger
  *
- * /api/reading/book/delete:
- *   delete:
- *     deprecated: true
+ * /api/reading/student:
+ *   get:
  *     security:
  *       - bearerAuth: []
- *     summary: Delete a book
- *     description: Delete a book with a specified id
+ *     summary:
+ *     description: Get students
  *     tags:
- *       - reading / book
+ *       - reading / student
  *     parameters:
  *       - in: query
- *         name: bookId
+ *         name: userId
  *         schema:
  *           type: string
- *         description: Delete a book from the database
+ *         description: Get students by userId
  *     responses:
  *       200:
- *         description: OK - Return an updated list of books
+ *         description: OK
  *         content:
  *           application/json:
  *            schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/collection'
+ *                 $ref: '#/components/schemas/student'
  *       401:
  *         description: Unauthorized
  *         content:
@@ -44,5 +44,4 @@ router.delete('/delete', deleteBookHandler)
  *             schema:
  *               $ref: '#/components/schemas/internalserver'
  */
-
 export default router

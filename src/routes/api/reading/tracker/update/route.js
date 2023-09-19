@@ -8,6 +8,7 @@ router.patch('/update', updateTrackerHandler)
  *
  * /api/reading/tracker/update:
  *   patch:
+ *     deprecated: true
  *     security:
  *       - bearerAuth: []
  *     summary: Update tracker data

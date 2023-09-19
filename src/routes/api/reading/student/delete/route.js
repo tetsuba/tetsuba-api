@@ -7,30 +7,29 @@ router.delete('/delete', deleteBookHandler)
 /**
  * @swagger
  *
- * /api/reading/book/delete:
+ * /api/reading/student/delete:
  *   delete:
- *     deprecated: true
  *     security:
  *       - bearerAuth: []
- *     summary: Delete a book
- *     description: Delete a book with a specified id
+ *     summary: Delete a student
+ *     description: Delete a student with a specified id
  *     tags:
- *       - reading / book
+ *       - reading / student
  *     parameters:
  *       - in: query
  *         name: bookId
  *         schema:
  *           type: string
- *         description: Delete a book from the database
+ *         description: Delete a student from the database
  *     responses:
  *       200:
- *         description: OK - Return an updated list of books
+ *         description: OK - Return an updated list of students
  *         content:
  *           application/json:
  *            schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/collection'
+ *                 $ref: '#/components/schemas/student'
  *       401:
  *         description: Unauthorized
  *         content:

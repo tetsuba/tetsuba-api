@@ -1,36 +1,31 @@
 import express from 'express'
-import deleteBookHandler from './handler.js'
-
+import deleteTableHandler from './handler.js'
 const router = express.Router()
 
-router.delete('/delete', deleteBookHandler)
+//
+router.delete('/delete-table', deleteTableHandler)
 /**
  * @swagger
  *
- * /api/reading/book/delete:
+ * /api/reading/student/delete-table:
  *   delete:
- *     deprecated: true
  *     security:
  *       - bearerAuth: []
- *     summary: Delete a book
- *     description: Delete a book with a specified id
+ *     summary: Delete a student table
+ *     description: The main use for deleting a student table is testing the api.
  *     tags:
- *       - reading / book
- *     parameters:
- *       - in: query
- *         name: bookId
- *         schema:
- *           type: string
- *         description: Delete a book from the database
+ *       - reading / student
  *     responses:
  *       200:
- *         description: OK - Return an updated list of books
+ *         description:
  *         content:
  *           application/json:
- *            schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/collection'
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: 'Student table deleted'
  *       401:
  *         description: Unauthorized
  *         content:
@@ -44,5 +39,4 @@ router.delete('/delete', deleteBookHandler)
  *             schema:
  *               $ref: '#/components/schemas/internalserver'
  */
-
 export default router

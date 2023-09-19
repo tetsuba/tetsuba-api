@@ -8,6 +8,7 @@ router.post('/create-table', createBookTableHandler)
  *
  * /api/reading/book/create-table:
  *  post:
+ *     deprecated: true
  *     security:
  *       - bearerAuth: []
  *     summary: Create a book table.

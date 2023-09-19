@@ -9,6 +9,7 @@ router.delete('/delete-table', deleteTableHandler)
  *
  * /api/reading/tracker/delete-table:
  *   delete:
+ *     deprecated: true
  *     security:
  *       - bearerAuth: []
  *     summary: Delete a tracker table

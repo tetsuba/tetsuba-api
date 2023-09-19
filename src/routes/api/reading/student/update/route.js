@@ -1,45 +1,48 @@
 import express from 'express'
-import registerBookHandler from './handler.js'
+import updateStudentHandler from './handler.js'
 const router = express.Router()
 
-router.post('/register', registerBookHandler)
+router.patch('/update', updateStudentHandler)
 /**
  * @swagger
  *
- * /api/reading/book/register:
- *   post:
- *     deprecated: true
+ * /api/reading/student/update:
+ *   put:
  *     security:
  *       - bearerAuth: []
- *     summary: Register a new book
- *     description: Register a new book
+ *     summary: Update a student's data
+ *     description: Update a student's data
  *     tags:
- *       - reading / book
+ *       - reading / student
  *     requestBody:
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
- *                 userId:
+ *                 studentId:
  *                   type: integer
- *                 title:
+ *                 firstname:
  *                   type: string
- *                 story:
+ *                 lastname:
+ *                   type: string
+ *                 dob:
  *                   type: string
  *             example:
- *               userId: 2
- *               title: "The Title"
- *               story: "Once upon a time"
+ *               studentId: 2
+ *               firstname: "ted"
+ *               lastname: "bob"
+ *               dob: "12/12/12"
  *     responses:
- *       201:
- *         description: Created
+ *       200:
+ *         description: OK
  *         content:
  *           application/json:
  *            schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/collection'
+ *                 $ref: '#/components/schemas/student'
+ *
  *       400:
  *         description: Bad Request
  *         content:

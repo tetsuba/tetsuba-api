@@ -1,36 +1,30 @@
 import express from 'express'
-import deleteBookHandler from './handler.js'
-
+import createStudentTableHandler from './handler.js'
 const router = express.Router()
 
-router.delete('/delete', deleteBookHandler)
+router.post('/create-table', createStudentTableHandler)
 /**
  * @swagger
  *
- * /api/reading/book/delete:
- *   delete:
- *     deprecated: true
+ * /api/reading/student/create-table:
+ *  post:
  *     security:
  *       - bearerAuth: []
- *     summary: Delete a book
- *     description: Delete a book with a specified id
+ *     summary: Create a book table.
+ *     description: The main use for creating a student table is testing the api.
  *     tags:
- *       - reading / book
- *     parameters:
- *       - in: query
- *         name: bookId
- *         schema:
- *           type: string
- *         description: Delete a book from the database
+ *       - reading / student
  *     responses:
  *       200:
- *         description: OK - Return an updated list of books
+ *         description:
  *         content:
  *           application/json:
- *            schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/collection'
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: 'Student table created'
  *       401:
  *         description: Unauthorized
  *         content:

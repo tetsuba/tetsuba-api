@@ -3,7 +3,7 @@ import validate from '../../../../../validator.js'
 import EDIT_BOOK_SCHEMA from './schema.js'
 
 const SQL__UPDATE_BOOK = `
-    UPDATE ${tableName('book')} SET title=?,  story=? WHERE id = ?
+    UPDATE ${tableName('book')} SET title=?, story=? WHERE id = ?
 `
 
 export default function editBookHandler(req, res, next) {
