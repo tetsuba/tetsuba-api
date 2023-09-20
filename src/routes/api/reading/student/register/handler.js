@@ -1,7 +1,7 @@
 import { tableName } from '../../../../../utils.js'
 import validate from '../../../../../validator.js'
 import REGISTER_STUDENT_SCHEMA from './schema.js'
-import { responseGetStudents } from '../students/handler.js'
+import { getStudentsFromDB } from '../students/handler.js'
 
 const SQL__INSERT_INTO_STUDENT = `
     INSERT INTO ${tableName(
@@ -25,7 +25,15 @@ export default function registerStudentHandler(req, res, next) {
             if (err) {
                 next({ status: 500, stack: err })
             } else {
-                responseGetStudents(db, res, req.body.userId, 201, next)
+                const db = res.sqlite
+                const PARAMS = [res.user.id]
+                getStudentsFromDB(db, PARAMS, (error, rows) => {
+                    if (error) {
+                        next({ status: 500, stack: error })
+                    } else {
+                        res.status(201).json(rows)
+                    }
+                })
             }
         })
     }

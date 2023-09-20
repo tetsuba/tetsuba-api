@@ -28,7 +28,7 @@ describe('@POST /api/reading/student/register', () => {
             expect(res.status).toBe(201)
             const data = JSON.parse(res.text)
             expect(data).toEqual([
-                { ...STUDENT_DATA, studentId: 1, history: null }
+                { ...STUDENT_DATA, studentId: 1, progress: null }
             ])
         })
     })

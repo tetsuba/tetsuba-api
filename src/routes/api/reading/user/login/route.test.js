@@ -4,12 +4,14 @@ import {
     loginUser,
     registerUser
 } from '../userTestAPI.js'
+import { createStudentTable } from '../../student/studentTestAPI.js'
 
 const USER_CREDENTIALS = { username: 'bob@bob.com', password: '123456' }
 
 describe('@POST /api/reading/user/login', () => {
     beforeAll(async () => {
         await createUserTable()
+        await createStudentTable()
         await registerUser({
             firstName: 'bob',
             lastName: 'bob',
@@ -27,7 +29,9 @@ describe('@POST /api/reading/user/login', () => {
             const expectedResponse = JSON.parse(res.text)
             expect(res.status).toBe(200)
             expect(expectedResponse).toHaveProperty('token')
-            expect(expectedResponse).toHaveProperty('data')
+            expect(expectedResponse).toHaveProperty('user')
+            expect(expectedResponse).toHaveProperty('students')
+            expect(expectedResponse).toHaveProperty('books')
         })
     })
     describe('status: 400', () => {

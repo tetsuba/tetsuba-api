@@ -7,7 +7,7 @@ const SQL__CREATE_TABLE_STUDENT = `
         firstname TEXT NOT NULL,
         lastname TEXT NOT NULL,
         dob TEXT NOT NULL,
-        history TEXT
+        progress TEXT
     )
 `
 

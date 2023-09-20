@@ -1,7 +1,7 @@
 import { tableName } from '../../../../../utils.js'
 import validate from '../../../../../validator.js'
 import BOOK_DELETE_SCHEMA from './schema.js'
-import { responseGetStudents } from '../students/handler.js'
+import { getStudentsFromDB } from '../students/handler.js'
 
 export const SQL__DELETE_BOOK = `
   DELETE FROM ${tableName('student')} WHERE studentId = ?
@@ -21,7 +21,15 @@ export default function deleteStudentHandler(req, res, next) {
             if (err) {
                 next({ status: 500, stack: err })
             } else {
-                responseGetStudents(res.sqlite, res, res.user.id, false, next)
+                const db = res.sqlite
+                const PARAMS = [res.user.id]
+                getStudentsFromDB(db, PARAMS, (error, rows) => {
+                    if (error) {
+                        next({ status: 500, stack: error })
+                    } else {
+                        res.status(200).json(rows)
+                    }
+                })
             }
         })
     }

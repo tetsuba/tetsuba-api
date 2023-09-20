@@ -26,7 +26,7 @@ export default {
             description: 'Identify which user the student belongs too',
             example: 1
         },
-        history: {
+        progress: {
             type: 'Array',
             description: 'Stores data about the students progress',
             example: [

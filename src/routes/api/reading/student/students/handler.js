@@ -6,14 +6,8 @@ export const SQL__SELECT_STUDENTS = `
   SELECT * FROM ${tableName('student')} WHERE userId = ?
 `
 
-export function responseGetStudents(db, res, userId, status, next) {
-    db.all(SQL__SELECT_STUDENTS, [userId], function (error, rows) {
-        if (error) {
-            next({ status: 500, stack: error })
-        } else {
-            res.status(status || 200).json(rows)
-        }
-    })
+export function getStudentsFromDB(db, params, cb) {
+    db.all(SQL__SELECT_STUDENTS, params, cb)
 }
 
 export default function getStudentsHandler(req, res, next) {
@@ -24,6 +18,14 @@ export default function getStudentsHandler(req, res, next) {
     if (errors) {
         next({ status: 400, stack: errors })
     } else {
-        responseGetStudents(res.sqlite, res, req.query.userId, false, next)
+        const db = res.sqlite
+        const PARAMS = [res.user.id]
+        getStudentsFromDB(db, PARAMS, (error, rows) => {
+            if (error) {
+                next({ status: 500, stack: error })
+            } else {
+                res.status(200).json(rows)
+            }
+        })
     }
 }

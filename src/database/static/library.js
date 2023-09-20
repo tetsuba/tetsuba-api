@@ -1,10 +1,63 @@
 export default [
     {
         id: '001',
-        author: 'My Books',
-        title: 'My Books',
-        description: 'Books added by me',
-        books: []
+        author: 'Reading Progress',
+        title: 'The Basics',
+        description: 'Learn the basics',
+        books: [
+            {
+                id: 1,
+                title: 'Alphabet',
+                story: [
+                    'A',
+                    'B',
+                    'C',
+                    'D',
+                    'E',
+                    'F',
+                    'G',
+                    'H',
+                    'I',
+                    'J',
+                    'K',
+                    'L',
+                    'M',
+                    'N',
+                    'O',
+                    'P',
+                    'Q',
+                    'R',
+                    'S',
+                    'T',
+                    'U',
+                    'V',
+                    'W',
+                    'X',
+                    'Y',
+                    'Z'
+                ]
+            },
+            {
+                id: 2,
+                title: 'Sight Words 1',
+                story: []
+            },
+            {
+                id: 3,
+                title: 'Sight Words 2',
+                story: []
+            },
+            {
+                id: 4,
+                title: 'Sight Words 3',
+                story: []
+            },
+            {
+                id: 5,
+                title: 'Sight Words 4',
+                story: []
+            }
+        ]
     },
     {
         id: '002',

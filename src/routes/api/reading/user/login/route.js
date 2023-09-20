@@ -34,8 +34,14 @@ router.post('/login', loginUserHandler)
  *               properties:
  *                 token:
  *                   type: string
- *                 data:
+ *                 user:
  *                   $ref: '#/components/schemas/user'
+ *                 students:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/student'
+ *                 books:
+ *                   $ref: '#/components/schemas/collection'
  *       400:
  *         description: Bad Request
  *         content:

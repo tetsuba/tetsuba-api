@@ -37,12 +37,12 @@ describe('@PUT /api/reading/student/update', () => {
             const data = JSON.parse(res.text)
             expect(data).toEqual([
                 {
-                    dob: '12/12/18',
-                    firstname: 'Ted',
-                    history: null,
-                    lastname: 'Ted',
                     studentId: 1,
-                    userId: 1
+                    userId: 1,
+                    firstname: 'Ted',
+                    lastname: 'Ted',
+                    dob: '12/12/18',
+                    progress: null
                 }
             ])
             expect(res.status).toBe(200)

@@ -9,6 +9,7 @@ router.get('/all', getAllBooksHandler)
  *
  * /api/reading/book/all:
  *   get:
+ *     deprecated: true
  *     security:
  *       - bearerAuth: []
  *     summary: Get all books.

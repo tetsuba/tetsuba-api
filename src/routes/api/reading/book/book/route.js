@@ -9,6 +9,7 @@ router.get('', getBookHandler)
  * @swagger
  *
  * /api/reading/book:
+ *   deprecated: true
  *   get:
  *     security:
  *       - bearerAuth: []
