@@ -19,13 +19,13 @@ describe('@DELETE /api/reading/student/delete', () => {
                 userId: 1,
                 firstname: 'ted',
                 lastname: 'bob',
-                dob: '12/12/12'
+                dob: '2012-12-12'
             })
             await registerStudent({
                 userId: 1,
                 firstname: 'bill',
                 lastname: 'bob',
-                dob: '12/12/12'
+                dob: '2012-12-12'
             })
         })
         afterAll(async () => {

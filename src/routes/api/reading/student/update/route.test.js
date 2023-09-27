@@ -13,14 +13,14 @@ const STUDENT_DATA = {
     userId: 1,
     firstname: 'Bill',
     lastname: 'Bob',
-    dob: '12/12/12'
+    dob: '2012-12-12'
 }
 
 const UPDATED_STUDENT_DATA = {
     studentId: 1,
     firstname: 'Ted',
     lastname: 'Ted',
-    dob: '12/12/18'
+    dob: '2012-12-18'
 }
 
 describe('@PUT /api/reading/student/update', () => {
@@ -41,7 +41,7 @@ describe('@PUT /api/reading/student/update', () => {
                     userId: 1,
                     firstname: 'Ted',
                     lastname: 'Ted',
-                    dob: '12/12/18',
+                    dob: '2012-12-18',
                     progress: null
                 }
             ])

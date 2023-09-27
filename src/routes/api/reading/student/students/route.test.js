@@ -17,15 +17,15 @@ describe('@GET /api/reading/student', () => {
             await createStudentTable()
             await registerStudent({
                 userId: 1,
-                firstname: '',
-                lastname: '',
-                dob: ''
+                firstname: 'John',
+                lastname: 'Bill',
+                dob: '2012-12-12'
             })
             await registerStudent({
                 userId: 1,
-                firstname: '',
-                lastname: '',
-                dob: ''
+                firstname: 'David',
+                lastname: 'Paul',
+                dob: '2000-12-12'
             })
         })
         afterAll(async () => {

@@ -10,9 +10,9 @@ import {
 
 const STUDENT_DATA = {
     userId: 1,
-    firstname: '',
-    lastname: '',
-    dob: ''
+    firstname: 'John',
+    lastname: 'Bob',
+    dob: '2000-12-31'
 }
 
 describe('@POST /api/reading/student/register', () => {
@@ -56,6 +56,20 @@ describe('@POST /api/reading/student/register', () => {
                 status: 400,
                 message: 'Bad request',
                 stack: 'data/userId must be number'
+            })
+        })
+        test('with an incorrect date format', async () => {
+            const res = await registerStudent({
+                ...STUDENT_DATA,
+                dob: '12-03-2000'
+            })
+            const json = JSON.parse(res.text)
+            expect(res.status).toBe(400)
+            expect(json).toEqual({
+                success: false,
+                status: 400,
+                message: 'Bad request',
+                stack: 'data/dob date format should be yyyy-mm-dd'
             })
         })
         test('with an additional property', async () => {
