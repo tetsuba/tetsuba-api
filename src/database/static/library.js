@@ -907,7 +907,7 @@ export default [
                 id: 3,
                 title: 'The Dragon and the Phoenix',
                 story: [
-                    'This is the story of Dragon Moutain, Phoenix Mountain and a shining lake.',
+                    'This is the story of Dragon Mountain, Phoenix Mountain and a shining lake.',
                     'It begins thousands of years ago, in China.',
                     'Long, long ago, a dragon lived beside a magic river.',
                     'A dark forest grew on the other side of the river.',
@@ -967,7 +967,7 @@ export default [
                     "Bear didn't like it at all.",
                     'He tripped over it when he was walking.',
                     'It tickled his nose when he tried to sleep.',
-                    'Little anibals would even ride on it.',
+                    'Little animals would even ride on it.',
                     "It's not fair!",
                     '"Bear\'s tail is better than mine," thought Fox.',
                     'He decided to play a trick on him.',

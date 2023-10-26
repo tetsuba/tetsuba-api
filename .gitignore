@@ -26,6 +26,7 @@ dist-ssr
 
 # Database
 src/database/*.sqlite
+src/database/static/walter-data.ts
 
 # ENV files
 .env

@@ -1,4 +1,4 @@
-import { tableName } from '../../../../../utils.js'
+import { parseStudentProgress, tableName } from '../../../../../utils.js'
 import validate from '../../../../../validator.js'
 import REGISTER_STUDENT_SCHEMA from './schema.js'
 import { getStudentsFromDB } from '../students/handler.js'
@@ -31,7 +31,7 @@ export default function registerStudentHandler(req, res, next) {
                     if (error) {
                         next({ status: 500, stack: error })
                     } else {
-                        res.status(201).json(rows)
+                        res.status(201).json(parseStudentProgress(rows))
                     }
                 })
             }

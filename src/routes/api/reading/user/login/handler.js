@@ -1,6 +1,6 @@
 import LOGIN_USER_SCHEMA from './schema.js'
 import validate from '../../../../../validator.js'
-import { tableName } from '../../../../../utils.js'
+import { parseStudentProgress, tableName } from '../../../../../utils.js'
 import { createJWT } from '../../../../../middleware/auth.js'
 import library from '../../../../../database/static/library.js'
 import { getStudentsFromDB } from '../../student/students/handler.js'
@@ -39,7 +39,7 @@ export default function loginUserHandler(req, res, next) {
                             token,
                             user: row,
                             books: library,
-                            students: rows
+                            students: parseStudentProgress(rows)
                         })
                     }
                 })

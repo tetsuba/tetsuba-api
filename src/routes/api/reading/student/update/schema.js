@@ -4,9 +4,10 @@ const UPDATE_STUDENT_SCHEMA = {
         studentId: { type: 'number' },
         firstname: { type: 'string' },
         lastname: { type: 'string' },
-        dob: { type: 'string' }
+        dob: { type: 'string' },
+        progress: { type: 'string' }
     },
-    required: ['studentId', 'firstname', 'lastname', 'dob'],
+    required: ['studentId', 'firstname', 'lastname', 'dob', 'progress'],
     additionalProperties: false
 }
 

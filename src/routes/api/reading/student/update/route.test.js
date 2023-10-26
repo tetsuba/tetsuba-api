@@ -20,7 +20,8 @@ const UPDATED_STUDENT_DATA = {
     studentId: 1,
     firstname: 'Ted',
     lastname: 'Ted',
-    dob: '2012-12-18'
+    dob: '2012-12-18',
+    progress: '[{"date": "12-12-12", "words": []}]'
 }
 
 describe('@PUT /api/reading/student/update', () => {
@@ -38,11 +39,10 @@ describe('@PUT /api/reading/student/update', () => {
             expect(data).toEqual([
                 {
                     studentId: 1,
-                    userId: 1,
                     firstname: 'Ted',
                     lastname: 'Ted',
                     dob: '2012-12-18',
-                    progress: null
+                    progress: [{ date: '12-12-12', words: [] }]
                 }
             ])
             expect(res.status).toBe(200)
@@ -57,12 +57,12 @@ describe('@PUT /api/reading/student/update', () => {
                 success: false,
                 status: 400,
                 message: 'Bad request',
-                stack: "data must have required property 'studentId', data must have required property 'firstname', data must have required property 'lastname', data must have required property 'dob'"
+                stack: "data must have required property 'studentId', data must have required property 'firstname', data must have required property 'lastname', data must have required property 'dob', data must have required property 'progress'"
             })
         })
         test('with studentId as a string', async () => {
             const res = await updateStudent({
-                ...STUDENT_DATA,
+                ...UPDATED_STUDENT_DATA,
                 studentId: '011'
             })
             const json = JSON.parse(res.text)
@@ -71,7 +71,7 @@ describe('@PUT /api/reading/student/update', () => {
                 success: false,
                 status: 400,
                 message: 'Bad request',
-                stack: 'data must NOT have additional properties, data/studentId must be number'
+                stack: 'data/studentId must be number'
             })
         })
         test('with an additional property', async () => {

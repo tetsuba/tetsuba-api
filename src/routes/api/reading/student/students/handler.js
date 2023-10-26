@@ -1,9 +1,11 @@
-import { tableName } from '../../../../../utils.js'
+import { parseStudentProgress, tableName } from '../../../../../utils.js'
 import validate from '../../../../../validator.js'
 import STUDENTS_SCHEMA from './schema.js'
 
 export const SQL__SELECT_STUDENTS = `
-  SELECT * FROM ${tableName('student')} WHERE userId = ?
+  SELECT studentId, firstname, lastname, dob, progress FROM ${tableName(
+      'student'
+  )} WHERE userId = ?
 `
 
 export function getStudentsFromDB(db, params, cb) {
@@ -24,7 +26,7 @@ export default function getStudentsHandler(req, res, next) {
             if (error) {
                 next({ status: 500, stack: error })
             } else {
-                res.status(200).json(rows)
+                res.status(200).json(parseStudentProgress(rows))
             }
         })
     }

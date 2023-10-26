@@ -1,4 +1,4 @@
-import { tableName } from '../../../../../utils.js'
+import { parseStudentProgress, tableName } from '../../../../../utils.js'
 import { getStudentsFromDB } from '../../student/students/handler.js'
 import library from '../../../../../database/static/library.js'
 
@@ -29,7 +29,7 @@ export default function getUserHandler(req, res, next) {
                         res.status(200).json({
                             user: row,
                             books: library,
-                            students: rows
+                            students: parseStudentProgress(rows)
                         })
                     }
                 })

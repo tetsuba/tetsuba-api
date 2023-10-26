@@ -1,4 +1,4 @@
-import { tableName } from '../../../../../utils.js'
+import { parseStudentProgress, tableName } from '../../../../../utils.js'
 import validate from '../../../../../validator.js'
 import BOOK_DELETE_SCHEMA from './schema.js'
 import { getStudentsFromDB } from '../students/handler.js'
@@ -27,7 +27,7 @@ export default function deleteStudentHandler(req, res, next) {
                     if (error) {
                         next({ status: 500, stack: error })
                     } else {
-                        res.status(200).json(rows)
+                        res.status(200).json(parseStudentProgress(rows))
                     }
                 })
             }
