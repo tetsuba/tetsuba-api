@@ -10,6 +10,7 @@ import {
     toExpect401Status,
     toExpect500Status
 } from '../../../../../setup-tests.js'
+import { createStudentTable } from '../../student/studentTestAPI.js'
 
 async function getUserDetails(token) {
     const bearer = token ? `Bearer ${token}` : ''
@@ -21,6 +22,7 @@ describe('@GET /api/reading/user', () => {
         let token
         beforeAll(async () => {
             await createUserTable()
+            await createStudentTable()
             await registerUser({
                 firstName: 'bob',
                 lastName: 'bob',
@@ -41,10 +43,9 @@ describe('@GET /api/reading/user', () => {
             const res = await getUserDetails(token)
             const expectedResponse = JSON.parse(res.text)
             expect(res.status).toBe(200)
-            expect(expectedResponse).toHaveProperty('firstName')
-            expect(expectedResponse).toHaveProperty('lastName')
-            expect(expectedResponse).toHaveProperty('id')
-            expect(expectedResponse).toHaveProperty('email')
+            expect(expectedResponse).toHaveProperty('user')
+            expect(expectedResponse).toHaveProperty('books')
+            expect(expectedResponse).toHaveProperty('students')
         })
     })
     describe('status: 401', () => {

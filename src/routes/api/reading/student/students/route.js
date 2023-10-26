@@ -8,21 +8,20 @@ router.get('', getBookHandler)
 /**
  * @swagger
  *
- * /api/reading/book:
- *   deprecated: true
+ * /api/reading/student:
  *   get:
  *     security:
  *       - bearerAuth: []
  *     summary:
- *     description: Get all books
+ *     description: Get students
  *     tags:
- *       - reading / book
+ *       - reading / student
  *     parameters:
  *       - in: query
  *         name: userId
  *         schema:
  *           type: string
- *         description: userId to get tracker history and books registered
+ *         description: Get students by userId
  *     responses:
  *       200:
  *         description: OK
@@ -31,7 +30,7 @@ router.get('', getBookHandler)
  *            schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/collection'
+ *                 $ref: '#/components/schemas/student'
  *       401:
  *         description: Unauthorized
  *         content:

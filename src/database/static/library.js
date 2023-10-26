@@ -1,10 +1,63 @@
 export default [
     {
         id: '001',
-        author: 'My Books',
-        title: 'My Books',
-        description: 'Books added by me',
-        books: []
+        author: 'Reading Progress',
+        title: 'The Basics',
+        description: 'Learn the basics',
+        books: [
+            {
+                id: 1,
+                title: 'Alphabet',
+                story: [
+                    'A',
+                    'B',
+                    'C',
+                    'D',
+                    'E',
+                    'F',
+                    'G',
+                    'H',
+                    'I',
+                    'J',
+                    'K',
+                    'L',
+                    'M',
+                    'N',
+                    'O',
+                    'P',
+                    'Q',
+                    'R',
+                    'S',
+                    'T',
+                    'U',
+                    'V',
+                    'W',
+                    'X',
+                    'Y',
+                    'Z'
+                ]
+            },
+            {
+                id: 2,
+                title: 'Sight Words 1',
+                story: []
+            },
+            {
+                id: 3,
+                title: 'Sight Words 2',
+                story: []
+            },
+            {
+                id: 4,
+                title: 'Sight Words 3',
+                story: []
+            },
+            {
+                id: 5,
+                title: 'Sight Words 4',
+                story: []
+            }
+        ]
     },
     {
         id: '002',
@@ -854,7 +907,7 @@ export default [
                 id: 3,
                 title: 'The Dragon and the Phoenix',
                 story: [
-                    'This is the story of Dragon Moutain, Phoenix Mountain and a shining lake.',
+                    'This is the story of Dragon Mountain, Phoenix Mountain and a shining lake.',
                     'It begins thousands of years ago, in China.',
                     'Long, long ago, a dragon lived beside a magic river.',
                     'A dark forest grew on the other side of the river.',
@@ -914,7 +967,7 @@ export default [
                     "Bear didn't like it at all.",
                     'He tripped over it when he was walking.',
                     'It tickled his nose when he tried to sleep.',
-                    'Little anibals would even ride on it.',
+                    'Little animals would even ride on it.',
                     "It's not fair!",
                     '"Bear\'s tail is better than mine," thought Fox.',
                     'He decided to play a trick on him.',

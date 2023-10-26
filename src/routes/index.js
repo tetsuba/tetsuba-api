@@ -7,6 +7,7 @@ import user from './api/reading/user/index.js'
 import book from './api/reading/book/index.js'
 import sightWords from './api/reading/sightWords/index.js'
 import tracker from './api/reading/tracker/index.js'
+import student from './api/reading/student/index.js'
 
 // DOCS
 import apiDocs from './docs/index.js'
@@ -32,6 +33,7 @@ app.use('/api/reading', user)
 app.use('/api/reading', book)
 app.use('/api/reading', sightWords)
 app.use('/api/reading', tracker)
+app.use('/api/reading', student)
 
 /* Error Handler
  * This middleware must be set at the end of the routes to work.

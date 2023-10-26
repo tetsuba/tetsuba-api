@@ -10,6 +10,7 @@ router.get('/words', getWordsFromTrackerHandler)
  *
  * /api/reading/tracker/words:
  *   get:
+ *     deprecated: true
  *     security:
  *       - bearerAuth: []
  *     summary:

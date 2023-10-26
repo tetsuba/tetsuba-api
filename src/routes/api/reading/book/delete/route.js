@@ -9,6 +9,7 @@ router.delete('/delete', deleteBookHandler)
  *
  * /api/reading/book/delete:
  *   delete:
+ *     deprecated: true
  *     security:
  *       - bearerAuth: []
  *     summary: Delete a book

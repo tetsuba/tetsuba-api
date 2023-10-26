@@ -10,6 +10,7 @@ router.get('', getTrackerHandler)
  *
  * /api/reading/tracker:
  *   get:
+ *     deprecated: true
  *     security:
  *       - bearerAuth: []
  *     summary:

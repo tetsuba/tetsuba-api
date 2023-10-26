@@ -8,6 +8,7 @@ router.put('/edit', editBookHandler)
  *
  * /api/reading/book/edit:
  *   put:
+ *     deprecated: true
  *     security:
  *       - bearerAuth: []
  *     summary: Edit a book

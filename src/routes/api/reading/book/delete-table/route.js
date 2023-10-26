@@ -9,6 +9,7 @@ router.delete('/delete-table', deleteTableHandler)
  *
  * /api/reading/book/delete-table:
  *   delete:
+ *     deprecated: true
  *     security:
  *       - bearerAuth: []
  *     summary: Delete a book table

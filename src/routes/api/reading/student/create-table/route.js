@@ -1,37 +1,30 @@
 import express from 'express'
-import getBookHandler from './handler.js'
-
+import createStudentTableHandler from './handler.js'
 const router = express.Router()
 
-router.get('', getBookHandler)
-
+router.post('/create-table', createStudentTableHandler)
 /**
  * @swagger
  *
- * /api/reading/book:
- *   deprecated: true
- *   get:
+ * /api/reading/student/create-table:
+ *  post:
  *     security:
  *       - bearerAuth: []
- *     summary:
- *     description: Get all books
+ *     summary: Create a book table.
+ *     description: The main use for creating a student table is testing the api.
  *     tags:
- *       - reading / book
- *     parameters:
- *       - in: query
- *         name: userId
- *         schema:
- *           type: string
- *         description: userId to get tracker history and books registered
+ *       - reading / student
  *     responses:
  *       200:
- *         description: OK
+ *         description:
  *         content:
  *           application/json:
- *            schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/collection'
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: 'Student table created'
  *       401:
  *         description: Unauthorized
  *         content:
@@ -45,4 +38,5 @@ router.get('', getBookHandler)
  *             schema:
  *               $ref: '#/components/schemas/internalserver'
  */
+
 export default router

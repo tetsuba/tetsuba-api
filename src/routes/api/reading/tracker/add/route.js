@@ -8,6 +8,7 @@ router.post('/add', addTrackerHandler)
  *
  * /api/reading/tracker/add:
  *   post:
+ *     deprecated: true
  *     security:
  *       - bearerAuth: []
  *     summary: Register a new book

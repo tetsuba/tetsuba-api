@@ -6,15 +6,14 @@ router.post('/register', registerBookHandler)
 /**
  * @swagger
  *
- * /api/reading/book/register:
+ * /api/reading/student/register:
  *   post:
- *     deprecated: true
  *     security:
  *       - bearerAuth: []
- *     summary: Register a new book
- *     description: Register a new book
+ *     summary: Register a new student
+ *     description: Register a new student
  *     tags:
- *       - reading / book
+ *       - reading / student
  *     requestBody:
  *         content:
  *           application/json:
@@ -23,14 +22,17 @@ router.post('/register', registerBookHandler)
  *               properties:
  *                 userId:
  *                   type: integer
- *                 title:
+ *                 firstname:
  *                   type: string
- *                 story:
+ *                 lastname:
+ *                   type: string
+ *                 dob:
  *                   type: string
  *             example:
  *               userId: 2
- *               title: "The Title"
- *               story: "Once upon a time"
+ *               firstname: "Bob"
+ *               lastname: "Smith"
+ *               dob: "12/12/12"
  *     responses:
  *       201:
  *         description: Created
@@ -39,7 +41,7 @@ router.post('/register', registerBookHandler)
  *            schema:
  *               type: array
  *               items:
- *                 $ref: '#/components/schemas/collection'
+ *                 $ref: '#/components/schemas/student'
  *       400:
  *         description: Bad Request
  *         content:

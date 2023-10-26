@@ -8,6 +8,7 @@ router.post('/create-table', createTrackerTableHandler)
  *
  * /api/reading/tracker/create-table:
  *  post:
+ *     deprecated: true
  *     security:
  *       - bearerAuth: []
  *     summary: Create a tracker table.

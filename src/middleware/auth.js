@@ -33,7 +33,6 @@ export function protectRoutes(req, res, next) {
     // console.log(token)
 
     if (token) {
-        // console.log('token', token)
         try {
             const user = jwt.verify(token, getSecret())
             // console.log('[user]', user)
