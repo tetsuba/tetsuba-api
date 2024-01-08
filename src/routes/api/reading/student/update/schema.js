@@ -5,7 +5,7 @@ const UPDATE_STUDENT_SCHEMA = {
         firstname: { type: 'string' },
         lastname: { type: 'string' },
         dob: { type: 'string' },
-        progress: { type: 'string' }
+        progress: { type: ['string', 'null'] }
     },
     required: ['studentId', 'firstname', 'lastname', 'dob', 'progress'],
     additionalProperties: false
