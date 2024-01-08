@@ -27,3 +27,12 @@ An API service to support tetsuba testing apps.
 ## Swagger 
 
 https://swagger.io/docs/specification/basic-structure/
+
+
+
+### DOCKER
+To run this sever on a window machine build a docker image 
+
+`
+  docker build --tag tetsuba-api .
+`
